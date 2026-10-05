@@ -10,23 +10,25 @@ const FEATURES = Object.freeze({ presence: 'available', mind: 'not-implemented',
 
 export class PresenceModel {
   readonly events = new EventBus<AetherEvents>();
-  private state: 'idle' | 'attention' | 'thinking' | 'exploring' | 'error' = 'idle';
+  private state: 'idle' | 'attention' | 'observing' | 'thinking' | 'exploring' | 'error' = 'idle';
   private notice: string | null = null;
   private shortcutRegistered = false;
   private cloudAllowed = false;
   private discoveryPending = false;
-  constructor(private preferences: Preferences, private readonly mindAvailable = false, private readonly memoryAvailable = false, private readonly curiosityAvailable = false) {}
+  private echoActive = false;
+  constructor(private preferences: Preferences, private readonly mindAvailable = false, private readonly memoryAvailable = false, private readonly curiosityAvailable = false,private readonly portalAvailable=false,private readonly echoAvailable=false) {}
   snapshot(): PresenceSnapshot {
-    return { state: this.state, preferences: structuredClone(this.preferences), notice: this.notice, discoveryPending:this.discoveryPending, shortcutRegistered: this.shortcutRegistered, features: { ...FEATURES, mind: this.mindAvailable ? 'available' : 'not-implemented', memory: this.memoryAvailable ? 'available' : 'not-implemented',curiosity:this.curiosityAvailable?'available':'not-implemented' }, permissions: { ...DENIED_PERMISSIONS, network: this.cloudAllowed } };
+    return { state: this.state, preferences: structuredClone(this.preferences), notice: this.notice, discoveryPending:this.discoveryPending,echoActive:this.echoActive, shortcutRegistered: this.shortcutRegistered, features: { ...FEATURES, mind: this.mindAvailable ? 'available' : 'not-implemented', memory: this.memoryAvailable ? 'available' : 'not-implemented',curiosity:this.curiosityAvailable?'available':'not-implemented',portal:this.portalAvailable?'available':'not-implemented',echo:this.echoAvailable?'available':'not-implemented' }, permissions: { ...DENIED_PERMISSIONS, network: this.cloudAllowed,'echo.observe':this.echoActive,'files.read':this.echoActive } };
   }
   setState(state: EntityState): void {
-    if (state !== 'idle' && state !== 'attention' && !(this.mindAvailable && (state === 'thinking' || state === 'error')) && !(this.curiosityAvailable && state==='exploring')) throw new Error(`État ${state} indisponible : moteur non implémenté.`);
+    if (state !== 'idle' && state !== 'attention' && !(this.mindAvailable && (state === 'thinking' || state === 'error')) && !(this.curiosityAvailable && state==='exploring') && !(this.echoAvailable && state==='observing')) throw new Error(`État ${state} indisponible : moteur non implémenté.`);
     this.state = state; this.publish();
   }
   setPreferences(preferences: Preferences): void { this.preferences = structuredClone(preferences); this.publish(); }
   setNotice(notice: string | null): void { this.notice = notice; this.publish(); }
   setShortcutRegistered(registered: boolean): void { this.shortcutRegistered = registered; this.publish(); }
   setCloudAllowed(allowed: boolean): void { this.cloudAllowed = allowed; this.publish(); }
+  setEchoActive(active:boolean):void{this.echoActive=this.echoAvailable&&active;this.publish();}
   setDiscoveryPending(pending: boolean): void { if(this.discoveryPending!==pending) {this.discoveryPending=pending;this.publish();} }
   private publish(): void { this.events.emit('presence.changed', this.snapshot()); }
 }

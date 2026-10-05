@@ -80,8 +80,9 @@ test('real desktop presence: transparency, clicks, drag, settings, recall, secur
     await page.evaluate(() => window.aether.command('close-dialogue'));
     await application.evaluate(({ BrowserWindow }) => BrowserWindow.getAllWindows().filter(window => window.getTitle().includes('test click target') || window.webContents.getTitle() === 'clicked-through').forEach(window => window.destroy()));
     await expect(page.locator('.entity-stage')).toHaveAttribute('data-state', 'idle');
-    await setLogicalCursor(application, initial.x + 80, initial.y + 80); await input('down');
-    await setLogicalCursor(application, initial.x + 10, initial.y + 30); await input('up');
+    await setLogicalCursor(application, initial.x + 80, initial.y + 80);
+    const dragTarget=await application.evaluate(({screen},point)=>screen.dipToScreenPoint(point),{x:initial.x+10,y:initial.y+30});
+    await input('drag',dragTarget.x,dragTarget.y);
     await expect.poll(async () => (await getEntityBounds(application!)).x).toBe(initial.x - 70);
     const dragged = await getEntityBounds(application);
     await expect.poll(async () => JSON.parse(await readFile(join(profile, 'preferences.json'), 'utf8')).position).toEqual({ x: dragged.x, y: dragged.y });
@@ -117,7 +118,13 @@ test('real desktop presence: transparency, clicks, drag, settings, recall, secur
     for (let index = 0; index < 6; index++) await page.evaluate(() => window.aether.command('recall'));
     const recalledBounds = await getEntityBounds(application);
     expect(recalledBounds.width).toBeLessThanOrEqual(164); expect(recalledBounds.height).toBeLessThanOrEqual(164);
-    const portal = await page.evaluate(() => window.aether.command('portal')); expect(portal).toMatchObject({ ok: false, error: expect.stringContaining('pas encore implémenté') });
+    const portal = await page.evaluate(() => window.aether.command('portal')); expect(portal.ok).toBe(true);
+    await expect.poll(() => application!.windows().some(window => window.url().endsWith('#space'))).toBe(true);
+    const space = application.windows().find(window => window.url().endsWith('#space'))!;
+    await expect(space.locator('.portal-shell')).toHaveAttribute('data-portal-phase', 'open');
+    await space.evaluate(() => window.aether.portalControl('close'));
+    await expect.poll(() => application!.windows().some(window => window.url().endsWith('#space'))).toBe(false);
+    expect(await getEntityBounds(application)).toMatchObject({ x: recalledBounds.x, y: recalledBounds.y });
     const invalid = await settings.evaluate(() => window.aether.saveSettings({ recallShortcut: 'Space', reducedMotion: true })); expect(invalid.ok).toBe(false);
     expect(await page.evaluate(async () => { try { await navigator.mediaDevices.getUserMedia({ audio: true }); return 'granted'; } catch { return 'denied'; } })).toBe('denied');
     const popup = await page.evaluate(() => window.open('https://example.com')); expect(popup).toBeNull();

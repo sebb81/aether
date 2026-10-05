@@ -1,0 +1,366 @@
+{
+  "startedAt": "2026-10-05T13:01:39.837Z",
+  "mock": false,
+  "source": "docs/recette-j4/source-j3.json",
+  "profile": "isolated temporary profile; no import into personal profile",
+  "F_explorationBeforePortal": {
+    "id": "494c52a7-137c-4711-93eb-f5b14462708e",
+    "interestId": "a21c57f7-d2a2-4bc4-b4c8-6fec0355bc92",
+    "targets": [
+      "a21c57f7-d2a2-4bc4-b4c8-6fec0355bc92"
+    ],
+    "action": "deepen",
+    "createdAt": "2026-10-05T13:01:40.870Z",
+    "completedAt": "2026-10-05T13:01:50.886Z",
+    "status": "succeeded",
+    "reason": "L'analyse de la causalité structurelle à travers le prisme acoustique révèle que la forme physique impose des limites logiques strictes, transformant une simple corrélation en une règle comportementale inévitable.",
+    "model": "qwen3.5:9b",
+    "route": {
+      "requested": "DEEP",
+      "selected": "DEEP",
+      "provider": "ollama",
+      "model": "qwen3.5:9b",
+      "fallback": false
+    },
+    "error": null,
+    "nextQuestion": "Quel type de perturbation architecturale (symétrique ou asymétrique) est le plus susceptible de provoquer une bifurcation vers un état émergent non linéaire ?",
+    "unread": true
+  },
+  "A_visualTransition": {
+    "portal": "opening",
+    "animation": "portal-reveal"
+  },
+  "A_entry": {
+    "method": "native Windows double-click",
+    "origin": {
+      "x": 1507,
+      "y": 819,
+      "width": 164,
+      "height": 164
+    },
+    "portal": {
+      "phase": "open",
+      "token": 1,
+      "origin": {
+        "x": 1587,
+        "y": 899
+      },
+      "viewport": {
+        "x": 0,
+        "y": 0,
+        "width": 1707,
+        "height": 1019
+      },
+      "durationMs": 640,
+      "reducedMotion": false
+    },
+    "permissions": {
+      "microphone": false,
+      "camera": false,
+      "screen.capture": false,
+      "echo.observe": false,
+      "files.read": false,
+      "files.write": false,
+      "network": false,
+      "forge.generate": false,
+      "mirror.execute": false,
+      "capability.adopt": false
+    }
+  },
+  "C_data": {
+    "memory": {
+      "id": "76f46683-79a4-4970-8165-2eaa019a1bc5",
+      "content": "Recette J4 : la constellation représente les objets persistants.",
+      "kind": "knowledge",
+      "category": "knowledge",
+      "source": "ajout par l’utilisateur dans MEMORY",
+      "scope": "personal",
+      "createdAt": "2026-10-05T13:01:40.670Z",
+      "updatedAt": "2026-10-05T13:01:40.670Z",
+      "confidence": null,
+      "status": "confirmed",
+      "origin": "explicit"
+    },
+    "interests": [
+      {
+        "id": "d00e8365-9402-4f63-bfbc-69366587a5c4",
+        "title": "Causalité structurelle",
+        "description": "Exploration de la manière dont les relations de cause à effet peuvent être déduites uniquement par l'analyse des corrélations et des structures logiques internes.",
+        "createdAt": "2026-10-05T08:32:40.563Z",
+        "updatedAt": "2026-10-05T08:32:59.268Z",
+        "level": 0.85,
+        "origin": {
+          "kind": "autonomous",
+          "ref": null,
+          "reason": "L'absence de contexte initial invite à initier une exploration sur un domaine fondamental où les données locales et la logique du modèle peuvent générer des relations inédites sans dépendre d'une observation externe."
+        },
+        "status": "active"
+      },
+      {
+        "id": "a21c57f7-d2a2-4bc4-b4c8-6fec0355bc92",
+        "title": "Acoustique des résonateurs",
+        "description": "Comprendre comment les résonateurs transforment les vibrations en timbres sonores.",
+        "createdAt": "2026-10-05T08:32:46.537Z",
+        "updatedAt": "2026-10-05T13:01:50.885Z",
+        "level": 0.7,
+        "origin": {
+          "kind": "user",
+          "ref": null,
+          "reason": "Piste proposée volontairement dans le journal."
+        },
+        "status": "active"
+      }
+    ]
+  },
+  "navigation": {
+    "pan": {
+      "x": 50,
+      "y": 45
+    },
+    "wheelZoom": true,
+    "keyboard": true
+  },
+  "D_interest": {
+    "id": "d00e8365-9402-4f63-bfbc-69366587a5c4",
+    "questions": [
+      "9bc95a48-bc26-4f15-a659-a343a53133f7",
+      "360408ea-43e7-455c-9a95-2a51d841b8c9",
+      "f0d03bab-185e-42bd-9a4e-6c9148e3235b",
+      "b0f3c015-27d9-4cbe-86be-03c5ad5d8be0"
+    ],
+    "history": [
+      {
+        "id": "ea45d7f4-f057-4d72-9433-45a377405d6b",
+        "interestId": "d00e8365-9402-4f63-bfbc-69366587a5c4",
+        "explorationId": "3ee718ca-841b-4e6c-b69f-4e23b66450de",
+        "createdAt": "2026-10-05T08:32:59.269Z",
+        "action": "deepen",
+        "reason": "L'analogie avec les résonateurs acoustiques suggère que l'architecture du modèle impose des contraintes géométriques qui façonnent la logique émergente, transformant une simple corrélation en une règle de comportement observable.",
+        "previousLevel": 0.75,
+        "level": 0.85,
+        "previousStatus": "active",
+        "status": "active"
+      },
+      {
+        "id": "f1cffe8f-4a73-4339-8552-5b28268e9bdf",
+        "interestId": "d00e8365-9402-4f63-bfbc-69366587a5c4",
+        "explorationId": "6408c5fd-8e79-4edf-aa51-2baeb1268b3c",
+        "createdAt": "2026-10-05T08:32:53.002Z",
+        "action": "connect",
+        "reason": "L'analyse de la causalité structurelle dans les représentations latentes peut être enrichie par l'analogie avec les résonateurs acoustiques, où la forme physique impose des contraintes aux ondes, tout comme l'architecture du modèle contraint les motifs logiques.",
+        "previousLevel": 0.65,
+        "level": 0.75,
+        "previousStatus": "active",
+        "status": "active"
+      },
+      {
+        "id": "4f0c884a-19a3-4edf-9a73-11aae9df23df",
+        "interestId": "d00e8365-9402-4f63-bfbc-69366587a5c4",
+        "explorationId": "fdd91322-e920-4a2a-8f77-a52cb76f7450",
+        "createdAt": "2026-10-05T08:32:46.299Z",
+        "action": "deepen",
+        "reason": "La piste de la causalité structurelle mérite d'être approfondie pour distinguer ce qui est une corrélation statistique robuste de ce qui est une inférence causale purement logique dérivée de l'architecture interne du modèle.",
+        "previousLevel": 0.55,
+        "level": 0.65,
+        "previousStatus": "active",
+        "status": "active"
+      },
+      {
+        "id": "e4aa7b59-eabe-4358-bcb2-86d9c5157c6f",
+        "interestId": "d00e8365-9402-4f63-bfbc-69366587a5c4",
+        "explorationId": "8098e109-1715-4a97-9334-cac989d87fc1",
+        "createdAt": "2026-10-05T08:32:40.563Z",
+        "action": "birth",
+        "reason": "L'absence de contexte initial invite à initier une exploration sur un domaine fondamental où les données locales et la logique du modèle peuvent générer des relations inédites sans dépendre d'une observation externe.",
+        "previousLevel": null,
+        "level": 0.55,
+        "previousStatus": null,
+        "status": "active"
+      }
+    ]
+  },
+  "E_connection": {
+    "id": "6c028492-00ca-4ca2-bdb8-746f333ddd83",
+    "fromId": "a21c57f7-d2a2-4bc4-b4c8-6fec0355bc92",
+    "toId": "d00e8365-9402-4f63-bfbc-69366587a5c4",
+    "explorationId": "6408c5fd-8e79-4edf-aa51-2baeb1268b3c",
+    "description": "La causalité structurelle et l'acoustique des résonateurs convergent vers l'idée que la forme (architecture ou physique) dicte le contenu possible (logique ou son), transformant une contrainte géométrique en une règle de comportement observable.",
+    "createdAt": "2026-10-05T08:32:53.002Z"
+  },
+  "C_memoryMutation": {
+    "id": "76f46683-79a4-4970-8165-2eaa019a1bc5",
+    "corrected": true,
+    "deleted": true
+  },
+  "B_exit": {
+    "method": "Escape",
+    "returnedBounds": {
+      "x": 1507,
+      "y": 819,
+      "width": 161,
+      "height": 161
+    },
+    "spaceWindowDestroyed": true
+  },
+  "A_B_transitionEvents": [
+    {
+      "phase": "opening",
+      "token": 1,
+      "origin": {
+        "x": 1587,
+        "y": 899
+      },
+      "viewport": {
+        "x": 0,
+        "y": 0,
+        "width": 1707,
+        "height": 1019
+      },
+      "durationMs": 640,
+      "reducedMotion": false,
+      "receivedAt": 1791205313180
+    },
+    {
+      "phase": "open",
+      "token": 1,
+      "origin": {
+        "x": 1587,
+        "y": 899
+      },
+      "viewport": {
+        "x": 0,
+        "y": 0,
+        "width": 1707,
+        "height": 1019
+      },
+      "durationMs": 640,
+      "reducedMotion": false,
+      "receivedAt": 1791205313955
+    },
+    {
+      "phase": "closing",
+      "token": 2,
+      "origin": {
+        "x": 1587,
+        "y": 899
+      },
+      "viewport": {
+        "x": 0,
+        "y": 0,
+        "width": 1707,
+        "height": 1019
+      },
+      "durationMs": 480,
+      "reducedMotion": false,
+      "receivedAt": 1791205317622
+    },
+    {
+      "phase": "closed",
+      "token": 2,
+      "origin": {
+        "x": 1587,
+        "y": 899
+      },
+      "viewport": {
+        "x": 0,
+        "y": 0,
+        "width": 1707,
+        "height": 1019
+      },
+      "durationMs": 480,
+      "reducedMotion": false,
+      "receivedAt": 1791205318116
+    },
+    {
+      "phase": "opening",
+      "token": 3,
+      "origin": {
+        "x": 1587,
+        "y": 899
+      },
+      "viewport": {
+        "x": 0,
+        "y": 0,
+        "width": 1707,
+        "height": 1019
+      },
+      "durationMs": 640,
+      "reducedMotion": false,
+      "receivedAt": 1791205318957
+    },
+    {
+      "phase": "open",
+      "token": 3,
+      "origin": {
+        "x": 1587,
+        "y": 899
+      },
+      "viewport": {
+        "x": 0,
+        "y": 0,
+        "width": 1707,
+        "height": 1019
+      },
+      "durationMs": 640,
+      "reducedMotion": false,
+      "receivedAt": 1791205319724
+    },
+    {
+      "phase": "closing",
+      "token": 4,
+      "origin": {
+        "x": 1587,
+        "y": 899
+      },
+      "viewport": {
+        "x": 0,
+        "y": 0,
+        "width": 1707,
+        "height": 1019
+      },
+      "durationMs": 480,
+      "reducedMotion": false,
+      "receivedAt": 1791205320435
+    },
+    {
+      "phase": "closed",
+      "token": 4,
+      "origin": {
+        "x": 1587,
+        "y": 899
+      },
+      "viewport": {
+        "x": 0,
+        "y": 0,
+        "width": 1707,
+        "height": 1019
+      },
+      "durationMs": 480,
+      "reducedMotion": false,
+      "receivedAt": 1791205320941
+    }
+  ],
+  "G_restart": {
+    "preferences": {
+      "camera": {
+        "x": 671.0000246923613,
+        "y": 113.45283158636008,
+        "zoom": 1.1150943862120024
+      },
+      "labels": true,
+      "depth": false,
+      "selection": {
+        "kind": "interest",
+        "id": "d00e8365-9402-4f63-bfbc-69366587a5c4"
+      },
+      "schemaVersion": 1,
+      "lastVisitedAt": "2026-10-05T13:02:02.243Z"
+    },
+    "since": "2026-10-05T13:01:59.038Z",
+    "interests": 2,
+    "explorations": 5
+  },
+  "rapidReentry": true,
+  "result": "PASS",
+  "completedAt": "2026-10-05T13:02:05.958Z"
+}

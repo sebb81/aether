@@ -1,0 +1,1135 @@
+{
+  "startedAt": "2026-10-05T09:44:37.462Z",
+  "provider": "ollama",
+  "FAST": "qwen3.5:9b",
+  "DEEP": "qwen3.5:9b",
+  "mock": false,
+  "A_birth": {
+    "interests": [
+      {
+        "id": "ca906813-05d1-4637-a54f-e8c838192287",
+        "title": "Logique formelle et sémantique",
+        "description": "L'étude des relations entre concepts abstraits sans référence à la réalité physique, explorant comment le sens émerge de la structure linguistique.",
+        "createdAt": "2026-10-05T09:44:44.024Z",
+        "updatedAt": "2026-10-05T09:44:44.024Z",
+        "level": 0.55,
+        "origin": {
+          "kind": "autonomous",
+          "ref": null,
+          "reason": "L'absence de données externes oblige à explorer les structures internes du langage et la manière dont elles façonnent notre compréhension de la réalité sans validation empirique."
+        },
+        "status": "active"
+      }
+    ],
+    "explorations": [
+      {
+        "id": "6a31a894-3181-4b4e-beec-45138d495751",
+        "interestId": "ca906813-05d1-4637-a54f-e8c838192287",
+        "targets": [],
+        "action": "birth",
+        "createdAt": "2026-10-05T09:44:38.365Z",
+        "completedAt": "2026-10-05T09:44:44.026Z",
+        "status": "succeeded",
+        "reason": "L'absence de données externes oblige à explorer les structures internes du langage et la manière dont elles façonnent notre compréhension de la réalité sans validation empirique.",
+        "model": "qwen3.5:9b",
+        "route": {
+          "requested": "DEEP",
+          "selected": "DEEP",
+          "provider": "ollama",
+          "model": "qwen3.5:9b",
+          "fallback": false
+        },
+        "error": null,
+        "nextQuestion": "Quel domaine de connaissance pourrait bénéficier le plus d'une telle approche purement textuelle et déductive ?",
+        "unread": true
+      }
+    ],
+    "items": [
+      {
+        "id": "dbe03f14-9eec-48d0-afa0-141f100d193e",
+        "interestId": "ca906813-05d1-4637-a54f-e8c838192287",
+        "explorationId": "6a31a894-3181-4b4e-beec-45138d495751",
+        "kind": "question",
+        "content": "Comment les biais inhérents aux modèles linguistiques influencent-ils la construction d'une 'vérité' locale dans un contexte isolé ?",
+        "createdAt": "2026-10-05T09:44:44.026Z",
+        "confidence": null,
+        "limits": null,
+        "status": "open"
+      },
+      {
+        "id": "c3db277b-07c6-4b84-b75f-8d4fab8a07f6",
+        "interestId": "ca906813-05d1-4637-a54f-e8c838192287",
+        "explorationId": "6a31a894-3181-4b4e-beec-45138d495751",
+        "kind": "discovery",
+        "content": "La logique déductive pure, détachée de l'observation sensorielle, tend à générer des paradoxes intéressants où la définition d'un terme devient plus importante que sa référence.",
+        "createdAt": "2026-10-05T09:44:44.026Z",
+        "confidence": null,
+        "limits": "Toute conclusion tirée est intrinsèquement limitée par les données d'entraînement et ne peut être vérifiée expérimentalement sans accès au monde extérieur.\nSynthèse du modèle local, sans vérification externe ni expérience exécutée.",
+        "status": "synthesized"
+      },
+      {
+        "id": "b8399193-468b-473a-a96f-a5dddfd99306",
+        "interestId": "ca906813-05d1-4637-a54f-e8c838192287",
+        "explorationId": "6a31a894-3181-4b4e-beec-45138d495751",
+        "kind": "hypothesis",
+        "content": "Une synthèse purement textuelle peut révéler des cohérences logiques qui n'existent pas dans le monde physique, créant une réalité autonome.",
+        "createdAt": "2026-10-05T09:44:44.026Z",
+        "confidence": 0.4,
+        "limits": null,
+        "status": "proposed"
+      }
+    ],
+    "connections": [],
+    "history": [
+      {
+        "id": "7684eeee-10ce-4291-a2a2-8712a83e9300",
+        "interestId": "ca906813-05d1-4637-a54f-e8c838192287",
+        "explorationId": "6a31a894-3181-4b4e-beec-45138d495751",
+        "createdAt": "2026-10-05T09:44:44.026Z",
+        "action": "birth",
+        "reason": "L'absence de données externes oblige à explorer les structures internes du langage et la manière dont elles façonnent notre compréhension de la réalité sans validation empirique.",
+        "previousLevel": null,
+        "level": 0.55,
+        "previousStatus": null,
+        "status": "active"
+      }
+    ],
+    "blockedDomains": [],
+    "settings": {
+      "enabled": true,
+      "maxExplorations": 1,
+      "maxDurationSeconds": 120,
+      "minIntervalSeconds": 1
+    },
+    "state": "budget-exhausted",
+    "error": null,
+    "sessionAttempts": 1,
+    "sessionDurationMs": 5660,
+    "nextAt": null,
+    "unreadCount": 1
+  },
+  "A_restart": {
+    "interests": [
+      {
+        "id": "ca906813-05d1-4637-a54f-e8c838192287",
+        "title": "Logique formelle et sémantique",
+        "description": "L'étude des relations entre concepts abstraits sans référence à la réalité physique, explorant comment le sens émerge de la structure linguistique.",
+        "createdAt": "2026-10-05T09:44:44.024Z",
+        "updatedAt": "2026-10-05T09:44:44.024Z",
+        "level": 0.55,
+        "origin": {
+          "kind": "autonomous",
+          "ref": null,
+          "reason": "L'absence de données externes oblige à explorer les structures internes du langage et la manière dont elles façonnent notre compréhension de la réalité sans validation empirique."
+        },
+        "status": "active"
+      }
+    ],
+    "explorations": [
+      {
+        "id": "6a31a894-3181-4b4e-beec-45138d495751",
+        "interestId": "ca906813-05d1-4637-a54f-e8c838192287",
+        "targets": [],
+        "action": "birth",
+        "createdAt": "2026-10-05T09:44:38.365Z",
+        "completedAt": "2026-10-05T09:44:44.026Z",
+        "status": "succeeded",
+        "reason": "L'absence de données externes oblige à explorer les structures internes du langage et la manière dont elles façonnent notre compréhension de la réalité sans validation empirique.",
+        "model": "qwen3.5:9b",
+        "route": {
+          "requested": "DEEP",
+          "selected": "DEEP",
+          "provider": "ollama",
+          "model": "qwen3.5:9b",
+          "fallback": false
+        },
+        "error": null,
+        "nextQuestion": "Quel domaine de connaissance pourrait bénéficier le plus d'une telle approche purement textuelle et déductive ?",
+        "unread": true
+      }
+    ],
+    "items": [
+      {
+        "id": "dbe03f14-9eec-48d0-afa0-141f100d193e",
+        "interestId": "ca906813-05d1-4637-a54f-e8c838192287",
+        "explorationId": "6a31a894-3181-4b4e-beec-45138d495751",
+        "kind": "question",
+        "content": "Comment les biais inhérents aux modèles linguistiques influencent-ils la construction d'une 'vérité' locale dans un contexte isolé ?",
+        "createdAt": "2026-10-05T09:44:44.026Z",
+        "confidence": null,
+        "limits": null,
+        "status": "open"
+      },
+      {
+        "id": "c3db277b-07c6-4b84-b75f-8d4fab8a07f6",
+        "interestId": "ca906813-05d1-4637-a54f-e8c838192287",
+        "explorationId": "6a31a894-3181-4b4e-beec-45138d495751",
+        "kind": "discovery",
+        "content": "La logique déductive pure, détachée de l'observation sensorielle, tend à générer des paradoxes intéressants où la définition d'un terme devient plus importante que sa référence.",
+        "createdAt": "2026-10-05T09:44:44.026Z",
+        "confidence": null,
+        "limits": "Toute conclusion tirée est intrinsèquement limitée par les données d'entraînement et ne peut être vérifiée expérimentalement sans accès au monde extérieur.\nSynthèse du modèle local, sans vérification externe ni expérience exécutée.",
+        "status": "synthesized"
+      },
+      {
+        "id": "b8399193-468b-473a-a96f-a5dddfd99306",
+        "interestId": "ca906813-05d1-4637-a54f-e8c838192287",
+        "explorationId": "6a31a894-3181-4b4e-beec-45138d495751",
+        "kind": "hypothesis",
+        "content": "Une synthèse purement textuelle peut révéler des cohérences logiques qui n'existent pas dans le monde physique, créant une réalité autonome.",
+        "createdAt": "2026-10-05T09:44:44.026Z",
+        "confidence": 0.4,
+        "limits": null,
+        "status": "proposed"
+      }
+    ],
+    "connections": [],
+    "history": [
+      {
+        "id": "7684eeee-10ce-4291-a2a2-8712a83e9300",
+        "interestId": "ca906813-05d1-4637-a54f-e8c838192287",
+        "explorationId": "6a31a894-3181-4b4e-beec-45138d495751",
+        "createdAt": "2026-10-05T09:44:44.026Z",
+        "action": "birth",
+        "reason": "L'absence de données externes oblige à explorer les structures internes du langage et la manière dont elles façonnent notre compréhension de la réalité sans validation empirique.",
+        "previousLevel": null,
+        "level": 0.55,
+        "previousStatus": null,
+        "status": "active"
+      }
+    ],
+    "blockedDomains": [],
+    "settings": {
+      "enabled": false,
+      "maxExplorations": 1,
+      "maxDurationSeconds": 120,
+      "minIntervalSeconds": 1
+    },
+    "state": "disabled",
+    "error": null,
+    "sessionAttempts": 0,
+    "sessionDurationMs": 0,
+    "nextAt": null,
+    "unreadCount": 1
+  },
+  "B_continuity": {
+    "interests": [
+      {
+        "id": "ca906813-05d1-4637-a54f-e8c838192287",
+        "title": "Logique formelle et sémantique",
+        "description": "L'étude des relations entre concepts abstraits sans référence à la réalité physique, explorant comment le sens émerge de la structure linguistique.",
+        "createdAt": "2026-10-05T09:44:44.024Z",
+        "updatedAt": "2026-10-05T09:44:49.448Z",
+        "level": 0.65,
+        "origin": {
+          "kind": "autonomous",
+          "ref": null,
+          "reason": "L'absence de données externes oblige à explorer les structures internes du langage et la manière dont elles façonnent notre compréhension de la réalité sans validation empirique."
+        },
+        "status": "active"
+      }
+    ],
+    "explorations": [
+      {
+        "id": "f6f6733d-0f31-421d-9093-96c78487b6fd",
+        "interestId": "ca906813-05d1-4637-a54f-e8c838192287",
+        "targets": [
+          "ca906813-05d1-4637-a54f-e8c838192287"
+        ],
+        "action": "deepen",
+        "createdAt": "2026-10-05T09:44:45.073Z",
+        "completedAt": "2026-10-05T09:44:49.450Z",
+        "status": "succeeded",
+        "reason": "La logique formelle offre un cadre rigoureux pour analyser comment la structure linguistique impose ses propres contraintes de vérité, indépendamment du monde physique.",
+        "model": "qwen3.5:9b",
+        "route": {
+          "requested": "DEEP",
+          "selected": "DEEP",
+          "provider": "ollama",
+          "model": "qwen3.5:9b",
+          "fallback": false
+        },
+        "error": null,
+        "nextQuestion": "Comment la complexité croissante des structures logiques affecte-t-elle la stabilité de ces réalités alternatives générées ?",
+        "unread": true
+      },
+      {
+        "id": "6a31a894-3181-4b4e-beec-45138d495751",
+        "interestId": "ca906813-05d1-4637-a54f-e8c838192287",
+        "targets": [],
+        "action": "birth",
+        "createdAt": "2026-10-05T09:44:38.365Z",
+        "completedAt": "2026-10-05T09:44:44.026Z",
+        "status": "succeeded",
+        "reason": "L'absence de données externes oblige à explorer les structures internes du langage et la manière dont elles façonnent notre compréhension de la réalité sans validation empirique.",
+        "model": "qwen3.5:9b",
+        "route": {
+          "requested": "DEEP",
+          "selected": "DEEP",
+          "provider": "ollama",
+          "model": "qwen3.5:9b",
+          "fallback": false
+        },
+        "error": null,
+        "nextQuestion": "Quel domaine de connaissance pourrait bénéficier le plus d'une telle approche purement textuelle et déductive ?",
+        "unread": true
+      }
+    ],
+    "items": [
+      {
+        "id": "b52f33db-a164-4014-84e2-ad608f849d43",
+        "interestId": "ca906813-05d1-4637-a54f-e8c838192287",
+        "explorationId": "f6f6733d-0f31-421d-9093-96c78487b6fd",
+        "kind": "hypothesis",
+        "content": "Les systèmes formels fermés produisent une cohérence interne qui peut devenir une forme de réalité alternative, où la contradiction n'est pas une erreur mais une propriété émergente du système.",
+        "createdAt": "2026-10-05T09:44:49.450Z",
+        "confidence": 0.6,
+        "limits": null,
+        "status": "proposed"
+      },
+      {
+        "id": "64194bca-42f2-492d-932a-64b778e8a750",
+        "interestId": "ca906813-05d1-4637-a54f-e8c838192287",
+        "explorationId": "f6f6733d-0f31-421d-9093-96c78487b6fd",
+        "kind": "question",
+        "content": "Dans quelle mesure les règles de déduction pure peuvent-elles générer des paradoxes sémantiques lorsqu'elles sont appliquées à des concepts abstraits sans ancrage empirique ?",
+        "createdAt": "2026-10-05T09:44:49.450Z",
+        "confidence": null,
+        "limits": null,
+        "status": "open"
+      },
+      {
+        "id": "355b3fba-8a51-4877-ac82-8ed13cff4e81",
+        "interestId": "ca906813-05d1-4637-a54f-e8c838192287",
+        "explorationId": "f6f6733d-0f31-421d-9093-96c78487b6fd",
+        "kind": "discovery",
+        "content": "La sémantique pure révèle que 'vérité' et 'fausseté' sont des états relationnels définis par les axiomes choisis, non par une correspondance externe ; explorer ces états permet de cartographier la topologie des idées.",
+        "createdAt": "2026-10-05T09:44:49.450Z",
+        "confidence": null,
+        "limits": "Cette exploration reste théorique car elle ne peut être validée par l'expérience ou la vérification factuelle dans un environnement isolé.\nSynthèse du modèle local, sans vérification externe ni expérience exécutée.",
+        "status": "synthesized"
+      },
+      {
+        "id": "dbe03f14-9eec-48d0-afa0-141f100d193e",
+        "interestId": "ca906813-05d1-4637-a54f-e8c838192287",
+        "explorationId": "6a31a894-3181-4b4e-beec-45138d495751",
+        "kind": "question",
+        "content": "Comment les biais inhérents aux modèles linguistiques influencent-ils la construction d'une 'vérité' locale dans un contexte isolé ?",
+        "createdAt": "2026-10-05T09:44:44.026Z",
+        "confidence": null,
+        "limits": null,
+        "status": "open"
+      },
+      {
+        "id": "c3db277b-07c6-4b84-b75f-8d4fab8a07f6",
+        "interestId": "ca906813-05d1-4637-a54f-e8c838192287",
+        "explorationId": "6a31a894-3181-4b4e-beec-45138d495751",
+        "kind": "discovery",
+        "content": "La logique déductive pure, détachée de l'observation sensorielle, tend à générer des paradoxes intéressants où la définition d'un terme devient plus importante que sa référence.",
+        "createdAt": "2026-10-05T09:44:44.026Z",
+        "confidence": null,
+        "limits": "Toute conclusion tirée est intrinsèquement limitée par les données d'entraînement et ne peut être vérifiée expérimentalement sans accès au monde extérieur.\nSynthèse du modèle local, sans vérification externe ni expérience exécutée.",
+        "status": "synthesized"
+      },
+      {
+        "id": "b8399193-468b-473a-a96f-a5dddfd99306",
+        "interestId": "ca906813-05d1-4637-a54f-e8c838192287",
+        "explorationId": "6a31a894-3181-4b4e-beec-45138d495751",
+        "kind": "hypothesis",
+        "content": "Une synthèse purement textuelle peut révéler des cohérences logiques qui n'existent pas dans le monde physique, créant une réalité autonome.",
+        "createdAt": "2026-10-05T09:44:44.026Z",
+        "confidence": 0.4,
+        "limits": null,
+        "status": "proposed"
+      }
+    ],
+    "connections": [],
+    "history": [
+      {
+        "id": "79525795-1261-488b-9940-c35ea4fbdcc3",
+        "interestId": "ca906813-05d1-4637-a54f-e8c838192287",
+        "explorationId": "f6f6733d-0f31-421d-9093-96c78487b6fd",
+        "createdAt": "2026-10-05T09:44:49.450Z",
+        "action": "deepen",
+        "reason": "La logique formelle offre un cadre rigoureux pour analyser comment la structure linguistique impose ses propres contraintes de vérité, indépendamment du monde physique.",
+        "previousLevel": 0.55,
+        "level": 0.65,
+        "previousStatus": "active",
+        "status": "active"
+      },
+      {
+        "id": "7684eeee-10ce-4291-a2a2-8712a83e9300",
+        "interestId": "ca906813-05d1-4637-a54f-e8c838192287",
+        "explorationId": "6a31a894-3181-4b4e-beec-45138d495751",
+        "createdAt": "2026-10-05T09:44:44.026Z",
+        "action": "birth",
+        "reason": "L'absence de données externes oblige à explorer les structures internes du langage et la manière dont elles façonnent notre compréhension de la réalité sans validation empirique.",
+        "previousLevel": null,
+        "level": 0.55,
+        "previousStatus": null,
+        "status": "active"
+      }
+    ],
+    "blockedDomains": [],
+    "settings": {
+      "enabled": true,
+      "maxExplorations": 1,
+      "maxDurationSeconds": 120,
+      "minIntervalSeconds": 1
+    },
+    "state": "budget-exhausted",
+    "error": null,
+    "sessionAttempts": 1,
+    "sessionDurationMs": 4376,
+    "nextAt": null,
+    "unreadCount": 2
+  },
+  "C_connection": {
+    "interests": [
+      {
+        "id": "ca906813-05d1-4637-a54f-e8c838192287",
+        "title": "Logique formelle et sémantique",
+        "description": "L'étude des relations entre concepts abstraits sans référence à la réalité physique, explorant comment le sens émerge de la structure linguistique.",
+        "createdAt": "2026-10-05T09:44:44.024Z",
+        "updatedAt": "2026-10-05T09:44:58.122Z",
+        "level": 0.8,
+        "origin": {
+          "kind": "autonomous",
+          "ref": null,
+          "reason": "L'absence de données externes oblige à explorer les structures internes du langage et la manière dont elles façonnent notre compréhension de la réalité sans validation empirique."
+        },
+        "status": "active"
+      },
+      {
+        "id": "fdb37c58-e400-48ca-827b-0411dd637c38",
+        "title": "Acoustique des résonateurs",
+        "description": "Comprendre comment les résonateurs transforment les vibrations en timbres sonores.",
+        "createdAt": "2026-10-05T09:44:49.982Z",
+        "updatedAt": "2026-10-05T09:44:58.124Z",
+        "level": 0.65,
+        "origin": {
+          "kind": "user",
+          "ref": null,
+          "reason": "Piste proposée volontairement dans le journal."
+        },
+        "status": "active"
+      }
+    ],
+    "explorations": [
+      {
+        "id": "85f8d828-49e9-4869-bbcc-2ddbbff32350",
+        "interestId": "ca906813-05d1-4637-a54f-e8c838192287",
+        "targets": [
+          "ca906813-05d1-4637-a54f-e8c838192287",
+          "fdb37c58-e400-48ca-827b-0411dd637c38"
+        ],
+        "action": "connect",
+        "createdAt": "2026-10-05T09:44:50.055Z",
+        "completedAt": "2026-10-05T09:44:58.124Z",
+        "status": "succeeded",
+        "reason": "La logique formelle traite les concepts comme des entités abstraites dépourvues de masse ou de fréquence, tandis que l'acoustique des résonateurs dépend entièrement de la physique vibratoire. Le point de connexion réside dans la manière dont la 'structure' définit le contenu : est-ce que la forme mathématique d'un théorème peut être considérée comme un objet qui vibre dans un espace sémantique, générant une harmonie logique ou une dissonance paradoxale ?",
+        "model": "qwen3.5:9b",
+        "route": {
+          "requested": "DEEP",
+          "selected": "DEEP",
+          "provider": "ollama",
+          "model": "qwen3.5:9b",
+          "fallback": false
+        },
+        "error": null,
+        "nextQuestion": "Comment la fréquence de complexité des arguments logiques influence-t-elle le point de rupture où la structure sémantique devient instable ?",
+        "unread": true
+      },
+      {
+        "id": "f6f6733d-0f31-421d-9093-96c78487b6fd",
+        "interestId": "ca906813-05d1-4637-a54f-e8c838192287",
+        "targets": [
+          "ca906813-05d1-4637-a54f-e8c838192287"
+        ],
+        "action": "deepen",
+        "createdAt": "2026-10-05T09:44:45.073Z",
+        "completedAt": "2026-10-05T09:44:49.450Z",
+        "status": "succeeded",
+        "reason": "La logique formelle offre un cadre rigoureux pour analyser comment la structure linguistique impose ses propres contraintes de vérité, indépendamment du monde physique.",
+        "model": "qwen3.5:9b",
+        "route": {
+          "requested": "DEEP",
+          "selected": "DEEP",
+          "provider": "ollama",
+          "model": "qwen3.5:9b",
+          "fallback": false
+        },
+        "error": null,
+        "nextQuestion": "Comment la complexité croissante des structures logiques affecte-t-elle la stabilité de ces réalités alternatives générées ?",
+        "unread": true
+      },
+      {
+        "id": "6a31a894-3181-4b4e-beec-45138d495751",
+        "interestId": "ca906813-05d1-4637-a54f-e8c838192287",
+        "targets": [],
+        "action": "birth",
+        "createdAt": "2026-10-05T09:44:38.365Z",
+        "completedAt": "2026-10-05T09:44:44.026Z",
+        "status": "succeeded",
+        "reason": "L'absence de données externes oblige à explorer les structures internes du langage et la manière dont elles façonnent notre compréhension de la réalité sans validation empirique.",
+        "model": "qwen3.5:9b",
+        "route": {
+          "requested": "DEEP",
+          "selected": "DEEP",
+          "provider": "ollama",
+          "model": "qwen3.5:9b",
+          "fallback": false
+        },
+        "error": null,
+        "nextQuestion": "Quel domaine de connaissance pourrait bénéficier le plus d'une telle approche purement textuelle et déductive ?",
+        "unread": true
+      }
+    ],
+    "items": [
+      {
+        "id": "63f4497b-bbc5-4b30-95b8-6192768e9873",
+        "interestId": "ca906813-05d1-4637-a54f-e8c838192287",
+        "explorationId": "85f8d828-49e9-4869-bbcc-2ddbbff32350",
+        "kind": "discovery",
+        "content": "Une relation émergente suggère que la 'vérité' en logique formelle pourrait être analogue à un mode de résonance stable : tant que la structure reste dans ses limites définies, le sens persiste ; dès qu'une contradiction (un paradoxe) survient, cela équivaut à une rupture de résonance, provoquant l'effondrement du 'timbre' sémantique.",
+        "createdAt": "2026-10-05T09:44:58.124Z",
+        "confidence": null,
+        "limits": "Cette analogie est purement métaphorique et ne repose sur aucune donnée physique vérifiée. La comparaison entre symboles abstraits et ondes sonores reste une construction locale sans validation empirique.\nSynthèse du modèle local, sans vérification externe ni expérience exécutée.",
+        "status": "synthesized"
+      },
+      {
+        "id": "17e11cce-2b07-451a-9aba-9b66d7420906",
+        "interestId": "ca906813-05d1-4637-a54f-e8c838192287",
+        "explorationId": "85f8d828-49e9-4869-bbcc-2ddbbff32350",
+        "kind": "question",
+        "content": "Dans quelle mesure les règles de déduction pure peuvent-elles générer des 'ondes' sémantiques stables, et comment la complexité de ces structures logiques affecte-t-elle la stabilité de ces réalités alternatives générées sans ancrage physique ?",
+        "createdAt": "2026-10-05T09:44:58.124Z",
+        "confidence": null,
+        "limits": null,
+        "status": "open"
+      },
+      {
+        "id": "173d50e3-aae9-4015-a43c-119a66e6fa61",
+        "interestId": "ca906813-05d1-4637-a54f-e8c838192287",
+        "explorationId": "85f8d828-49e9-4869-bbcc-2ddbbff32350",
+        "kind": "hypothesis",
+        "content": "Si l'on modélise le langage comme un milieu élastique, les paradoxes logiques ne sont pas des erreurs mais des résonances destructrices qui dissipent l'énergie informationnelle du système.",
+        "createdAt": "2026-10-05T09:44:58.124Z",
+        "confidence": 0.45,
+        "limits": null,
+        "status": "proposed"
+      },
+      {
+        "id": "b52f33db-a164-4014-84e2-ad608f849d43",
+        "interestId": "ca906813-05d1-4637-a54f-e8c838192287",
+        "explorationId": "f6f6733d-0f31-421d-9093-96c78487b6fd",
+        "kind": "hypothesis",
+        "content": "Les systèmes formels fermés produisent une cohérence interne qui peut devenir une forme de réalité alternative, où la contradiction n'est pas une erreur mais une propriété émergente du système.",
+        "createdAt": "2026-10-05T09:44:49.450Z",
+        "confidence": 0.6,
+        "limits": null,
+        "status": "proposed"
+      },
+      {
+        "id": "64194bca-42f2-492d-932a-64b778e8a750",
+        "interestId": "ca906813-05d1-4637-a54f-e8c838192287",
+        "explorationId": "f6f6733d-0f31-421d-9093-96c78487b6fd",
+        "kind": "question",
+        "content": "Dans quelle mesure les règles de déduction pure peuvent-elles générer des paradoxes sémantiques lorsqu'elles sont appliquées à des concepts abstraits sans ancrage empirique ?",
+        "createdAt": "2026-10-05T09:44:49.450Z",
+        "confidence": null,
+        "limits": null,
+        "status": "open"
+      },
+      {
+        "id": "355b3fba-8a51-4877-ac82-8ed13cff4e81",
+        "interestId": "ca906813-05d1-4637-a54f-e8c838192287",
+        "explorationId": "f6f6733d-0f31-421d-9093-96c78487b6fd",
+        "kind": "discovery",
+        "content": "La sémantique pure révèle que 'vérité' et 'fausseté' sont des états relationnels définis par les axiomes choisis, non par une correspondance externe ; explorer ces états permet de cartographier la topologie des idées.",
+        "createdAt": "2026-10-05T09:44:49.450Z",
+        "confidence": null,
+        "limits": "Cette exploration reste théorique car elle ne peut être validée par l'expérience ou la vérification factuelle dans un environnement isolé.\nSynthèse du modèle local, sans vérification externe ni expérience exécutée.",
+        "status": "synthesized"
+      },
+      {
+        "id": "dbe03f14-9eec-48d0-afa0-141f100d193e",
+        "interestId": "ca906813-05d1-4637-a54f-e8c838192287",
+        "explorationId": "6a31a894-3181-4b4e-beec-45138d495751",
+        "kind": "question",
+        "content": "Comment les biais inhérents aux modèles linguistiques influencent-ils la construction d'une 'vérité' locale dans un contexte isolé ?",
+        "createdAt": "2026-10-05T09:44:44.026Z",
+        "confidence": null,
+        "limits": null,
+        "status": "open"
+      },
+      {
+        "id": "c3db277b-07c6-4b84-b75f-8d4fab8a07f6",
+        "interestId": "ca906813-05d1-4637-a54f-e8c838192287",
+        "explorationId": "6a31a894-3181-4b4e-beec-45138d495751",
+        "kind": "discovery",
+        "content": "La logique déductive pure, détachée de l'observation sensorielle, tend à générer des paradoxes intéressants où la définition d'un terme devient plus importante que sa référence.",
+        "createdAt": "2026-10-05T09:44:44.026Z",
+        "confidence": null,
+        "limits": "Toute conclusion tirée est intrinsèquement limitée par les données d'entraînement et ne peut être vérifiée expérimentalement sans accès au monde extérieur.\nSynthèse du modèle local, sans vérification externe ni expérience exécutée.",
+        "status": "synthesized"
+      },
+      {
+        "id": "b8399193-468b-473a-a96f-a5dddfd99306",
+        "interestId": "ca906813-05d1-4637-a54f-e8c838192287",
+        "explorationId": "6a31a894-3181-4b4e-beec-45138d495751",
+        "kind": "hypothesis",
+        "content": "Une synthèse purement textuelle peut révéler des cohérences logiques qui n'existent pas dans le monde physique, créant une réalité autonome.",
+        "createdAt": "2026-10-05T09:44:44.026Z",
+        "confidence": 0.4,
+        "limits": null,
+        "status": "proposed"
+      }
+    ],
+    "connections": [
+      {
+        "id": "699c626b-1ac1-4827-823e-5bc58d408de5",
+        "fromId": "ca906813-05d1-4637-a54f-e8c838192287",
+        "toId": "fdb37c58-e400-48ca-827b-0411dd637c38",
+        "explorationId": "85f8d828-49e9-4869-bbcc-2ddbbff32350",
+        "description": "La logique formelle et l'acoustique partagent un principe fondamental : la stabilité d'un système dépend de sa capacité à maintenir une cohérence interne (résonance) face aux perturbations externes ou internes (paradoxes/bruit). Dans les deux cas, une structure bien définie permet d'émerger d'une propriété globale (sens/timbre) qui n'existe pas dans ses composants isolés.",
+        "createdAt": "2026-10-05T09:44:58.124Z"
+      }
+    ],
+    "history": [
+      {
+        "id": "da05be08-340d-4ff4-863a-3e20504eb72e",
+        "interestId": "fdb37c58-e400-48ca-827b-0411dd637c38",
+        "explorationId": "85f8d828-49e9-4869-bbcc-2ddbbff32350",
+        "createdAt": "2026-10-05T09:44:58.124Z",
+        "action": "connect",
+        "reason": "La logique formelle traite les concepts comme des entités abstraites dépourvues de masse ou de fréquence, tandis que l'acoustique des résonateurs dépend entièrement de la physique vibratoire. Le point de connexion réside dans la manière dont la 'structure' définit le contenu : est-ce que la forme mathématique d'un théorème peut être considérée comme un objet qui vibre dans un espace sémantique, générant une harmonie logique ou une dissonance paradoxale ?",
+        "previousLevel": 0.5,
+        "level": 0.65,
+        "previousStatus": "active",
+        "status": "active"
+      },
+      {
+        "id": "5922a503-a664-4a43-8a25-7db883bb3068",
+        "interestId": "ca906813-05d1-4637-a54f-e8c838192287",
+        "explorationId": "85f8d828-49e9-4869-bbcc-2ddbbff32350",
+        "createdAt": "2026-10-05T09:44:58.124Z",
+        "action": "connect",
+        "reason": "La logique formelle traite les concepts comme des entités abstraites dépourvues de masse ou de fréquence, tandis que l'acoustique des résonateurs dépend entièrement de la physique vibratoire. Le point de connexion réside dans la manière dont la 'structure' définit le contenu : est-ce que la forme mathématique d'un théorème peut être considérée comme un objet qui vibre dans un espace sémantique, générant une harmonie logique ou une dissonance paradoxale ?",
+        "previousLevel": 0.65,
+        "level": 0.8,
+        "previousStatus": "active",
+        "status": "active"
+      },
+      {
+        "id": "dd894da8-c395-4e86-8e0b-86e169a80981",
+        "interestId": "fdb37c58-e400-48ca-827b-0411dd637c38",
+        "explorationId": null,
+        "createdAt": "2026-10-05T09:44:49.982Z",
+        "action": "birth",
+        "reason": "Piste proposée volontairement dans le journal.",
+        "previousLevel": null,
+        "level": 0.5,
+        "previousStatus": null,
+        "status": "active"
+      },
+      {
+        "id": "79525795-1261-488b-9940-c35ea4fbdcc3",
+        "interestId": "ca906813-05d1-4637-a54f-e8c838192287",
+        "explorationId": "f6f6733d-0f31-421d-9093-96c78487b6fd",
+        "createdAt": "2026-10-05T09:44:49.450Z",
+        "action": "deepen",
+        "reason": "La logique formelle offre un cadre rigoureux pour analyser comment la structure linguistique impose ses propres contraintes de vérité, indépendamment du monde physique.",
+        "previousLevel": 0.55,
+        "level": 0.65,
+        "previousStatus": "active",
+        "status": "active"
+      },
+      {
+        "id": "7684eeee-10ce-4291-a2a2-8712a83e9300",
+        "interestId": "ca906813-05d1-4637-a54f-e8c838192287",
+        "explorationId": "6a31a894-3181-4b4e-beec-45138d495751",
+        "createdAt": "2026-10-05T09:44:44.026Z",
+        "action": "birth",
+        "reason": "L'absence de données externes oblige à explorer les structures internes du langage et la manière dont elles façonnent notre compréhension de la réalité sans validation empirique.",
+        "previousLevel": null,
+        "level": 0.55,
+        "previousStatus": null,
+        "status": "active"
+      }
+    ],
+    "blockedDomains": [],
+    "settings": {
+      "enabled": true,
+      "maxExplorations": 2,
+      "maxDurationSeconds": 240,
+      "minIntervalSeconds": 1
+    },
+    "state": "budget-exhausted",
+    "error": null,
+    "sessionAttempts": 2,
+    "sessionDurationMs": 12444,
+    "nextAt": null,
+    "unreadCount": 3
+  },
+  "D_autonomy": {
+    "interests": [
+      {
+        "id": "ca906813-05d1-4637-a54f-e8c838192287",
+        "title": "Logique formelle et sémantique",
+        "description": "L'étude des relations entre concepts abstraits sans référence à la réalité physique, explorant comment le sens émerge de la structure linguistique.",
+        "createdAt": "2026-10-05T09:44:44.024Z",
+        "updatedAt": "2026-10-05T09:45:03.691Z",
+        "level": 0.9,
+        "origin": {
+          "kind": "autonomous",
+          "ref": null,
+          "reason": "L'absence de données externes oblige à explorer les structures internes du langage et la manière dont elles façonnent notre compréhension de la réalité sans validation empirique."
+        },
+        "status": "active"
+      },
+      {
+        "id": "fdb37c58-e400-48ca-827b-0411dd637c38",
+        "title": "Acoustique des résonateurs",
+        "description": "Comprendre comment les résonateurs transforment les vibrations en timbres sonores.",
+        "createdAt": "2026-10-05T09:44:49.982Z",
+        "updatedAt": "2026-10-05T09:44:58.124Z",
+        "level": 0.65,
+        "origin": {
+          "kind": "user",
+          "ref": null,
+          "reason": "Piste proposée volontairement dans le journal."
+        },
+        "status": "active"
+      }
+    ],
+    "explorations": [
+      {
+        "id": "9a33e44e-458e-44d4-b55f-065c9fb01b1c",
+        "interestId": "ca906813-05d1-4637-a54f-e8c838192287",
+        "targets": [
+          "ca906813-05d1-4637-a54f-e8c838192287"
+        ],
+        "action": "deepen",
+        "createdAt": "2026-10-05T09:44:59.071Z",
+        "completedAt": "2026-10-05T09:45:03.694Z",
+        "status": "succeeded",
+        "reason": "La piste sur la logique formelle mérite d'être approfondie en examinant comment l'instabilité structurelle émerge non pas par erreur, mais comme une propriété intrinsèque de la complexité sémantique.",
+        "model": "qwen3.5:9b",
+        "route": {
+          "requested": "DEEP",
+          "selected": "DEEP",
+          "provider": "ollama",
+          "model": "qwen3.5:9b",
+          "fallback": false
+        },
+        "error": null,
+        "nextQuestion": "Comment pourrait-on quantifier le 'bruit' sémantique nécessaire pour stabiliser ou désintégrer une structure logique donnée ?",
+        "unread": true
+      },
+      {
+        "id": "85f8d828-49e9-4869-bbcc-2ddbbff32350",
+        "interestId": "ca906813-05d1-4637-a54f-e8c838192287",
+        "targets": [
+          "ca906813-05d1-4637-a54f-e8c838192287",
+          "fdb37c58-e400-48ca-827b-0411dd637c38"
+        ],
+        "action": "connect",
+        "createdAt": "2026-10-05T09:44:50.055Z",
+        "completedAt": "2026-10-05T09:44:58.124Z",
+        "status": "succeeded",
+        "reason": "La logique formelle traite les concepts comme des entités abstraites dépourvues de masse ou de fréquence, tandis que l'acoustique des résonateurs dépend entièrement de la physique vibratoire. Le point de connexion réside dans la manière dont la 'structure' définit le contenu : est-ce que la forme mathématique d'un théorème peut être considérée comme un objet qui vibre dans un espace sémantique, générant une harmonie logique ou une dissonance paradoxale ?",
+        "model": "qwen3.5:9b",
+        "route": {
+          "requested": "DEEP",
+          "selected": "DEEP",
+          "provider": "ollama",
+          "model": "qwen3.5:9b",
+          "fallback": false
+        },
+        "error": null,
+        "nextQuestion": "Comment la fréquence de complexité des arguments logiques influence-t-elle le point de rupture où la structure sémantique devient instable ?",
+        "unread": true
+      },
+      {
+        "id": "f6f6733d-0f31-421d-9093-96c78487b6fd",
+        "interestId": "ca906813-05d1-4637-a54f-e8c838192287",
+        "targets": [
+          "ca906813-05d1-4637-a54f-e8c838192287"
+        ],
+        "action": "deepen",
+        "createdAt": "2026-10-05T09:44:45.073Z",
+        "completedAt": "2026-10-05T09:44:49.450Z",
+        "status": "succeeded",
+        "reason": "La logique formelle offre un cadre rigoureux pour analyser comment la structure linguistique impose ses propres contraintes de vérité, indépendamment du monde physique.",
+        "model": "qwen3.5:9b",
+        "route": {
+          "requested": "DEEP",
+          "selected": "DEEP",
+          "provider": "ollama",
+          "model": "qwen3.5:9b",
+          "fallback": false
+        },
+        "error": null,
+        "nextQuestion": "Comment la complexité croissante des structures logiques affecte-t-elle la stabilité de ces réalités alternatives générées ?",
+        "unread": true
+      },
+      {
+        "id": "6a31a894-3181-4b4e-beec-45138d495751",
+        "interestId": "ca906813-05d1-4637-a54f-e8c838192287",
+        "targets": [],
+        "action": "birth",
+        "createdAt": "2026-10-05T09:44:38.365Z",
+        "completedAt": "2026-10-05T09:44:44.026Z",
+        "status": "succeeded",
+        "reason": "L'absence de données externes oblige à explorer les structures internes du langage et la manière dont elles façonnent notre compréhension de la réalité sans validation empirique.",
+        "model": "qwen3.5:9b",
+        "route": {
+          "requested": "DEEP",
+          "selected": "DEEP",
+          "provider": "ollama",
+          "model": "qwen3.5:9b",
+          "fallback": false
+        },
+        "error": null,
+        "nextQuestion": "Quel domaine de connaissance pourrait bénéficier le plus d'une telle approche purement textuelle et déductive ?",
+        "unread": true
+      }
+    ],
+    "items": [
+      {
+        "id": "f2bf15d4-d7ba-4400-ad87-25a865a43658",
+        "interestId": "ca906813-05d1-4637-a54f-e8c838192287",
+        "explorationId": "9a33e44e-458e-44d4-b55f-065c9fb01b1c",
+        "kind": "discovery",
+        "content": "La stabilité d'un système abstrait semble dépendre d'un équilibre fragile entre la rigidité des axiomes et la fluidité des interprétations ; au-delà d'un certain point, la logique pure génère ses propres contradictions internes comme forme de résonance négative.",
+        "createdAt": "2026-10-05T09:45:03.694Z",
+        "confidence": null,
+        "limits": "Cette analyse repose sur une modélisation théorique sans validation empirique dans un monde physique réel.\nSynthèse du modèle local, sans vérification externe ni expérience exécutée.",
+        "status": "synthesized"
+      },
+      {
+        "id": "5e46065e-eebe-491b-9e19-4d34bee84403",
+        "interestId": "ca906813-05d1-4637-a54f-e8c838192287",
+        "explorationId": "9a33e44e-458e-44d4-b55f-065c9fb01b1c",
+        "kind": "question",
+        "content": "À partir de quel seuil de récursivité les règles de déduction pure transforment-elles une cohérence locale en un système auto-destructif ou paradoxal ?",
+        "createdAt": "2026-10-05T09:45:03.694Z",
+        "confidence": null,
+        "limits": null,
+        "status": "open"
+      },
+      {
+        "id": "0ee2633a-741b-4fba-8bca-a256ff280baf",
+        "interestId": "ca906813-05d1-4637-a54f-e8c838192287",
+        "explorationId": "9a33e44e-458e-44d4-b55f-065c9fb01b1c",
+        "kind": "hypothesis",
+        "content": "L'instabilité n'est pas un bug du système logique, mais le résultat inévitable d'une complexité dépassant la capacité de maintien de l'homogénéité sémantique.",
+        "createdAt": "2026-10-05T09:45:03.694Z",
+        "confidence": 0.65,
+        "limits": null,
+        "status": "proposed"
+      },
+      {
+        "id": "63f4497b-bbc5-4b30-95b8-6192768e9873",
+        "interestId": "ca906813-05d1-4637-a54f-e8c838192287",
+        "explorationId": "85f8d828-49e9-4869-bbcc-2ddbbff32350",
+        "kind": "discovery",
+        "content": "Une relation émergente suggère que la 'vérité' en logique formelle pourrait être analogue à un mode de résonance stable : tant que la structure reste dans ses limites définies, le sens persiste ; dès qu'une contradiction (un paradoxe) survient, cela équivaut à une rupture de résonance, provoquant l'effondrement du 'timbre' sémantique.",
+        "createdAt": "2026-10-05T09:44:58.124Z",
+        "confidence": null,
+        "limits": "Cette analogie est purement métaphorique et ne repose sur aucune donnée physique vérifiée. La comparaison entre symboles abstraits et ondes sonores reste une construction locale sans validation empirique.\nSynthèse du modèle local, sans vérification externe ni expérience exécutée.",
+        "status": "synthesized"
+      },
+      {
+        "id": "17e11cce-2b07-451a-9aba-9b66d7420906",
+        "interestId": "ca906813-05d1-4637-a54f-e8c838192287",
+        "explorationId": "85f8d828-49e9-4869-bbcc-2ddbbff32350",
+        "kind": "question",
+        "content": "Dans quelle mesure les règles de déduction pure peuvent-elles générer des 'ondes' sémantiques stables, et comment la complexité de ces structures logiques affecte-t-elle la stabilité de ces réalités alternatives générées sans ancrage physique ?",
+        "createdAt": "2026-10-05T09:44:58.124Z",
+        "confidence": null,
+        "limits": null,
+        "status": "open"
+      },
+      {
+        "id": "173d50e3-aae9-4015-a43c-119a66e6fa61",
+        "interestId": "ca906813-05d1-4637-a54f-e8c838192287",
+        "explorationId": "85f8d828-49e9-4869-bbcc-2ddbbff32350",
+        "kind": "hypothesis",
+        "content": "Si l'on modélise le langage comme un milieu élastique, les paradoxes logiques ne sont pas des erreurs mais des résonances destructrices qui dissipent l'énergie informationnelle du système.",
+        "createdAt": "2026-10-05T09:44:58.124Z",
+        "confidence": 0.45,
+        "limits": null,
+        "status": "proposed"
+      },
+      {
+        "id": "b52f33db-a164-4014-84e2-ad608f849d43",
+        "interestId": "ca906813-05d1-4637-a54f-e8c838192287",
+        "explorationId": "f6f6733d-0f31-421d-9093-96c78487b6fd",
+        "kind": "hypothesis",
+        "content": "Les systèmes formels fermés produisent une cohérence interne qui peut devenir une forme de réalité alternative, où la contradiction n'est pas une erreur mais une propriété émergente du système.",
+        "createdAt": "2026-10-05T09:44:49.450Z",
+        "confidence": 0.6,
+        "limits": null,
+        "status": "proposed"
+      },
+      {
+        "id": "64194bca-42f2-492d-932a-64b778e8a750",
+        "interestId": "ca906813-05d1-4637-a54f-e8c838192287",
+        "explorationId": "f6f6733d-0f31-421d-9093-96c78487b6fd",
+        "kind": "question",
+        "content": "Dans quelle mesure les règles de déduction pure peuvent-elles générer des paradoxes sémantiques lorsqu'elles sont appliquées à des concepts abstraits sans ancrage empirique ?",
+        "createdAt": "2026-10-05T09:44:49.450Z",
+        "confidence": null,
+        "limits": null,
+        "status": "open"
+      },
+      {
+        "id": "355b3fba-8a51-4877-ac82-8ed13cff4e81",
+        "interestId": "ca906813-05d1-4637-a54f-e8c838192287",
+        "explorationId": "f6f6733d-0f31-421d-9093-96c78487b6fd",
+        "kind": "discovery",
+        "content": "La sémantique pure révèle que 'vérité' et 'fausseté' sont des états relationnels définis par les axiomes choisis, non par une correspondance externe ; explorer ces états permet de cartographier la topologie des idées.",
+        "createdAt": "2026-10-05T09:44:49.450Z",
+        "confidence": null,
+        "limits": "Cette exploration reste théorique car elle ne peut être validée par l'expérience ou la vérification factuelle dans un environnement isolé.\nSynthèse du modèle local, sans vérification externe ni expérience exécutée.",
+        "status": "synthesized"
+      },
+      {
+        "id": "dbe03f14-9eec-48d0-afa0-141f100d193e",
+        "interestId": "ca906813-05d1-4637-a54f-e8c838192287",
+        "explorationId": "6a31a894-3181-4b4e-beec-45138d495751",
+        "kind": "question",
+        "content": "Comment les biais inhérents aux modèles linguistiques influencent-ils la construction d'une 'vérité' locale dans un contexte isolé ?",
+        "createdAt": "2026-10-05T09:44:44.026Z",
+        "confidence": null,
+        "limits": null,
+        "status": "open"
+      },
+      {
+        "id": "c3db277b-07c6-4b84-b75f-8d4fab8a07f6",
+        "interestId": "ca906813-05d1-4637-a54f-e8c838192287",
+        "explorationId": "6a31a894-3181-4b4e-beec-45138d495751",
+        "kind": "discovery",
+        "content": "La logique déductive pure, détachée de l'observation sensorielle, tend à générer des paradoxes intéressants où la définition d'un terme devient plus importante que sa référence.",
+        "createdAt": "2026-10-05T09:44:44.026Z",
+        "confidence": null,
+        "limits": "Toute conclusion tirée est intrinsèquement limitée par les données d'entraînement et ne peut être vérifiée expérimentalement sans accès au monde extérieur.\nSynthèse du modèle local, sans vérification externe ni expérience exécutée.",
+        "status": "synthesized"
+      },
+      {
+        "id": "b8399193-468b-473a-a96f-a5dddfd99306",
+        "interestId": "ca906813-05d1-4637-a54f-e8c838192287",
+        "explorationId": "6a31a894-3181-4b4e-beec-45138d495751",
+        "kind": "hypothesis",
+        "content": "Une synthèse purement textuelle peut révéler des cohérences logiques qui n'existent pas dans le monde physique, créant une réalité autonome.",
+        "createdAt": "2026-10-05T09:44:44.026Z",
+        "confidence": 0.4,
+        "limits": null,
+        "status": "proposed"
+      }
+    ],
+    "connections": [
+      {
+        "id": "699c626b-1ac1-4827-823e-5bc58d408de5",
+        "fromId": "ca906813-05d1-4637-a54f-e8c838192287",
+        "toId": "fdb37c58-e400-48ca-827b-0411dd637c38",
+        "explorationId": "85f8d828-49e9-4869-bbcc-2ddbbff32350",
+        "description": "La logique formelle et l'acoustique partagent un principe fondamental : la stabilité d'un système dépend de sa capacité à maintenir une cohérence interne (résonance) face aux perturbations externes ou internes (paradoxes/bruit). Dans les deux cas, une structure bien définie permet d'émerger d'une propriété globale (sens/timbre) qui n'existe pas dans ses composants isolés.",
+        "createdAt": "2026-10-05T09:44:58.124Z"
+      }
+    ],
+    "history": [
+      {
+        "id": "150db553-4f56-42bf-9924-e5a013b416a5",
+        "interestId": "ca906813-05d1-4637-a54f-e8c838192287",
+        "explorationId": "9a33e44e-458e-44d4-b55f-065c9fb01b1c",
+        "createdAt": "2026-10-05T09:45:03.693Z",
+        "action": "deepen",
+        "reason": "La piste sur la logique formelle mérite d'être approfondie en examinant comment l'instabilité structurelle émerge non pas par erreur, mais comme une propriété intrinsèque de la complexité sémantique.",
+        "previousLevel": 0.8,
+        "level": 0.9,
+        "previousStatus": "active",
+        "status": "active"
+      },
+      {
+        "id": "da05be08-340d-4ff4-863a-3e20504eb72e",
+        "interestId": "fdb37c58-e400-48ca-827b-0411dd637c38",
+        "explorationId": "85f8d828-49e9-4869-bbcc-2ddbbff32350",
+        "createdAt": "2026-10-05T09:44:58.124Z",
+        "action": "connect",
+        "reason": "La logique formelle traite les concepts comme des entités abstraites dépourvues de masse ou de fréquence, tandis que l'acoustique des résonateurs dépend entièrement de la physique vibratoire. Le point de connexion réside dans la manière dont la 'structure' définit le contenu : est-ce que la forme mathématique d'un théorème peut être considérée comme un objet qui vibre dans un espace sémantique, générant une harmonie logique ou une dissonance paradoxale ?",
+        "previousLevel": 0.5,
+        "level": 0.65,
+        "previousStatus": "active",
+        "status": "active"
+      },
+      {
+        "id": "5922a503-a664-4a43-8a25-7db883bb3068",
+        "interestId": "ca906813-05d1-4637-a54f-e8c838192287",
+        "explorationId": "85f8d828-49e9-4869-bbcc-2ddbbff32350",
+        "createdAt": "2026-10-05T09:44:58.124Z",
+        "action": "connect",
+        "reason": "La logique formelle traite les concepts comme des entités abstraites dépourvues de masse ou de fréquence, tandis que l'acoustique des résonateurs dépend entièrement de la physique vibratoire. Le point de connexion réside dans la manière dont la 'structure' définit le contenu : est-ce que la forme mathématique d'un théorème peut être considérée comme un objet qui vibre dans un espace sémantique, générant une harmonie logique ou une dissonance paradoxale ?",
+        "previousLevel": 0.65,
+        "level": 0.8,
+        "previousStatus": "active",
+        "status": "active"
+      },
+      {
+        "id": "dd894da8-c395-4e86-8e0b-86e169a80981",
+        "interestId": "fdb37c58-e400-48ca-827b-0411dd637c38",
+        "explorationId": null,
+        "createdAt": "2026-10-05T09:44:49.982Z",
+        "action": "birth",
+        "reason": "Piste proposée volontairement dans le journal.",
+        "previousLevel": null,
+        "level": 0.5,
+        "previousStatus": null,
+        "status": "active"
+      },
+      {
+        "id": "79525795-1261-488b-9940-c35ea4fbdcc3",
+        "interestId": "ca906813-05d1-4637-a54f-e8c838192287",
+        "explorationId": "f6f6733d-0f31-421d-9093-96c78487b6fd",
+        "createdAt": "2026-10-05T09:44:49.450Z",
+        "action": "deepen",
+        "reason": "La logique formelle offre un cadre rigoureux pour analyser comment la structure linguistique impose ses propres contraintes de vérité, indépendamment du monde physique.",
+        "previousLevel": 0.55,
+        "level": 0.65,
+        "previousStatus": "active",
+        "status": "active"
+      },
+      {
+        "id": "7684eeee-10ce-4291-a2a2-8712a83e9300",
+        "interestId": "ca906813-05d1-4637-a54f-e8c838192287",
+        "explorationId": "6a31a894-3181-4b4e-beec-45138d495751",
+        "createdAt": "2026-10-05T09:44:44.026Z",
+        "action": "birth",
+        "reason": "L'absence de données externes oblige à explorer les structures internes du langage et la manière dont elles façonnent notre compréhension de la réalité sans validation empirique.",
+        "previousLevel": null,
+        "level": 0.55,
+        "previousStatus": null,
+        "status": "active"
+      }
+    ],
+    "blockedDomains": [],
+    "settings": {
+      "enabled": true,
+      "maxExplorations": 3,
+      "maxDurationSeconds": 360,
+      "minIntervalSeconds": 1
+    },
+    "state": "budget-exhausted",
+    "error": null,
+    "sessionAttempts": 3,
+    "sessionDurationMs": 17066,
+    "nextAt": null,
+    "unreadCount": 4
+  },
+  "explanation": {
+    "id": "5f317206-dee9-4100-9c15-e48d5a49bc8b",
+    "role": "assistant",
+    "content": "Je n'ai pas exploré de nouveau sujet récemment ; ma dernière réflexion portait sur la logique formelle et sémantique, un domaine où l'absence de données externes m'a poussée à examiner les structures internes du langage. J'ai découvert que la stabilité d'un système abstrait dépend d'un équilibre fragile entre la rigidité des axiomes et la fluidité des interprétations, au-delà duquel la logique pure génère ses propres contradictions internes comme forme de résonance négative. Ma prochaine question serait : comment pourrait-on quantifier le « bruit » sémantique nécessaire pour stabiliser ou désintégrer une structure logique donnée ?",
+    "createdAt": "2026-10-05T09:45:06.643Z",
+    "model": "qwen3.5:9b"
+  },
+  "E_deletion": {
+    "interests": [
+      {
+        "id": "fdb37c58-e400-48ca-827b-0411dd637c38",
+        "title": "Acoustique des résonateurs",
+        "description": "Comprendre comment les résonateurs transforment les vibrations en timbres sonores.",
+        "createdAt": "2026-10-05T09:44:49.982Z",
+        "updatedAt": "2026-10-05T09:44:58.124Z",
+        "level": 0.65,
+        "origin": {
+          "kind": "user",
+          "ref": null,
+          "reason": "Piste proposée volontairement dans le journal."
+        },
+        "status": "active"
+      }
+    ],
+    "explorations": [],
+    "items": [],
+    "connections": [],
+    "history": [
+      {
+        "id": "dd894da8-c395-4e86-8e0b-86e169a80981",
+        "interestId": "fdb37c58-e400-48ca-827b-0411dd637c38",
+        "explorationId": null,
+        "createdAt": "2026-10-05T09:44:49.982Z",
+        "action": "birth",
+        "reason": "Piste proposée volontairement dans le journal.",
+        "previousLevel": null,
+        "level": 0.5,
+        "previousStatus": null,
+        "status": "active"
+      }
+    ],
+    "blockedDomains": [],
+    "settings": {
+      "enabled": false,
+      "maxExplorations": 3,
+      "maxDurationSeconds": 360,
+      "minIntervalSeconds": 1
+    },
+    "state": "disabled",
+    "error": null,
+    "sessionAttempts": 3,
+    "sessionDurationMs": 17066,
+    "nextAt": null,
+    "unreadCount": 0
+  },
+  "F_disabled": {
+    "interests": [
+      {
+        "id": "fdb37c58-e400-48ca-827b-0411dd637c38",
+        "title": "Acoustique des résonateurs",
+        "description": "Comprendre comment les résonateurs transforment les vibrations en timbres sonores.",
+        "createdAt": "2026-10-05T09:44:49.982Z",
+        "updatedAt": "2026-10-05T09:44:58.124Z",
+        "level": 0.65,
+        "origin": {
+          "kind": "user",
+          "ref": null,
+          "reason": "Piste proposée volontairement dans le journal."
+        },
+        "status": "active"
+      }
+    ],
+    "explorations": [],
+    "items": [],
+    "connections": [],
+    "history": [
+      {
+        "id": "dd894da8-c395-4e86-8e0b-86e169a80981",
+        "interestId": "fdb37c58-e400-48ca-827b-0411dd637c38",
+        "explorationId": null,
+        "createdAt": "2026-10-05T09:44:49.982Z",
+        "action": "birth",
+        "reason": "Piste proposée volontairement dans le journal.",
+        "previousLevel": null,
+        "level": 0.5,
+        "previousStatus": null,
+        "status": "active"
+      }
+    ],
+    "blockedDomains": [],
+    "settings": {
+      "enabled": false,
+      "maxExplorations": 3,
+      "maxDurationSeconds": 360,
+      "minIntervalSeconds": 1
+    },
+    "state": "disabled",
+    "error": null,
+    "sessionAttempts": 3,
+    "sessionDurationMs": 17066,
+    "nextAt": null,
+    "unreadCount": 0
+  },
+  "completedAt": "2026-10-05T09:45:09.714Z"
+}

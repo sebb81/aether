@@ -62,7 +62,7 @@ test('a newer SQLite schema is preserved and rejected rather than overwritten', 
   const folder = await mkdtemp(join(tmpdir(), 'aether-schema-'));
   try {
     const file = join(folder, 'memory.sqlite'); const db = new DatabaseSync(file);
-    db.exec("CREATE TABLE future(value TEXT); INSERT INTO future VALUES('keep'); PRAGMA user_version=3"); db.close();
+    db.exec("CREATE TABLE future(value TEXT); INSERT INTO future VALUES('keep'); PRAGMA user_version=4"); db.close();
     assert.throws(() => new SqliteMemoryRepository(file), /plus récente/);
     const preserved = new DatabaseSync(file);
     assert.equal(preserved.prepare('SELECT value FROM future').get()!.value, 'keep'); preserved.close();

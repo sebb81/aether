@@ -1,7 +1,9 @@
+import type { EchoBridge, EchoSnapshot } from './echo';
+export * from './echo';
 export type Point = { x: number; y: number };
 export type Rectangle = Point & { width: number; height: number };
 export type EntityState = 'idle' | 'attention' | 'listening' | 'observing' | 'thinking' | 'exploring' | 'suggesting' | 'creating' | 'error';
-export type AvailableEntityState = Extract<EntityState, 'idle' | 'attention' | 'thinking' | 'exploring' | 'error'>;
+export type AvailableEntityState = Extract<EntityState, 'idle' | 'attention' | 'observing' | 'thinking' | 'exploring' | 'error'>;
 
 export interface Preferences {
   schemaVersion: 1;
@@ -33,9 +35,13 @@ export const IPC = {
   curiositySettings: 'aether:curiosity-settings', curiosityControl: 'aether:curiosity-control',
   curiosityInterest: 'aether:curiosity-interest', curiosityRemove: 'aether:curiosity-remove',
   curiosityBlock: 'aether:curiosity-block', curiosityRead: 'aether:curiosity-read',
+  portalGet:'aether:portal-get',portalChanged:'aether:portal-changed',portalControl:'aether:portal-control',
+  portalSettingsGet:'aether:portal-settings-get',portalSettingsSave:'aether:portal-settings-save',
+  spaceGet:'aether:space-get',spaceChanged:'aether:space-changed',spaceSave:'aether:space-save',
+  echoGet:'aether:echo-get',echoChanged:'aether:echo-changed',echoChoose:'aether:echo-choose',echoStart:'aether:echo-start',echoControl:'aether:echo-control',echoValidate:'aether:echo-validate',echoRemove:'aether:echo-remove',echoExclusions:'aether:echo-exclusions',
 } as const;
 
-export type PresenceCommand = 'interact' | 'hide' | 'recall' | 'settings' | 'menu' | 'portal' | 'quit' | 'dialogue' | 'memory' | 'curiosity' | 'close-dialogue';
+export type PresenceCommand = 'interact' | 'hide' | 'recall' | 'settings' | 'menu' | 'portal' | 'quit' | 'dialogue' | 'memory' | 'curiosity' | 'close-dialogue' | 'echo';
 export type SettingsPatch = Pick<Preferences, 'recallShortcut' | 'reducedMotion'>;
 export type OperationResult = { ok: true } | { ok: false; error: string };
 export type Permission = 'microphone' | 'camera' | 'screen.capture' | 'echo.observe' | 'files.read' | 'files.write' | 'network' | 'forge.generate' | 'mirror.execute' | 'capability.adopt';
@@ -46,11 +52,12 @@ export interface PresenceSnapshot {
   shortcutRegistered: boolean;
   notice: string | null;
   discoveryPending?: boolean;
+  echoActive?: boolean;
   features: Readonly<Record<'presence' | 'mind' | 'echo' | 'curiosity' | 'memory' | 'forge' | 'mirror' | 'portal' | 'capabilities', 'available' | 'not-implemented'>>;
   permissions: Readonly<Record<Permission, boolean>>;
 }
 
-export interface DesktopBridge {
+export interface DesktopBridge extends EchoBridge {
   getSnapshot(): Promise<PresenceSnapshot>;
   command(command: PresenceCommand): Promise<OperationResult>;
   saveSettings(settings: SettingsPatch): Promise<OperationResult>;
@@ -77,7 +84,26 @@ export interface DesktopBridge {
   removeCuriosity(kind: CuriosityObjectKind, id: string): Promise<OperationResult>;
   blockDomain(domain: string, blocked: boolean): Promise<OperationResult>;
   markCuriosityRead(): Promise<OperationResult>;
+  getPortal():Promise<PortalSnapshot>;
+  onPortal(listener:(snapshot:PortalSnapshot)=>void):()=>void;
+  portalControl(command:'close'|'settle',token?:number):Promise<OperationResult>;
+  getPortalSettings():Promise<PortalSettings & {registered:boolean}>;
+  savePortalSettings(settings:PortalSettings):Promise<OperationResult>;
+  getSpace():Promise<SpaceSnapshot>;
+  onSpaceChanged(listener:()=>void):()=>void;
+  saveSpace(input:SpaceViewWrite):Promise<OperationResult>;
 }
+
+export type PortalPhase='closed'|'opening'|'open'|'closing';
+export interface PortalSnapshot {phase:PortalPhase;token:number;origin:Point;viewport:Rectangle;durationMs:number;reducedMotion:boolean}
+export interface PortalSettings {shortcut:string}
+export interface SpaceCamera extends Point {zoom:number}
+export type SpaceObjectKind='memory'|'interest'|'question'|'hypothesis'|'discovery'|'exploration'|'connection'|'echo-session'|'habit';
+export interface SpaceSelection {kind:SpaceObjectKind;id:string}
+export interface SpaceViewWrite {camera:SpaceCamera;labels:boolean;depth:boolean;selection:SpaceSelection|null}
+export interface SpacePreferences extends SpaceViewWrite {schemaVersion:1;lastVisitedAt:string|null}
+export interface SpaceData {memories:DurableMemory[];curiosity:CuriositySnapshot|null;mind:MindSnapshot|null;presence:PresenceSnapshot;echo?:EchoSnapshot|null}
+export interface SpaceSnapshot {data:SpaceData;preferences:SpacePreferences;since:string|null;portal:PortalSnapshot}
 
 export type ModelProfile = 'FAST' | 'DEEP' | 'VISION';
 export interface ModelTarget { provider: 'ollama' | 'openai'; model: string }

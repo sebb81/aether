@@ -1,10 +1,10 @@
-# Sécurité — PRESENCE, MIND, MEMORY et CURIOSITY
+# Sécurité — PRESENCE, MIND, MEMORY, CURIOSITY, SPACE et ECHO
 
-MIND et MEMORY sont actifs depuis J2. J3 ajoute CURIOSITY locale et MODEL ROUTER. ECHO, FORGE, MIRROR, capacités, portail et voix ne sont pas implémentés. Leurs contrats ne donnent aucun accès système.
+MIND et MEMORY sont actifs depuis J2. J3 ajoute CURIOSITY locale et MODEL ROUTER, J4 PORTAL et SPACE, J5 ECHO limité à une session consentie dans un dossier Explorer. FORGE, MIRROR, nouvelles capacités et voix restent non implémentés. Leurs contrats ne donnent aucun accès système.
 
 ## Rendu et IPC
 
-Chromium sandboxé, isolation du contexte, sans Node, navigation/webviews/popups interdits, permissions média et partage d’écran refusés. Le preload expose uniquement des méthodes nommées. Chaque IPC vérifie fenêtre connue, frame principal, URL, type, taille et champs. Configuration IA/router réservée aux réglages, messages au dialogue, mutations/export MEMORY à MEMORY, objets/exclusions CURIOSITY au journal. Une fenêtre étrangère avec le même preload est refusée.
+Chromium sandboxé, isolation du contexte, sans Node, navigation/webviews/popups interdits, permissions média et partage d’écran refusés. Le preload expose uniquement des méthodes nommées. Chaque IPC vérifie fenêtre connue, frame principal, URL, type, taille et champs. Configuration IA/router/PORTAL réservée aux réglages, messages au dialogue, mutations/export MEMORY à MEMORY ou SPACE, objets/exclusions CURIOSITY au journal. Vue SPACE et fin de transition PORTAL réservées à SPACE. Une fenêtre étrangère avec le même preload est refusée.
 
 HTTP/HTTPS/WebSocket bloqués depuis le rendu en production ; seule l’origine Vite exacte est autorisée en développement. CSP sans scripts/styles inline en production. Les fournisseurs utilisent Node dans le main : les adaptateurs gardent leurs vérifications propres.
 
@@ -34,18 +34,29 @@ Export JSON via dialogue de sauvegarde Windows choisi par l’utilisateur. Il co
 
 ## Permissions et suite
 
-| Fonction | J3 |
+| Fonction | J5 |
 | --- | --- |
 | Microphone / caméra / capture | Refusés |
-| ECHO / observation de dossiers | Non implémenté |
+| ECHO / observation de dossiers | OFF au lancement, jeton de dossier et consentement distinct par session, Explorer uniquement |
 | Ollama | Service loopback explicitement choisi |
 | OpenAI | Consentement cloud et clé nécessaires |
 | Fichiers et applications externes par le modèle | Refusés |
 | Stockage AETHER / export volontaire | Commandes dédiées |
 | CURIOSITY | Opt-in local, budget, interruption, journal inspectable |
-| FORGE / MIRROR / adoption / portail | Non implémentés |
+| PORTAL / SPACE | Navigation interne, projection des données AETHER |
+| FORGE / MIRROR / adoption | Non implémentés |
 
-## Autonomie CURIOSITY
+## Frontière de perception ECHO
+
+Un consentement explicite autorise uniquement les métadonnées du dossier choisi, jamais un accès général aux fichiers ni leurs contenus. Un helper caché lit le contexte Win32/Shell pendant la session ; il ne pilote aucune application et n’enregistre aucune saisie. Un watcher fichiers observe seulement le dossier autorisé. Les autres processus, les zones exclues et les contextes ambigus restent fermés à la capture. La liste initiale exclut navigateurs, messagerie et gestionnaires de mots de passe ; les autres applications sont déjà hors de la liste admissible. Le helper s’arrête si son parent disparaît. Aucun microphone, caméra, capture vidéo, capture d’écran ou UAC.
+
+Le dossier est canonique et borné, sans jonctions ni liens. Les exclusions sont appliquées avant lecture de métadonnées et à nouveau avant journalisation, interprétation et confirmation. Les événements n’autorisent aucun acte ; leur auteur reste indéterminé. Les règles de confidentialité ne sont pas une reconnaissance sémantique de tout contenu sensible : le périmètre choisi et les exclusions explicites restent essentiels.
+
+Interprétation locale DEEP uniquement. Les noms de fichiers sont des données non fiables, séparées des instructions, sans outils. Une hypothèse ne devient jamais une mémoire à la seule initiative du modèle. Seules Oui/correction validée écrivent le souvenir sourcé, avec FTS et provenance en transaction. Non conserve une invalidation ; Partiellement attend une précision. La suppression/exclusion coupe les opérations et rejette les réponses tardives. Les sessions affectées et leurs dépendances sont supprimées, avec reconstruction depuis les autres sources valides ; la correction d’une session supprimée ne survit pas indirectement.
+
+SQLite et les événements locaux ne sont pas chiffrés. Les anciennes sauvegardes/exportations restent des copies séparées. Les captures ponctuelles de recette ne sont pas une fonction de perception du programme. Les données ECHO ne servent pas de graines CURIOSITY ; les appels MIND qui référencent des habitudes confirmées sont écartés de ces graines. L’enregistrement `AutomationOpportunity` ne donne aucun droit à FORGE/MIRROR.
+
+## Autonomie CURIOSITY conservée
 
 Activation explicite et persistante, désactivée initialement. Budget maximal par session, intervalle et temps total de calcul ; échecs/annulations comptent. OFF annule immédiatement et rejette une réponse tardive. Le dialogue humain a priorité. Le modèle n’a ni accès Web, ni commande, ni FORGE, ni accès externe aux fichiers. Les seuls appels sont le provider Ollama loopback choisi, à travers MODEL ROUTER ; une cible OpenAI est refusée pour toute exploration J3, même si le dialogue a un consentement cloud.
 

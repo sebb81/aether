@@ -1,0 +1,29 @@
+{
+  "result": "PASS",
+  "version": "0.4.0",
+  "command": "npm run check",
+  "exitCode": 0,
+  "unit": {
+    "passed": 52,
+    "failed": 0
+  },
+  "electron": {
+    "passed": 6,
+    "failed": 0,
+    "duration": "1.3m",
+    "scenarios": [
+      "J1 native presence",
+      "J2 real Ollama A-E",
+      "Windows safeStorage",
+      "Development rendering",
+      "J3 real Ollama A-F",
+      "J4 A-G including rapid reentry"
+    ]
+  },
+  "checkedAt": "2026-10-05T09:49:16.589Z",
+  "log": "verification.log",
+  "regressionReceipts": [
+    "regression-j2.json",
+    "regression-j3.json"
+  ]
+}

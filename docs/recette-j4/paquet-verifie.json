@@ -1,0 +1,74 @@
+{
+  "result": "PASS",
+  "checkedAt": "2026-10-05T09:48:03.306Z",
+  "executable": "C:\\Dev\\CRTHON10\\aether\\release\\AETHER-win32-x64\\AETHER.exe",
+  "runtime": {
+    "packaged": true,
+    "version": "0.4.0",
+    "appPath": "C:\\Dev\\CRTHON10\\aether\\release\\AETHER-win32-x64\\resources\\app.asar",
+    "visible": true
+  },
+  "configuration": {
+    "schemaVersion": 1,
+    "provider": "ollama",
+    "model": "qwen3.5:9b",
+    "cloudConsent": false,
+    "ollamaUrl": "http://127.0.0.1:11434",
+    "keyConfigured": false,
+    "secureStorageAvailable": true
+  },
+  "router": {
+    "DEEP": {
+      "provider": "ollama",
+      "model": "qwen3.5:9b"
+    },
+    "VISION": {
+      "provider": "ollama",
+      "model": "qwen3.5:9b"
+    },
+    "FAST": {
+      "provider": "ollama",
+      "model": "qwen3.5:9b"
+    },
+    "cloudConsent": false
+  },
+  "portalSettings": {
+    "shortcut": "Control+Alt+A",
+    "registered": true
+  },
+  "answer": {
+    "id": "b254e1b7-3462-4344-8e6d-1237ecf3e70e",
+    "role": "assistant",
+    "content": "Je m'appelle ENTITY. Je suis la présence numérique d'AETHER. Que souhaites-tu explorer avec moi aujourd'hui ?",
+    "createdAt": "2026-10-05T09:48:01.332Z",
+    "model": "qwen3.5:9b"
+  },
+  "originalBounds": {
+    "x": 1444,
+    "y": 775,
+    "width": 162,
+    "height": 164
+  },
+  "returnedBounds": {
+    "x": 1444,
+    "y": 775,
+    "width": 160,
+    "height": 161
+  },
+  "spaceDestroyed": true,
+  "profileIntegrity": {
+    "previousInterestIds": [
+      "3946c537-4739-40f8-a48f-a4932c6731ee"
+    ],
+    "interestsBefore": 1,
+    "interestsAfter": 1,
+    "attemptsBefore": 5,
+    "attemptsAfter": 5,
+    "memoriesBefore": 0,
+    "memoriesAfter": 0,
+    "autonomyEnabledBefore": true,
+    "autonomyEnabledAfter": true,
+    "noTestImport": true
+  },
+  "packagedEntries": 14
+}

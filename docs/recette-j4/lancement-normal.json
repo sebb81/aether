@@ -1,0 +1,12 @@
+{
+  "result": "PASS",
+  "launchedAt": "2026-10-05T09:55:17.3406949Z",
+  "processId": 28508,
+  "executable": "C:\\Dev\\CRTHON10\\aether\\release\\AETHER-win32-x64\\AETHER.exe",
+  "version": "0.4.0",
+  "title": "AETHER · ENTITY",
+  "visible": true,
+  "responding": true,
+  "asarSha256": "11836977F5B9F3F408CCAD0690C29317B8ADD55D7E8BEA81B0ECF52A639E14EE",
+  "attachedController": false
+}

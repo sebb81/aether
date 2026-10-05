@@ -10,7 +10,7 @@ function searchTerms(query: string): string[] {
 }
 type Row = Record<string, string | number | bigint | null | Uint8Array>;
 function record(row: Row): DurableMemory {
-  return { id: String(row.id), content: String(row.content), kind: row.category === 'experience' ? 'experience' : 'knowledge', category: row.category as DurableMemory['category'], source: String(row.source), scope: 'personal', createdAt: String(row.created_at), updatedAt: String(row.updated_at), confidence: row.confidence === null ? null : Number(row.confidence), status: row.origin === 'explicit' ? 'confirmed' : 'assumed', origin: row.origin as DurableMemory['origin'] };
+  return { id: String(row.id), content: String(row.content), kind: String(row.source).startsWith('ECHO:') ? 'habit' : row.category === 'experience' ? 'experience' : 'knowledge', category: row.category as DurableMemory['category'], source: String(row.source), scope: 'personal', createdAt: String(row.created_at), updatedAt: String(row.updated_at), confidence: row.confidence === null ? null : Number(row.confidence), status: row.origin === 'explicit' ? 'confirmed' : 'assumed', origin: row.origin as DurableMemory['origin'] };
 }
 export class SqliteMemoryRepository implements MemoryRepository {
   private readonly db: DatabaseSync;

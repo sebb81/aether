@@ -1,0 +1,53 @@
+{
+  "provider": "ollama",
+  "model": "llama3.1:8b",
+  "marker": "Luciole-a2dc1a",
+  "startedAt": "2026-10-05T09:45:10.979Z",
+  "E_unconfigured": "Aucune IA n’est configurée. Choisissez un fournisseur et un modèle dans les réglages.",
+  "D_thinking": true,
+  "A_identity": {
+    "id": "d567ed34-d686-4954-a544-31155f19e3ea",
+    "role": "assistant",
+    "content": "Je m'appelle ENTITY. C'est mon nom, et non celui de mon fournisseur ou de mon modèle.",
+    "createdAt": "2026-10-05T09:45:15.756Z",
+    "model": "llama3.1:8b"
+  },
+  "B_retention": {
+    "response": {
+      "id": "1b8b368c-0578-41d0-a9e7-4156135763eb",
+      "role": "assistant",
+      "content": "Le souvenir est enregistré.",
+      "createdAt": "2026-10-05T09:45:16.859Z",
+      "model": "llama3.1:8b"
+    },
+    "memory": {
+      "id": "1b6743c6-d266-42d6-8822-e1c621b7c972",
+      "content": "le nom de mon projet de démonstration est Luciole-a2dc1a",
+      "kind": "knowledge",
+      "category": "knowledge",
+      "source": "demande explicite de l’utilisateur, message ab8ffbb7-c51f-4ff9-bc50-4d9afcefe905",
+      "scope": "personal",
+      "createdAt": "2026-10-05T09:45:16.678Z",
+      "updatedAt": "2026-10-05T09:45:16.678Z",
+      "confidence": null,
+      "status": "confirmed",
+      "origin": "explicit"
+    }
+  },
+  "B_afterRestart": {
+    "id": "8bd05d33-8595-4af9-b004-42b83f6d7659",
+    "role": "assistant",
+    "content": "Le nom de ton projet de démonstration est Luciole-a2dc1a.",
+    "createdAt": "2026-10-05T09:45:17.877Z",
+    "model": "llama3.1:8b"
+  },
+  "C_afterDeletion": {
+    "id": "ea86511f-07cf-480f-bb7f-780ad3963554",
+    "role": "assistant",
+    "content": "Je ne connais pas ce projet de démonstration.",
+    "createdAt": "2026-10-05T09:45:18.771Z",
+    "model": "llama3.1:8b"
+  },
+  "E_unavailable": "Le fournisseur IA est indisponible. Vérifiez le service, le modèle et votre connexion.",
+  "completedAt": "2026-10-05T09:45:19.222Z"
+}

@@ -1,0 +1,130 @@
+body.space-window { background: transparent; overflow: hidden; }
+.space-window #root { height: 100vh; }
+.portal-shell { position: relative; width: 100vw; height: 100vh; overflow: hidden; color: #dbe7ee; }
+.space-universe { position: absolute; inset: 0; overflow: hidden; background: radial-gradient(ellipse at 52% 46%, #153443 0%, #101f2c 38%, #080e18 85%); }
+.portal-shell[data-portal-phase="opening"] .space-universe { animation: portal-reveal var(--portal-duration) cubic-bezier(.22,.68,.25,1) both; }
+.portal-shell[data-portal-phase="closing"] .space-universe { animation: portal-retract var(--portal-duration) cubic-bezier(.6,0,.7,.4) both; }
+@keyframes portal-reveal { from { clip-path: circle(76px at var(--portal-x) var(--portal-y)); } to { clip-path: circle(var(--portal-radius) at var(--portal-x) var(--portal-y)); } }
+@keyframes portal-retract { from { clip-path: circle(var(--portal-radius) at var(--portal-x) var(--portal-y)); } to { clip-path: circle(0px at var(--portal-x) var(--portal-y)); } }
+.portal-traveller { position: absolute; z-index: 20; width: 160px; height: 160px; margin: -80px; pointer-events: none; filter: drop-shadow(0 0 28px #78e6cd70); }
+.portal-traveller svg { width: 160px; height: 160px; }
+.portal-shell[data-portal-phase="opening"] .portal-traveller { animation: portal-arrive var(--portal-duration) cubic-bezier(.22,.68,.25,1) both; }
+.portal-shell[data-portal-phase="closing"] .portal-traveller { animation: portal-depart var(--portal-duration) cubic-bezier(.6,0,.7,.4) both; }
+@keyframes portal-arrive { from { left: var(--portal-x); top: var(--portal-y); transform: scale(1); } to { left: var(--core-x); top: var(--core-y); transform: scale(var(--core-zoom)); } }
+@keyframes portal-depart { from { left: var(--core-x); top: var(--core-y); transform: scale(var(--core-zoom)); } to { left: var(--portal-x); top: var(--portal-y); transform: scale(1); } }
+.portal-shell[data-portal-phase="opening"] .space-core, .portal-shell[data-portal-phase="closing"] .space-core { visibility: hidden; }
+.portal-shell.reduce-motion[data-portal-phase="opening"] .space-universe { animation-name: portal-fade-in; }
+.portal-shell.reduce-motion[data-portal-phase="closing"] .space-universe { animation-name: portal-fade-out; }
+.portal-shell.reduce-motion .portal-traveller { display: none; }
+@keyframes portal-fade-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes portal-fade-out { from { opacity: 1; } to { opacity: 0; } }
+.space-universe button { font: inherit; color: inherit; cursor: pointer; }
+.space-universe button:focus-visible, .space-universe [role="button"]:focus-visible, .space-stage:focus-visible { outline: 2px solid #85ead2; outline-offset: 4px; }
+.space-header { position: absolute; z-index: 5; top: 0; left: 0; right: 0; display: flex; align-items: center; gap: 22px; padding: 24px 32px; background: linear-gradient(#080e18e8,transparent); pointer-events: none; }
+.space-header > * { pointer-events: auto; }
+.space-brand { display: flex; align-items: center; gap: 10px; }
+.space-brand > span { color: #99ecdb; font-size: 32px; }
+.space-brand h1 { font-size: 19px; letter-spacing: .2em; margin: 0; font-weight: 500; }
+.space-brand small { color: #8296aa; font-size: 10px; letter-spacing: .13em; margin-left: 8px; }
+.space-entity-badge { display: flex; align-items: center; gap: 7px; font-size: 11px; color: #a9bcc9; margin-left: auto; }
+.space-entity-badge svg { width: 38px; height: 38px; }
+.space-entity-badge i { color: #a7e2d0; font-style: normal; margin-left: 10px; }
+.space-exit { border: 1px solid #516677; border-radius: 30px; background: #15263399; padding: 10px 16px; font-size: 12px !important; }
+.space-exit:hover { border-color: #a6ead7; background: #203844; }
+.space-exit kbd { color: #8497a7; margin-left: 10px; font-size: 10px; }
+.space-zones { position: absolute; z-index: 4; top: 90px; left: 33px; display: flex; gap: 5px; }
+.space-zones button { font-size: 10px; letter-spacing: .12em; padding: 9px 12px; border: 0; border-bottom: 1px solid #4a657b66; background: #0b1826a8; }
+.space-zones button:hover { color: #9fe5d4; border-color: #9fe5d4; }
+.space-zones span { background: #78ddc626; padding: 1px 5px; border-radius: 8px; }
+.space-stage { position: absolute; inset: 0; cursor: grab; touch-action: none; }
+.space-stage:active { cursor: grabbing; }
+.space-world { position: absolute; left: 50%; top: 50%; width: 0; height: 0; transform-origin: 0 0; }
+.space-orbit { position: absolute; border: 1px solid #57738320; border-radius: 50%; pointer-events: none; }
+.space-orbit-near { width: 740px; height: 500px; left: -370px; top: -250px; transform: rotate(-20deg); }
+.space-orbit-far { width: 1440px; height: 860px; left: -720px; top: -430px; transform: rotate(-20deg); }
+.space-depth .space-orbit-far { box-shadow: 0 0 150px #24547120, inset 0 0 90px #23667512; }
+.space-core { position: absolute; width: 190px; height: 208px; margin: -80px 0 0 -95px; padding: 0; border: 0; background: transparent; display: flex; align-items: center; flex-direction: column; }
+.space-core .entity-stage { flex-shrink: 0; width: 160px; height: 160px; pointer-events: none; }
+.space-core strong { font-size: 13px; font-weight: 500; letter-spacing: .2em; margin: 0; }
+.space-core small { font-size: 11px; color: #93afb9; margin-top: 8px; white-space: nowrap; }
+.space-island, .space-capability-island, .space-curiosity-label { position: absolute; }
+.space-island { width: 290px; border: 1px solid #70899533; border-radius: 18px; padding: 21px 24px; background: linear-gradient(135deg,#28434c55,#101e2d55); }
+.space-depth .space-island { box-shadow: 0 26px 65px #00000035; backdrop-filter: blur(5px); }
+.space-memory-island { transform: translate(-50%,-50%) rotate(-2deg); }
+.space-activity-island { width: 400px; transform: translate(-50%,-50%) rotate(1deg); }
+.space-eyebrow { font-size: 10px !important; font-weight: 500; letter-spacing: .18em; color: #8ccfbe !important; margin: 0 0 10px; }
+.space-island h2, .space-capability-island h2, .space-curiosity-label h2 { font-size: 22px; font-weight: 400; letter-spacing: -.04em; margin: 0 0 8px; }
+.space-count, .space-curiosity-label > span { font-size: 11px; color: #91a6b6; }
+.space-empty { font-size: 12px; line-height: 1.6; color: #8198a8; }
+.space-memory-object { display: block; text-align: left; width: 100%; border: 0; border-left: 2px solid #5a9d8b; background: #92ccb40b; padding: 9px 12px; margin: 12px 0; font-size: 13px !important; line-height: 1.45; overflow: hidden; text-overflow: ellipsis; max-height: 100px; }
+.space-memory-object small { display: block; font-size: 9px; color: #7ba698; margin-top: 6px; }
+.space-island-action { border: 0; background: transparent; padding: 8px 0 0; color: #a0d2c5 !important; font-size: 11px !important; }
+.space-capability-island { width: 350px; transform: translate(-50%,-50%); }
+.space-capability-island > div { display: flex; flex-wrap: wrap; gap: 7px; margin: 16px 0 7px; }
+.space-capability-island > div span { border: 1px solid #617b8c50; border-radius: 15px; padding: 5px 10px; font-size: 10px; color: #aac0d0; }
+.space-curiosity-label { width: 340px; transform: translate(-15%,-50%); }
+.space-connections { position: absolute; left: -2200px; top: -2000px; width: 4400px; height: 4000px; overflow: visible; pointer-events: none; }
+.space-connections g { cursor: pointer; }
+.space-edge { fill: none; stroke: #92cde380; stroke-width: 1.2px; pointer-events: none; }
+.space-edge.selected, .space-connections g:hover .space-edge, .space-connections g:focus .space-edge { stroke: #bee9ff; stroke-width: 3px; }
+.space-edge-hit { fill: none; stroke: transparent; stroke-width: 18px; pointer-events: stroke; }
+.space-connections circle { fill: #8bbecf; stroke: #0e202b; stroke-width: 2px; pointer-events: all; }
+.space-interest-node { position: absolute; width: 220px; margin-left: -110px; margin-top: -42px; border: 0; padding: 0; background: transparent; display: flex; align-items: center; flex-direction: column; }
+.space-node-light { width: calc(var(--node-radius) * 2); height: calc(var(--node-radius) * 2); flex-shrink: 0; border-radius: 50%; border: 1px solid #78aabd70; background: radial-gradient(circle at 36% 31%,#aadbc866,#76b6d133 45%,#4f839420 75%); }
+.space-depth .space-node-light { box-shadow: 0 0 35px #79cae51c, inset 0 0 16px #b4e3f430; }
+.space-interest-node:hover .space-node-light, .space-interest-node.selected .space-node-light { border-color: #bbe9ff; box-shadow: 0 0 28px #8adce65c; }
+.space-interest-node strong { width: 210px; font-size: 13px; line-height: 1.45; font-weight: 400; color: #bed7e2; margin-top: 12px; }
+.space-interest-node small { color: #7f9aab; font-size: 10px; margin-top: 6px; }
+.space-interest-node.dormant { opacity: .6; }
+.space-hide-labels .space-interest-node strong, .space-hide-labels .space-interest-node small { visibility: hidden; }
+.space-activity-summary { font-size: 11px; color: #8aa4b5; margin: 0 0 14px; }
+.space-activity-object { display: block; text-align: left; width: 100%; padding: 10px 0; border: 0; border-bottom: 1px solid #5c768625; background: transparent; }
+.space-activity-object > span { font-size: 9px; color: #88adba; display: block; }
+.space-activity-object strong { font-size: 12px; font-weight: 400; display: block; padding: 4px 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.space-activity-object small { font-size: 10px; color: #698596; }
+.space-search { position: absolute; z-index: 5; right: 34px; top: 94px; width: 230px; padding: 10px 12px; border: 1px solid #41596977; border-radius: 12px; background: #102030bb; }
+.space-search label { font-size: 10px; color: #8fa7b7; display: block; margin-bottom: 5px; }
+.space-search input { padding: 4px 0; width: 100%; border: 0; background: transparent; color: #cfdee7; font: inherit; font-size: 12px; outline-color: #85ead2; }
+.space-search > div { display: flex; align-items: center; gap: 7px; font-size: 9px; margin-top: 8px; }
+.space-search button { border: 0; background: transparent; font-size: 9px; padding: 2px; color: #85c8b8; }
+.space-search button:disabled { opacity: .35; }
+.space-search small { font-size: 10px; color: #869daf; }
+.space-navigation { position: absolute; z-index: 5; bottom: 47px; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 10px; border: 1px solid #66819455; border-radius: 28px; padding: 8px 14px; background: #0c1926dd; white-space: nowrap; }
+.space-navigation > button { border: 0; background: transparent; font-size: 17px; padding: 3px 9px; }
+.space-navigation > span { font-size: 11px; min-width: 40px; text-align: center; color: #86a2b2; }
+.space-navigation .space-center-button { font-size: 11px; border-left: 1px solid #57738744; padding-left: 16px; }
+.space-navigation details { font-size: 11px; position: relative; }
+.space-navigation summary { cursor: pointer; color: #9cc6ba; padding: 0 8px; }
+.space-navigation details[open] { background: #112635; border-radius: 10px; }
+.space-navigation details label { position: relative; display: flex; align-items: center; gap: 8px; padding: 10px; }
+.space-navigation-help { position: absolute; bottom: 13px; left: 50%; transform: translateX(-50%); color: #7891a2; font-size: 10px; white-space: nowrap; pointer-events: none; }
+.space-inspector { position: absolute; z-index: 6; right: 25px; top: 175px; bottom: 100px; width: min(425px,90vw); border: 1px solid #526f8066; border-radius: 18px; background: #0f1e2cf5; box-shadow: 0 20px 90px #0009; display: flex; flex-direction: column; }
+.space-inspector > header { display: flex; align-items: center; justify-content: space-between; padding: 13px 21px; border-bottom: 1px solid #58768733; font-size: 9px; letter-spacing: .14em; color: #7f9eaf; }
+.space-inspector > header button { border: 0; background: transparent; color: #bbd3e0; font-size: 24px; }
+.space-inspector-body { overflow: auto; padding: 24px; scrollbar-width: thin; scrollbar-color: #526b7b transparent; }
+.space-inspector-body h2 { font-size: 26px; font-weight: 400; line-height: 1.2; letter-spacing: -.035em; margin: 8px 0 18px; }
+.space-inspector-body h3 { font-size: 14px; font-weight: 500; margin: 24px 0 10px; }
+.space-inspector-body p { font-size: 13px; color: #b6c9d7; line-height: 1.7; overflow-wrap: anywhere; }
+.space-original { white-space: pre-wrap; }
+.space-provenance { font-size: 10px !important; color: #7a99ad !important; }
+.space-limit { border-left: 2px solid #baac84; padding-left: 12px; color: #b2ad97 !important; font-size: 11px !important; }
+.space-detail-row { padding: 14px 0; border-bottom: 1px solid #4c6a7d40; }
+.space-detail-row > span, .space-detail-row small { color: #7fa0b3; font-size: 10px; }
+.space-detail-row h3 { margin: 6px 0; }
+.space-detail-row p { margin: 6px 0; }
+.space-object-row, .space-secondary, .space-linked-objects button { display: block; width: 100%; text-align: left; padding: 11px 12px; border: 1px solid #6b8b9c40; border-radius: 8px; background: #29435033; font-size: 12px !important; line-height: 1.6; margin: 8px 0; }
+.space-secondary { color: #99d2c4 !important; }
+.space-error { position: absolute; z-index: 8; bottom: 110px; left: 28px; background: #2d1b25; border: 1px solid #bb8b93; border-radius: 8px; padding: 12px; font-size: 12px; max-width: 380px; }
+.space-inspector .memory-embedded { padding: 0; min-height: 0; background: transparent; color: #c9dce7; }
+.memory-embedded > .brand { display: none; }
+.space-inspector .memory-intro { margin: 0 0 20px; }
+.space-inspector .memory-intro h1 { font-size: 26px; }
+.space-inspector .memory-toolbar { flex-wrap: wrap; gap: 10px; }
+.space-inspector .memory-toolbar input { width: 100%; }
+.space-inspector .memory-item, .space-inspector .memory-editor { background: #1a2c3a; border-color: #425e70; }
+.space-inspector .memory-editor input, .space-inspector .memory-editor textarea, .space-inspector .memory-editor select, .space-inspector .memory-toolbar input { background: #0d1c28; border-color: #516c7c; color: #d0e1eb; }
+.space-inspector .memory-record p { color: #c9dce7; }
+.space-inspector .text-button { color: #a5d3c8; }
+.space-inspector .secondary { border-color: #5a7886; background: #253e4a; color: #c9e7df; }
+@media(max-width:1000px) { .space-header { padding: 18px 20px; gap: 14px; } .space-brand small, .space-entity-badge i { display: none; } .space-zones { top: 80px; left: 20px; } .space-search { top: 125px; right: 20px; width: 205px; } .space-inspector { top: 210px; right: 20px; bottom: 105px; } }
+@media(prefers-reduced-motion:reduce) { .portal-shell[data-portal-phase="opening"] .space-universe { animation: portal-fade-in 90ms both; } .portal-shell[data-portal-phase="closing"] .space-universe { animation: portal-fade-out 90ms both; } .portal-traveller { display: none; } }

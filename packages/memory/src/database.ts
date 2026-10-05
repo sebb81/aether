@@ -8,7 +8,7 @@ export function openLocalDatabase(path: string): DatabaseSync {
   try {
     db.exec('PRAGMA busy_timeout=5000; PRAGMA journal_mode=DELETE; PRAGMA secure_delete=ON; PRAGMA foreign_keys=ON;');
     const version = Number(db.prepare('PRAGMA user_version').get()!.user_version);
-    if (version > 2) throw new Error('Version de MEMORY plus récente que cette application. Aucune donnée n’a été modifiée.');
+    if (version > 3) throw new Error('Version de MEMORY plus récente que cette application. Aucune donnée n’a été modifiée.');
     if (version < 1) db.exec(`BEGIN IMMEDIATE;
       CREATE TABLE memories(id TEXT PRIMARY KEY, content TEXT NOT NULL, category TEXT NOT NULL, origin TEXT NOT NULL CHECK(origin IN ('explicit','inference')), confidence REAL, source TEXT NOT NULL, created_at TEXT NOT NULL, updated_at TEXT NOT NULL);
       CREATE VIRTUAL TABLE memory_search USING fts5(id UNINDEXED, content, tokenize='unicode61 remove_diacritics 2');
@@ -25,6 +25,17 @@ export function openLocalDatabase(path: string): DatabaseSync {
       CREATE INDEX curiosity_items_interest ON curiosity_items(interest_id);
       CREATE INDEX curiosity_history_interest ON curiosity_history(interest_id);
       PRAGMA user_version=2; COMMIT;`);
+    if (version < 3) db.exec(`BEGIN IMMEDIATE;
+      CREATE TABLE echo_sessions(id TEXT PRIMARY KEY, started_at TEXT NOT NULL, ended_at TEXT, status TEXT NOT NULL, root TEXT NOT NULL, summary TEXT, error TEXT);
+      CREATE TABLE echo_events(id TEXT PRIMARY KEY, session_id TEXT NOT NULL REFERENCES echo_sessions(id) ON DELETE CASCADE, content TEXT NOT NULL);
+      CREATE TABLE echo_habits(id TEXT PRIMARY KEY, content TEXT NOT NULL, memory_id TEXT REFERENCES memories(id) ON DELETE SET NULL);
+      CREATE TABLE echo_hypotheses(id TEXT PRIMARY KEY, session_id TEXT NOT NULL REFERENCES echo_sessions(id) ON DELETE CASCADE, habit_id TEXT NOT NULL REFERENCES echo_habits(id) ON DELETE CASCADE, content TEXT NOT NULL);
+      CREATE TABLE echo_invalidations(signature TEXT PRIMARY KEY, reason TEXT NOT NULL);
+      CREATE TABLE echo_settings(id INTEGER PRIMARY KEY CHECK(id=1), content TEXT NOT NULL);
+      CREATE TABLE echo_opportunities(id TEXT PRIMARY KEY, habit_id TEXT NOT NULL REFERENCES echo_habits(id) ON DELETE CASCADE, content TEXT NOT NULL);
+      CREATE INDEX echo_events_session ON echo_events(session_id);
+      CREATE INDEX echo_hypotheses_habit ON echo_hypotheses(habit_id);
+      PRAGMA user_version=3; COMMIT;`);
     return db;
   } catch (error) { db.close(); throw error; }
 }

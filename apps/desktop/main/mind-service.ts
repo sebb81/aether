@@ -11,6 +11,7 @@ export class DesktopMindService {
   readonly engine: MindEngine;
   readonly router: ModelRouter;
   curiosityContext: () => string = () => 'CURIOSITY indisponible dans cette session.';
+  habitContext: () => string = () => '';
   private readonly configurationStore: AiConfigurationStore;
   private readonly vault: SafeSecretVault;
   private configuration: AiConfiguration;
@@ -32,7 +33,7 @@ export class DesktopMindService {
       if (!key) throw new ProviderError('not-configured', 'Aucune clé OpenAI n’est configurée. Saisissez-la dans les réglages, ou choisissez Ollama local.');
       return new OpenAIProvider(target.model, key);
     });
-    this.engine=new MindEngine(()=>this.router.provider('FAST'),this.memory,()=>this.curiosityContext());
+    this.engine=new MindEngine(()=>this.router.provider('FAST'),this.memory,()=>`${this.curiosityContext()}\n${this.habitContext()}`);
     if (loaded.notice || this.routerStore.notice) this.engine.reset(loaded.notice ?? this.routerStore.notice!);
   }
   view(): AiConfigurationView { return { ...this.configuration, keyConfigured: this.vault.hasKey(), secureStorageAvailable: this.vault.available() }; }

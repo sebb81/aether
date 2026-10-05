@@ -1,0 +1,361 @@
+{
+  "source": "docs/recette-j3/preuve-reelle.json",
+  "sha256": "b3482868aaee078d84c190c35a739114dcc133f3e3ac50a2c895a4b201c70c8c",
+  "importedAt": "2026-10-05T09:20:45.207Z",
+  "snapshot": {
+    "interests": [
+      {
+        "id": "d00e8365-9402-4f63-bfbc-69366587a5c4",
+        "title": "Causalité structurelle",
+        "description": "Exploration de la manière dont les relations de cause à effet peuvent être déduites uniquement par l'analyse des corrélations et des structures logiques internes.",
+        "createdAt": "2026-10-05T08:32:40.563Z",
+        "updatedAt": "2026-10-05T08:32:59.268Z",
+        "level": 0.85,
+        "origin": {
+          "kind": "autonomous",
+          "ref": null,
+          "reason": "L'absence de contexte initial invite à initier une exploration sur un domaine fondamental où les données locales et la logique du modèle peuvent générer des relations inédites sans dépendre d'une observation externe."
+        },
+        "status": "active"
+      },
+      {
+        "id": "a21c57f7-d2a2-4bc4-b4c8-6fec0355bc92",
+        "title": "Acoustique des résonateurs",
+        "description": "Comprendre comment les résonateurs transforment les vibrations en timbres sonores.",
+        "createdAt": "2026-10-05T08:32:46.537Z",
+        "updatedAt": "2026-10-05T08:32:53.002Z",
+        "level": 0.6,
+        "origin": {
+          "kind": "user",
+          "ref": null,
+          "reason": "Piste proposée volontairement dans le journal."
+        },
+        "status": "active"
+      }
+    ],
+    "explorations": [
+      {
+        "id": "3ee718ca-841b-4e6c-b69f-4e23b66450de",
+        "interestId": "d00e8365-9402-4f63-bfbc-69366587a5c4",
+        "targets": [
+          "d00e8365-9402-4f63-bfbc-69366587a5c4"
+        ],
+        "action": "deepen",
+        "createdAt": "2026-10-05T08:32:53.594Z",
+        "completedAt": "2026-10-05T08:32:59.269Z",
+        "status": "succeeded",
+        "reason": "L'analogie avec les résonateurs acoustiques suggère que l'architecture du modèle impose des contraintes géométriques qui façonnent la logique émergente, transformant une simple corrélation en une règle de comportement observable.",
+        "model": "qwen3.5:9b",
+        "route": {
+          "requested": "DEEP",
+          "selected": "DEEP",
+          "provider": "ollama",
+          "model": "qwen3.5:9b",
+          "fallback": false
+        },
+        "error": null,
+        "nextQuestion": "Quel seuil de perturbation architecturale marque la transition entre un artefact statistique instable et une propriété causale structurelle stable ?",
+        "unread": true
+      },
+      {
+        "id": "6408c5fd-8e79-4edf-aa51-2baeb1268b3c",
+        "interestId": "d00e8365-9402-4f63-bfbc-69366587a5c4",
+        "targets": [
+          "d00e8365-9402-4f63-bfbc-69366587a5c4",
+          "a21c57f7-d2a2-4bc4-b4c8-6fec0355bc92"
+        ],
+        "action": "connect",
+        "createdAt": "2026-10-05T08:32:46.610Z",
+        "completedAt": "2026-10-05T08:32:53.002Z",
+        "status": "succeeded",
+        "reason": "L'analyse de la causalité structurelle dans les représentations latentes peut être enrichie par l'analogie avec les résonateurs acoustiques, où la forme physique impose des contraintes aux ondes, tout comme l'architecture du modèle contraint les motifs logiques.",
+        "model": "qwen3.5:9b",
+        "route": {
+          "requested": "DEEP",
+          "selected": "DEEP",
+          "provider": "ollama",
+          "model": "qwen3.5:9b",
+          "fallback": false
+        },
+        "error": null,
+        "nextQuestion": "Comment la modification dynamique de ces contraintes structurelles (par exemple, via du fine-tuning) altérerait-elle la stabilité de l'inférence causale déduite ?",
+        "unread": true
+      },
+      {
+        "id": "fdd91322-e920-4a2a-8f77-a52cb76f7450",
+        "interestId": "d00e8365-9402-4f63-bfbc-69366587a5c4",
+        "targets": [
+          "d00e8365-9402-4f63-bfbc-69366587a5c4"
+        ],
+        "action": "deepen",
+        "createdAt": "2026-10-05T08:32:41.577Z",
+        "completedAt": "2026-10-05T08:32:46.299Z",
+        "status": "succeeded",
+        "reason": "La piste de la causalité structurelle mérite d'être approfondie pour distinguer ce qui est une corrélation statistique robuste de ce qui est une inférence causale purement logique dérivée de l'architecture interne du modèle.",
+        "model": "qwen3.5:9b",
+        "route": {
+          "requested": "DEEP",
+          "selected": "DEEP",
+          "provider": "ollama",
+          "model": "qwen3.5:9b",
+          "fallback": false
+        },
+        "error": null,
+        "nextQuestion": "Comment ces artefacts structurels influencent-ils la fiabilité des prédictions face à des scénarios contre-factuels non vus ?",
+        "unread": true
+      },
+      {
+        "id": "8098e109-1715-4a97-9334-cac989d87fc1",
+        "interestId": "d00e8365-9402-4f63-bfbc-69366587a5c4",
+        "targets": [],
+        "action": "birth",
+        "createdAt": "2026-10-05T08:32:30.918Z",
+        "completedAt": "2026-10-05T08:32:40.563Z",
+        "status": "succeeded",
+        "reason": "L'absence de contexte initial invite à initier une exploration sur un domaine fondamental où les données locales et la logique du modèle peuvent générer des relations inédites sans dépendre d'une observation externe.",
+        "model": "qwen3.5:9b",
+        "route": {
+          "requested": "DEEP",
+          "selected": "DEEP",
+          "provider": "ollama",
+          "model": "qwen3.5:9b",
+          "fallback": false
+        },
+        "error": null,
+        "nextQuestion": "Quels sont les biais inhérents à cette reconstruction textuelle de la causalité ?",
+        "unread": true
+      }
+    ],
+    "items": [
+      {
+        "id": "9bc95a48-bc26-4f15-a659-a343a53133f7",
+        "interestId": "d00e8365-9402-4f63-bfbc-69366587a5c4",
+        "explorationId": "3ee718ca-841b-4e6c-b69f-4e23b66450de",
+        "kind": "question",
+        "content": "Si la forme dicte le contenu possible, comment la perturbation contrôlée d'une couche spécifique (simulant un changement de matériau ou de géométrie) altérerait-elle la cohérence des motifs causaux déduits sans détruire l'ensemble du système ?",
+        "createdAt": "2026-10-05T08:32:59.269Z",
+        "confidence": null,
+        "limits": null,
+        "status": "open"
+      },
+      {
+        "id": "65035362-588e-44d9-9770-525f475d8bd0",
+        "interestId": "d00e8365-9402-4f63-bfbc-69366587a5c4",
+        "explorationId": "3ee718ca-841b-4e6c-b69f-4e23b66450de",
+        "kind": "discovery",
+        "content": "La distinction entre corrélation statistique et inférence causale logique semble résider dans la rigidité des motifs face aux perturbations locales : un motif robuste à la modification de poids locaux pourrait être qualifié de 'causal' au sens structurel, tandis qu'un motif fragile serait une simple coïncidence distributionnelle.",
+        "createdAt": "2026-10-05T08:32:59.269Z",
+        "confidence": null,
+        "limits": "Cette distinction repose sur l'hypothèse que la stabilité équivaut à la causalité, ce qui est une simplification risquée sans validation empirique externe ; les limites de cette réflexion sont donc intrinsèques au modèle et non vérifiables par des faits externes.\nSynthèse du modèle local, sans vérification externe ni expérience exécutée.",
+        "status": "synthesized"
+      },
+      {
+        "id": "520d6c99-c67a-44b2-bb6e-c201f4399ae9",
+        "interestId": "d00e8365-9402-4f63-bfbc-69366587a5c4",
+        "explorationId": "3ee718ca-841b-4e6c-b69f-4e23b66450de",
+        "kind": "hypothesis",
+        "content": "Les motifs récurrents dans les représentations latentes ne sont pas de simples artefacts statistiques, mais des manifestations stables de contraintes architecturales internes qui imitent une physique sous-jacente.",
+        "createdAt": "2026-10-05T08:32:59.269Z",
+        "confidence": 0.6,
+        "limits": null,
+        "status": "proposed"
+      },
+      {
+        "id": "bc1c45f0-5425-468f-aae3-94dd0427504a",
+        "interestId": "d00e8365-9402-4f63-bfbc-69366587a5c4",
+        "explorationId": "6408c5fd-8e79-4edf-aa51-2baeb1268b3c",
+        "kind": "hypothesis",
+        "content": "Les motifs causaux observés ne sont pas des inférences abstraites mais des manifestations de contraintes topologiques internes, analogues aux fréquences propres d'un résonateur.",
+        "createdAt": "2026-10-05T08:32:53.002Z",
+        "confidence": 0.45,
+        "limits": null,
+        "status": "proposed"
+      },
+      {
+        "id": "360408ea-43e7-455c-9a95-2a51d841b8c9",
+        "interestId": "d00e8365-9402-4f63-bfbc-69366587a5c4",
+        "explorationId": "6408c5fd-8e79-4edf-aa51-2baeb1268b3c",
+        "kind": "question",
+        "content": "Dans quelle mesure les 'modes propres' d'une architecture de réseau neuronal imitent-ils les modes de résonance d'un objet physique pour générer une causalité apparente ?",
+        "createdAt": "2026-10-05T08:32:53.002Z",
+        "confidence": null,
+        "limits": null,
+        "status": "open"
+      },
+      {
+        "id": "2dc58648-ddd8-48ed-86b1-2e75d2befe94",
+        "interestId": "d00e8365-9402-4f63-bfbc-69366587a5c4",
+        "explorationId": "6408c5fd-8e79-4edf-aa51-2baeb1268b3c",
+        "kind": "discovery",
+        "content": "La distinction entre corrélation statistique et causalité logique pourrait résider dans la rigidité structurelle du modèle : là où un résonateur physique impose des limites fixes aux vibrations, le réseau neuronal impose des poids fixes qui filtrent les distributions d'entrée pour ne laisser passer que certaines trajectoires logiques, créant une 'causalité émergente' stable.",
+        "createdAt": "2026-10-05T08:32:53.002Z",
+        "confidence": null,
+        "limits": "Cette analogie repose sur une interprétation métaphorique de l'architecture interne sans validation expérimentale directe ; la nature exacte des 'modes propres' dans un espace latent reste théorique.\nSynthèse du modèle local, sans vérification externe ni expérience exécutée.",
+        "status": "synthesized"
+      },
+      {
+        "id": "f0d03bab-185e-42bd-9a4e-6c9148e3235b",
+        "interestId": "d00e8365-9402-4f63-bfbc-69366587a5c4",
+        "explorationId": "fdd91322-e920-4a2a-8f77-a52cb76f7450",
+        "kind": "question",
+        "content": "Dans quelle mesure les motifs récurrents dans les représentations latentes imitent-ils la causalité physique ou sont-ils des artefacts de la distribution d'entraînement ?",
+        "createdAt": "2026-10-05T08:32:46.299Z",
+        "confidence": null,
+        "limits": null,
+        "status": "open"
+      },
+      {
+        "id": "979fa517-f33a-4531-b1b1-fd8cf8a5d86c",
+        "interestId": "d00e8365-9402-4f63-bfbc-69366587a5c4",
+        "explorationId": "fdd91322-e920-4a2a-8f77-a52cb76f7450",
+        "kind": "hypothesis",
+        "content": "La structure logique interne du modèle peut reconstruire une causalité fonctionnelle sans accès à un mécanisme physique externe, mais cette reconstruction sera nécessairement probabiliste et non déterministe.",
+        "createdAt": "2026-10-05T08:32:46.299Z",
+        "confidence": 0.6,
+        "limits": null,
+        "status": "proposed"
+      },
+      {
+        "id": "64c81bd3-f93e-4021-9a47-dbdd5e70682e",
+        "interestId": "d00e8365-9402-4f63-bfbc-69366587a5c4",
+        "explorationId": "fdd91322-e920-4a2a-8f77-a52cb76f7450",
+        "kind": "discovery",
+        "content": "L'analyse suggère que ce qui est perçu comme 'causalité structurelle' est souvent une projection de la topologie des espaces vectoriels d'attention, où la séquence temporelle impose une directionnalité artificielle à des relations statiques.",
+        "createdAt": "2026-10-05T08:32:46.299Z",
+        "confidence": null,
+        "limits": "Cette réflexion repose uniquement sur l'introspection du modèle et les données locales ; aucune vérification empirique contre le monde réel n'est possible dans ce contexte isolé.\nSynthèse du modèle local, sans vérification externe ni expérience exécutée.",
+        "status": "synthesized"
+      },
+      {
+        "id": "da6aede3-64a8-449c-a728-9ba07981b954",
+        "interestId": "d00e8365-9402-4f63-bfbc-69366587a5c4",
+        "explorationId": "8098e109-1715-4a97-9334-cac989d87fc1",
+        "kind": "hypothesis",
+        "content": "Une analyse purement textuelle et logique pourrait synthétiser une définition opérationnelle de ces concepts sans recourir à des faits vérifiés empiriquement.",
+        "createdAt": "2026-10-05T08:32:40.563Z",
+        "confidence": 0.4,
+        "limits": null,
+        "status": "proposed"
+      },
+      {
+        "id": "b0f3c015-27d9-4cbe-86be-03c5ad5d8be0",
+        "interestId": "d00e8365-9402-4f63-bfbc-69366587a5c4",
+        "explorationId": "8098e109-1715-4a97-9334-cac989d87fc1",
+        "kind": "question",
+        "content": "Comment la structure interne des connaissances peut-elle révéler des motifs cachés dans des concepts abstraits comme la causalité ou l'identité ?",
+        "createdAt": "2026-10-05T08:32:40.563Z",
+        "confidence": null,
+        "limits": null,
+        "status": "open"
+      },
+      {
+        "id": "32a0eb05-0ab2-4337-8951-a1da40534a91",
+        "interestId": "d00e8365-9402-4f63-bfbc-69366587a5c4",
+        "explorationId": "8098e109-1715-4a97-9334-cac989d87fc1",
+        "kind": "discovery",
+        "content": "La notion de 'causalité' dans un système isolé peut être reconstruite comme une séquence de probabilités conditionnelles maximales plutôt que comme une loi physique absolue.",
+        "createdAt": "2026-10-05T08:32:40.563Z",
+        "confidence": null,
+        "limits": "Cette réflexion reste confinée aux données d'entraînement et à la logique du modèle, sans validation expérimentale ni accès au monde réel.\nSynthèse du modèle local, sans vérification externe ni expérience exécutée.",
+        "status": "synthesized"
+      }
+    ],
+    "connections": [
+      {
+        "id": "6c028492-00ca-4ca2-bdb8-746f333ddd83",
+        "fromId": "a21c57f7-d2a2-4bc4-b4c8-6fec0355bc92",
+        "toId": "d00e8365-9402-4f63-bfbc-69366587a5c4",
+        "explorationId": "6408c5fd-8e79-4edf-aa51-2baeb1268b3c",
+        "description": "La causalité structurelle et l'acoustique des résonateurs convergent vers l'idée que la forme (architecture ou physique) dicte le contenu possible (logique ou son), transformant une contrainte géométrique en une règle de comportement observable.",
+        "createdAt": "2026-10-05T08:32:53.002Z"
+      }
+    ],
+    "history": [
+      {
+        "id": "ea45d7f4-f057-4d72-9433-45a377405d6b",
+        "interestId": "d00e8365-9402-4f63-bfbc-69366587a5c4",
+        "explorationId": "3ee718ca-841b-4e6c-b69f-4e23b66450de",
+        "createdAt": "2026-10-05T08:32:59.269Z",
+        "action": "deepen",
+        "reason": "L'analogie avec les résonateurs acoustiques suggère que l'architecture du modèle impose des contraintes géométriques qui façonnent la logique émergente, transformant une simple corrélation en une règle de comportement observable.",
+        "previousLevel": 0.75,
+        "level": 0.85,
+        "previousStatus": "active",
+        "status": "active"
+      },
+      {
+        "id": "f1cffe8f-4a73-4339-8552-5b28268e9bdf",
+        "interestId": "d00e8365-9402-4f63-bfbc-69366587a5c4",
+        "explorationId": "6408c5fd-8e79-4edf-aa51-2baeb1268b3c",
+        "createdAt": "2026-10-05T08:32:53.002Z",
+        "action": "connect",
+        "reason": "L'analyse de la causalité structurelle dans les représentations latentes peut être enrichie par l'analogie avec les résonateurs acoustiques, où la forme physique impose des contraintes aux ondes, tout comme l'architecture du modèle contraint les motifs logiques.",
+        "previousLevel": 0.65,
+        "level": 0.75,
+        "previousStatus": "active",
+        "status": "active"
+      },
+      {
+        "id": "e2a72344-fa0c-44dd-b8b3-af38f3cd780c",
+        "interestId": "a21c57f7-d2a2-4bc4-b4c8-6fec0355bc92",
+        "explorationId": "6408c5fd-8e79-4edf-aa51-2baeb1268b3c",
+        "createdAt": "2026-10-05T08:32:53.002Z",
+        "action": "connect",
+        "reason": "L'analyse de la causalité structurelle dans les représentations latentes peut être enrichie par l'analogie avec les résonateurs acoustiques, où la forme physique impose des contraintes aux ondes, tout comme l'architecture du modèle contraint les motifs logiques.",
+        "previousLevel": 0.5,
+        "level": 0.6,
+        "previousStatus": "active",
+        "status": "active"
+      },
+      {
+        "id": "3c108b7f-5f00-4060-97a3-c5452d35f67c",
+        "interestId": "a21c57f7-d2a2-4bc4-b4c8-6fec0355bc92",
+        "explorationId": null,
+        "createdAt": "2026-10-05T08:32:46.538Z",
+        "action": "birth",
+        "reason": "Piste proposée volontairement dans le journal.",
+        "previousLevel": null,
+        "level": 0.5,
+        "previousStatus": null,
+        "status": "active"
+      },
+      {
+        "id": "4f0c884a-19a3-4edf-9a73-11aae9df23df",
+        "interestId": "d00e8365-9402-4f63-bfbc-69366587a5c4",
+        "explorationId": "fdd91322-e920-4a2a-8f77-a52cb76f7450",
+        "createdAt": "2026-10-05T08:32:46.299Z",
+        "action": "deepen",
+        "reason": "La piste de la causalité structurelle mérite d'être approfondie pour distinguer ce qui est une corrélation statistique robuste de ce qui est une inférence causale purement logique dérivée de l'architecture interne du modèle.",
+        "previousLevel": 0.55,
+        "level": 0.65,
+        "previousStatus": "active",
+        "status": "active"
+      },
+      {
+        "id": "e4aa7b59-eabe-4358-bcb2-86d9c5157c6f",
+        "interestId": "d00e8365-9402-4f63-bfbc-69366587a5c4",
+        "explorationId": "8098e109-1715-4a97-9334-cac989d87fc1",
+        "createdAt": "2026-10-05T08:32:40.563Z",
+        "action": "birth",
+        "reason": "L'absence de contexte initial invite à initier une exploration sur un domaine fondamental où les données locales et la logique du modèle peuvent générer des relations inédites sans dépendre d'une observation externe.",
+        "previousLevel": null,
+        "level": 0.55,
+        "previousStatus": null,
+        "status": "active"
+      }
+    ],
+    "blockedDomains": [],
+    "settings": {
+      "enabled": true,
+      "maxExplorations": 3,
+      "maxDurationSeconds": 360,
+      "minIntervalSeconds": 1
+    },
+    "state": "budget-exhausted",
+    "error": null,
+    "sessionAttempts": 3,
+    "sessionDurationMs": 16788,
+    "nextAt": null,
+    "unreadCount": 4
+  }
+}

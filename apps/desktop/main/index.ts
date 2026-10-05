@@ -8,6 +8,12 @@ import { DesktopMindService } from './mind-service';
 import { createCuriosity } from './curiosity-service';
 import type { CuriosityEngine } from '@aether/curiosity';
 import type { CuriosityObjectKind, CuriositySnapshot } from '@aether/shared';
+import {existingSelection,parsePortalSettings,parseSpaceView,PortalLifecycle} from '@aether/space';
+import type {PortalSettings,SpaceData,SpacePreferences,SpaceSnapshot} from '@aether/shared';
+import {PortalSettingsStore,SpacePreferencesStore} from './space-storage';
+import {createEcho} from './echo-service';
+import type {EchoEngine} from '@aether/echo';
+import type {EchoSnapshot} from '@aether/shared';
 
 app.setName('AETHER');
 // Tests use a profile isolated from the user's preferences. Production ignores overrides.
@@ -22,6 +28,18 @@ let dialogue: BrowserWindow | null = null;
 let memoryWindow: BrowserWindow | null = null;
 let curiosityWindow: BrowserWindow | null = null;
 let curiosity: CuriosityEngine | null = null;
+let echo:EchoEngine|null=null;
+let echoWindow:BrowserWindow|null=null;
+let spaceWindow:BrowserWindow|null=null;
+const portal=new PortalLifecycle();
+let portalTimer:ReturnType<typeof setTimeout>|undefined;
+let singleClickTimer:ReturnType<typeof setTimeout>|undefined;
+let portalShortcuts:ShortcutManager;
+let portalSettings:PortalSettings;
+let portalStore:PortalSettingsStore;
+let spaceStore:SpacePreferencesStore;
+let spacePreferences:SpacePreferences;
+let spaceSince:string|null=null;
 let mindService: DesktopMindService | null = null;
 let tray: Tray | null = null;
 let model: PresenceModel;
@@ -42,7 +60,7 @@ const rendererURL = (() => {
   return url.origin;
 })();
 const baseURL = rendererURL ?? pathToFileURL(rendererFile).href;
-const approvedURLs = new Set(['entity', 'settings', 'dialogue', 'memory', 'curiosity'].flatMap(view => [`${baseURL}#${view}`, ...(rendererURL ? [`${baseURL}/#${view}`] : [])]));
+const approvedURLs = new Set(['entity', 'settings', 'dialogue', 'memory', 'curiosity','space','echo'].flatMap(view => [`${baseURL}#${view}`, ...(rendererURL ? [`${baseURL}/#${view}`] : [])]));
 function workAreas() {
   const primary = screen.getPrimaryDisplay();
   return [primary, ...screen.getAllDisplays().filter(display => display.id !== primary.id)].map(display => display.workArea);
@@ -62,10 +80,15 @@ function secureWindow(window: BrowserWindow) {
   window.webContents.on('will-navigate', event => event.preventDefault());
   window.webContents.on('will-attach-webview', event => event.preventDefault());
   window.webContents.on('render-process-gone', (_event, details) => {
-    if (!quitting) { report(new Error(`Le rendu s'est arrêté (${details.reason}). Rappelez ENTITY depuis le tray pour le recharger.`)); stopHitTesting(); }
+    if (!quitting && !window.isDestroyed() && details.reason!=='clean-exit') {
+      report(new Error(`Le rendu s'est arrêté (${details.reason}). Rappelez ENTITY depuis le tray pour le recharger.`));
+      // A secondary renderer must not disable ENTITY's native hit testing.
+      if(window===entity)stopHitTesting();
+      if(window===echoWindow)echo?.disable();
+    }
   });
 }
-async function load(window: BrowserWindow, view: 'entity' | 'settings' | 'dialogue' | 'memory' | 'curiosity') {
+async function load(window: BrowserWindow, view: 'entity' | 'settings' | 'dialogue' | 'memory' | 'curiosity'|'space'|'echo') {
   if (rendererURL) await window.loadURL(`${rendererURL}/#${view}`);
   else await window.loadFile(rendererFile, { hash: view });
 }
@@ -85,8 +108,8 @@ function startHitTesting() {
 function stopHitTesting() { if (hitTimer) clearInterval(hitTimer); hitTimer = undefined; }
 function attention() {
   if (attentionTimer) clearTimeout(attentionTimer);
-  if (mindService?.engine.snapshot().state !== 'thinking' && !curiosity?.isExploring()) model.setState('attention');
-  attentionTimer = setTimeout(() => { if (mindService?.engine.snapshot().state !== 'thinking' && !curiosity?.isExploring()) model.setState('idle'); attentionTimer = undefined; }, 1400);
+  if (mindService?.engine.snapshot().state !== 'thinking' && !curiosity?.isExploring() && !echo?.isBusy()) model.setState('attention');
+  attentionTimer = setTimeout(() => { if (mindService?.engine.snapshot().state !== 'thinking' && !curiosity?.isExploring() && !echo?.isBusy()) model.setState('idle'); attentionTimer = undefined; }, 1400);
 }
 function rememberPosition() {
   if (!entity || entity.isDestroyed()) return;
@@ -102,12 +125,14 @@ function reposition() {
 }
 function recall() {
   if (!entity || entity.isDestroyed()) return;
+  if(portal.snapshot().phase!=='closed'){guardPersistence(()=>persist({...model.snapshot().preferences,visible:true}));closePortal();return;}
   if (entity.webContents.isCrashed()) void load(entity, 'entity').catch(report);
   reposition(); entity.showInactive(); startHitTesting(); attention();
   guardPersistence(() => persist({ ...model.snapshot().preferences, visible: true }));
   refreshTray();
 }
 function hide() {
+  if(portal.snapshot().phase!=='closed')closePortal();
   closeDialogue();
   finishDrag(false); entity.hide(); stopHitTesting();
   if (attentionTimer) clearTimeout(attentionTimer);
@@ -135,8 +160,10 @@ function buildMenu() {
     { label: 'MEMORY…', click: () => { void openMemory().catch(report); } },
     { label: 'CURIOSITY · journal…', click: () => { void openCuriosity().catch(report); } },
     { label: 'Réglages…', click: () => { void openSettings().catch(report); } },
-    { label: 'Portail · non implémenté', enabled: false },
-    { label: 'ECHO / FORGE / MIRROR · non implémentés', enabled: false },
+    {label:portal.snapshot().phase==='closed'?'Entrer dans AETHER…':'Revenir au bureau',click:()=>{void togglePortal().catch(report);}},
+    { label: 'ECHO · Regarde comment je fais…', click: () => {void openEcho().catch(report);} },
+    { label: 'Arrêter ECHO immédiatement', enabled:echo?.isBusy()??false, click:()=>{if(echo?.isObserving()||echo?.runtimeState()==='paused')void echo.stop().catch(report);else echo?.cancelAnalysis();} },
+    { label: 'FORGE / MIRROR · non implémentés', enabled: false },
     { type: 'separator' },
     { label: 'Quitter AETHER', click: () => app.quit() },
   ]);
@@ -160,12 +187,13 @@ function requireMind(): DesktopMindService {
 }
 function positionDialogue() {
   if (!dialogue || dialogue.isDestroyed()) return;
-  const origin = entity.getBounds(), area = screen.getDisplayMatching(origin).workArea;
+  const origin = spaceWindow?.isVisible()?{x:spaceWindow.getBounds().x+spaceWindow.getBounds().width/2-80,y:spaceWindow.getBounds().y+spaceWindow.getBounds().height/2-80}:entity.getBounds(), area = screen.getDisplayMatching({...origin,width:160,height:160}).workArea;
   const width = Math.min(420, area.width), height = Math.min(490, area.height);
   const desiredX = origin.x - width - 10 >= area.x ? origin.x - width - 10 : origin.x + ENTITY_SIZE + 10;
   dialogue.setBounds({ x: Math.max(area.x, Math.min(desiredX, area.x + area.width - width)), y: Math.max(area.y, Math.min(origin.y + 80 - height, area.y + area.height - height)), width, height });
 }
 function closeDialogue() {
+  if(singleClickTimer)clearTimeout(singleClickTimer);singleClickTimer=undefined;
   if (mindService?.engine.snapshot().state === 'thinking') mindService.engine.cancel();
   else mindService?.engine.setState('idle');
   dialogue?.close();
@@ -193,13 +221,29 @@ async function openMemory() {
   await load(memoryWindow, 'memory');
 }
 function reflectMind(snapshot: MindSnapshot) {
+  if(quitting)return;
   if (attentionTimer) clearTimeout(attentionTimer);
-  const state = snapshot.state === 'thinking' ? 'thinking' : curiosity?.isExploring() ? 'exploring' : snapshot.state === 'error' ? 'error' : snapshot.state === 'idle' ? 'idle' : 'attention';
+  const state = snapshot.state === 'thinking' || echo?.runtimeState()==='analysing' ? 'thinking' : echo?.isObserving()?'observing':curiosity?.isExploring() ? 'exploring' : snapshot.state === 'error' ? 'error' : snapshot.state === 'idle' ? 'idle' : 'attention';
   model.setState(state);
-  if (state === 'attention' || state === 'error') attentionTimer = setTimeout(() => { if (mindService?.engine.snapshot().state !== 'thinking' && !curiosity?.isExploring()) model.setState('idle'); }, 1800);
-  for (const window of [entity, dialogue, settings, memoryWindow,curiosityWindow]) if (window && !window.isDestroyed() && !window.webContents.isDestroyed()) window.webContents.send(IPC.mindChanged, snapshot);
+  if (state === 'attention' || state === 'error') attentionTimer = setTimeout(() => { if (mindService?.engine.snapshot().state !== 'thinking' && !curiosity?.isExploring() && !echo?.isBusy()) model.setState('idle'); }, 1800);
+  for (const window of [entity, dialogue, settings, memoryWindow,curiosityWindow,spaceWindow,echoWindow]) if (window && !window.isDestroyed() && !window.webContents.isDestroyed()) window.webContents.send(IPC.mindChanged, snapshot);
 }
 function requireCuriosity() { if (!curiosity) throw new Error('CURIOSITY est indisponible. La présence et le dialogue restent accessibles.'); return curiosity; }
+function requireEcho(){if(!echo)throw new Error('ECHO est indisponible. Les autres moteurs restent accessibles.');return echo;}
+async function openEcho(){
+  requireEcho();if(echoWindow&&!echoWindow.isDestroyed()){echoWindow.show();echoWindow.focus();return;}
+  echoWindow=new BrowserWindow({title:'AETHER — ECHO',width:980,height:820,minWidth:760,minHeight:620,show:false,autoHideMenuBar:true,backgroundColor:'#111b22',icon:resolve(__dirname,'../assets/icon.png'),webPreferences:{preload:resolve(__dirname,'preload.cjs'),sandbox:true,contextIsolation:true,nodeIntegration:false,webSecurity:true,spellcheck:false}});
+  secureWindow(echoWindow);echoWindow.setMenu(null);
+  // Closing the control panel terminates perception rather than leaving a hidden observer.
+  echoWindow.on('close',()=>{if(!quitting)echo?.disable();});
+  echoWindow.on('closed',()=>{echoWindow=null;});echoWindow.once('ready-to-show',()=>echoWindow?.show());await load(echoWindow,'echo');
+}
+function reflectEcho(snapshot:EchoSnapshot){
+  if(quitting)return;model.setEchoActive(snapshot.state==='observing');
+  if(snapshot.state==='observing')model.setState('observing');else if(snapshot.state==='analysing')model.setState('thinking');else reflectMind(requireMind().engine.snapshot());
+  for(const window of [entity,dialogue,settings,memoryWindow,curiosityWindow,spaceWindow,echoWindow])if(window&&!window.isDestroyed()&&!window.webContents.isDestroyed())window.webContents.send(IPC.echoChanged,snapshot);
+  refreshTray();publishSpace();
+}
 async function openCuriosity() {
   requireCuriosity();
   if (curiosityWindow && !curiosityWindow.isDestroyed()) { curiosityWindow.show(); curiosityWindow.focus(); return; }
@@ -213,9 +257,38 @@ function reflectCuriosity(snapshot: CuriositySnapshot) {
   model.setDiscoveryPending(snapshot.unreadCount>0);
   if (attentionTimer) clearTimeout(attentionTimer);
   const mind= mindService?.engine.snapshot();
-  model.setState(mind?.state==='thinking'?'thinking':snapshot.state==='exploring'?'exploring':mind?.state==='error'?'error':'idle');
-  for (const window of [entity,dialogue,settings,memoryWindow,curiosityWindow]) if (window && !window.isDestroyed() && !window.webContents.isDestroyed()) window.webContents.send(IPC.curiosityChanged,snapshot);
+  model.setState(mind?.state==='thinking'||echo?.runtimeState()==='analysing'?'thinking':echo?.isObserving()?'observing':snapshot.state==='exploring'?'exploring':mind?.state==='error'?'error':'idle');
+  for (const window of [entity,dialogue,settings,memoryWindow,curiosityWindow,spaceWindow,echoWindow]) if (window && !window.isDestroyed() && !window.webContents.isDestroyed()) window.webContents.send(IPC.curiosityChanged,snapshot);
+  publishSpace();
 }
+function publishSpace(){if(spaceWindow&&!spaceWindow.isDestroyed())spaceWindow.webContents.send(IPC.spaceChanged);}
+async function spaceData():Promise<SpaceData>{return {memories:mindService?await mindService.memory.list():[],curiosity:curiosity?.snapshot()??null,mind:mindService?.engine.snapshot()??null,presence:model.snapshot(),echo:echo?.snapshot()??null};}
+function armPortalTimer(){if(portalTimer)clearTimeout(portalTimer);const current=portal.snapshot();if(current.phase==='opening'||current.phase==='closing')portalTimer=setTimeout(()=>portal.settle(current.token),current.durationMs+250);}
+function restoreDesktop(){if(quitting)return;reposition();if(model.snapshot().preferences.visible){entity.showInactive();startHitTesting();}refreshTray();}
+async function openPortal(){
+  if(singleClickTimer)clearTimeout(singleClickTimer);singleClickTimer=undefined;finishDrag(false);closeDialogue();
+  if(spaceWindow&&!spaceWindow.isDestroyed()){if(portal.snapshot().phase==='closing'){const current=portal.snapshot();portal.open(current.origin,current.viewport,model.snapshot().preferences.reducedMotion);armPortalTimer();}spaceWindow.show();spaceWindow.focus();return;}
+  const bounds=entity.getBounds(),area=screen.getDisplayMatching(bounds).workArea;
+  spaceSince=spacePreferences.lastVisitedAt;
+  if(!model.snapshot().preferences.visible)guardPersistence(()=>persist({...model.snapshot().preferences,visible:true}));
+  spaceWindow=new BrowserWindow({title:'AETHER · SPACE',...area,frame:false,thickFrame:false,transparent:true,backgroundColor:'#00000000',hasShadow:false,resizable:false,maximizable:false,fullscreenable:false,show:false,autoHideMenuBar:true,alwaysOnTop:true,webPreferences:{preload:resolve(__dirname,'preload.cjs'),sandbox:true,contextIsolation:true,nodeIntegration:false,webSecurity:true,spellcheck:false}});
+  const currentWindow=spaceWindow;secureWindow(currentWindow);currentWindow.setMenu(null);
+  currentWindow.on('close',event=>{if(!quitting&&portal.snapshot().phase!=='closed'){event.preventDefault();closePortal();}});
+  currentWindow.on('closed',()=>{if(spaceWindow===currentWindow)spaceWindow=null;if(portal.snapshot().phase!=='closed')portal.reset();restoreDesktop();});
+  portal.open({x:bounds.x+80-area.x,y:bounds.y+80-area.y},area,model.snapshot().preferences.reducedMotion);
+  try{
+    await load(currentWindow,'space');if(currentWindow.isDestroyed())return;
+    currentWindow.show();currentWindow.focus();entity.hide();stopHitTesting();
+    const visited={...spacePreferences,lastVisitedAt:new Date().toISOString()};spaceStore.save(visited);spacePreferences=visited;armPortalTimer();refreshTray();
+  }catch(error){if(currentWindow.isDestroyed()||spaceWindow!==currentWindow)return;currentWindow.destroy();throw error;}
+}
+function closePortal(){
+  closeDialogue();
+  if(!spaceWindow||spaceWindow.isDestroyed()){portal.reset();return;}
+  if(!spaceWindow.isVisible()){spaceWindow.destroy();portal.reset();return;}
+  portal.close();armPortalTimer();
+}
+async function togglePortal(){if(portal.snapshot().phase==='closed'||portal.snapshot().phase==='closing')await openPortal();else closePortal();}
 function mutateCuriosity(action: (engine: CuriosityEngine)=>void): OperationResult {
   const engine=requireCuriosity(); engine.cancel('Journal modifié par l’utilisateur.'); requireMind().engine.reset('Le journal de curiosité a changé. Nouvelle conversation.');
   try { action(engine); return {ok:true}; } finally { engine.invalidate('Journal mis à jour.'); }
@@ -225,7 +298,7 @@ function finishDrag(reactToClick = true) {
   const moved = drag.moved; drag = null;
   if (dragWatchdog) clearTimeout(dragWatchdog);
   if (moved) { reposition(); }
-  else if (reactToClick) { attention(); void openDialogue().catch(report); }
+  else if (reactToClick) { attention(); if(singleClickTimer)clearTimeout(singleClickTimer);singleClickTimer=setTimeout(()=>{singleClickTimer=undefined;void openDialogue().catch(report);},320); }
   updateHitTesting();
 }
 function resetDragWatchdog() {
@@ -252,10 +325,10 @@ function handleDrag(phase: unknown) {
 }
 function authorize(event: Electron.IpcMainInvokeEvent | Electron.IpcMainEvent, entityOnly = false) {
   const window = BrowserWindow.fromWebContents(event.sender);
-  if (!window || ![entity, settings, dialogue, memoryWindow,curiosityWindow].includes(window) || (entityOnly && window !== entity)
+  if (!window || ![entity, settings, dialogue, memoryWindow,curiosityWindow,spaceWindow,echoWindow].includes(window) || (entityOnly && window !== entity)
     || event.senderFrame !== event.sender.mainFrame || !approvedURLs.has(event.senderFrame.url)) throw new Error('Origine IPC non autorisée.');
 }
-const COMMANDS: readonly PresenceCommand[] = ['interact', 'hide', 'recall', 'settings', 'menu', 'portal', 'quit', 'dialogue', 'memory', 'curiosity', 'close-dialogue'];
+const COMMANDS: readonly PresenceCommand[] = ['interact', 'hide', 'recall', 'settings', 'menu', 'portal', 'quit', 'dialogue', 'memory', 'curiosity', 'close-dialogue','echo'];
 function setupIPC() {
   ipcMain.handle(IPC.snapshot, event => { authorize(event); return model.snapshot(); });
   ipcMain.handle(IPC.command, async (event, command: unknown): Promise<OperationResult> => {
@@ -270,9 +343,10 @@ function setupIPC() {
         case 'dialogue': await openDialogue(); break;
         case 'memory': await openMemory(); break;
         case 'curiosity': await openCuriosity(); break;
+        case 'echo': await openEcho(); break;
         case 'close-dialogue': closeDialogue(); break;
         case 'menu': buildMenu().popup({ window: entity }); break;
-        case 'portal': throw new Error('Le portail spatial n’est pas encore implémenté.');
+        case 'portal': await openPortal(); break;
         case 'quit': setImmediate(() => app.quit()); break;
       }
       return { ok: true };
@@ -301,6 +375,7 @@ function setupIPC() {
     authorize(event);
     if (BrowserWindow.fromWebContents(event.sender) !== dialogue) return report(new Error('Les messages se saisissent dans l’échange avec ENTITY.'));
     if (typeof message !== 'string') return report(new Error('Message invalide.'));
+    if(/^regarde comment je fais[.!?\s]*$/i.test(message.trim())){await openEcho();return {ok:true};}
     curiosity?.invalidate('Message utilisateur : priorité au dialogue.');
     return requireMind().engine.submit(message);
   });
@@ -332,17 +407,17 @@ function setupIPC() {
   });
   ipcMain.handle(IPC.memoryWrite, async (event, payload: unknown) => {
     authorize(event);
-    if (BrowserWindow.fromWebContents(event.sender) !== memoryWindow) return report(new Error('Les souvenirs se modifient dans MEMORY.'));
-    try { curiosity?.cancel('MEMORY modifiée.'); const result=await requireMind().writeMemory(payload); const id=(payload as {id?:unknown})?.id; if(typeof id==='string') curiosity?.repository.removeMemoryOrigins(id); curiosity?.invalidate('MEMORY mise à jour.'); return result; } catch (error) { curiosity?.start(); return report(error); }
+    if (![memoryWindow,spaceWindow].includes(BrowserWindow.fromWebContents(event.sender))) return report(new Error('Les souvenirs se modifient dans MEMORY ou SPACE.'));
+    try { const id=(payload as {id?:unknown})?.id;if(typeof id==='string'&&echo?.snapshot().habits.some(h=>h.memoryId===id))throw new Error('Corrigez cette habitude dans ECHO pour préserver sa provenance.');curiosity?.cancel('MEMORY modifiée.'); const result=await requireMind().writeMemory(payload); if(typeof id==='string') curiosity?.repository.removeMemoryOrigins(id); curiosity?.invalidate('MEMORY mise à jour.');publishSpace(); return result; } catch (error) { curiosity?.start(); return report(error); }
   });
   ipcMain.handle(IPC.memoryRemove, async (event, id: unknown) => {
     authorize(event);
-    if (BrowserWindow.fromWebContents(event.sender) !== memoryWindow || typeof id !== 'string') return report(new Error('Suppression MEMORY non autorisée.'));
-    try { curiosity?.cancel('Souvenir supprimé.'); const result=await requireMind().removeMemory(id); curiosity?.repository.removeMemoryOrigins(id); curiosity?.invalidate('Souvenir et pistes issues de celui-ci retirés.'); return result; } catch (error) { curiosity?.start(); return report(error); }
+    if (![memoryWindow,spaceWindow].includes(BrowserWindow.fromWebContents(event.sender)) || typeof id !== 'string') return report(new Error('Suppression MEMORY non autorisée.'));
+    try { curiosity?.cancel('Souvenir supprimé.');requireMind().engine.reset('Souvenir supprimé.');const result=echo?.removeMemory(id)?{ok:true} as const:await requireMind().removeMemory(id); curiosity?.repository.removeMemoryOrigins(id); curiosity?.invalidate('Souvenir et pistes issues de celui-ci retirés.');publishSpace(); return result; } catch (error) { curiosity?.start(); return report(error); }
   });
   ipcMain.handle(IPC.memoryExport, async event => {
     authorize(event);
-    if (BrowserWindow.fromWebContents(event.sender) !== memoryWindow) return report(new Error('L’export se lance depuis MEMORY.'));
+    if (![memoryWindow,spaceWindow].includes(BrowserWindow.fromWebContents(event.sender))) return report(new Error('L’export se lance depuis MEMORY ou SPACE.'));
     try { return await requireMind().exportMemories(); } catch (error) { return report(error); }
   });
   ipcMain.handle(IPC.routerGet,event=>{authorize(event);return requireMind().routerView();});
@@ -354,6 +429,20 @@ function setupIPC() {
   ipcMain.handle(IPC.curiosityRemove,(event,kind:unknown,id:unknown)=>{authorize(event);if(BrowserWindow.fromWebContents(event.sender)!==curiosityWindow || typeof kind!=='string'||typeof id!=='string')return report(new Error('Suppression CURIOSITY non autorisée.'));try{return mutateCuriosity(engine=>engine.repository.remove(kind as CuriosityObjectKind,id));}catch(error){return report(error);}});
   ipcMain.handle(IPC.curiosityBlock,(event,domain:unknown,blocked:unknown)=>{authorize(event);if(BrowserWindow.fromWebContents(event.sender)!==curiosityWindow||typeof domain!=='string'||typeof blocked!=='boolean')return report(new Error('Règle de domaine invalide.'));try{return mutateCuriosity(engine=>engine.repository.setBlocked(domain,blocked));}catch(error){return report(error);}});
   ipcMain.handle(IPC.curiosityRead,event=>{authorize(event);const engine=requireCuriosity();engine.repository.markRead();engine.publish();return {ok:true};});
+  ipcMain.handle(IPC.portalGet,event=>{authorize(event);return portal.snapshot();});
+  ipcMain.handle(IPC.portalControl,(event,command:unknown,token:unknown)=>{authorize(event);if(BrowserWindow.fromWebContents(event.sender)!==spaceWindow)return report(new Error('PORTAL se contrôle depuis SPACE.'));try{if(command==='close')closePortal();else if(command==='settle'&&typeof token==='number'&&Number.isInteger(token))portal.settle(token);else throw new Error('Transition PORTAL invalide.');return {ok:true};}catch(error){return report(error);}});
+  ipcMain.handle(IPC.portalSettingsGet,event=>{authorize(event);return {...portalSettings,registered:portalShortcuts.registered};});
+  ipcMain.handle(IPC.portalSettingsSave,(event,payload:unknown)=>{authorize(event);if(BrowserWindow.fromWebContents(event.sender)!==settings)return report(new Error('Le raccourci PORTAL se modifie dans les réglages.'));let transaction:ReturnType<ShortcutManager['prepare']>|undefined;try{const next=parsePortalSettings(payload);transaction=portalShortcuts.prepare(next.shortcut);portalStore.save(next);transaction.commit();portalSettings=next;return {ok:true};}catch(error){transaction?.rollback();return report(error);}});
+  ipcMain.handle(IPC.spaceGet,async(event):Promise<SpaceSnapshot>=>{authorize(event);if(BrowserWindow.fromWebContents(event.sender)!==spaceWindow)throw new Error('Les données spatiales se consultent depuis SPACE.');const data=await spaceData();return {data,preferences:{...structuredClone(spacePreferences),selection:existingSelection(spacePreferences.selection,data)},since:spaceSince,portal:portal.snapshot()};});
+  ipcMain.handle(IPC.spaceSave,async(event,payload:unknown)=>{authorize(event);if(BrowserWindow.fromWebContents(event.sender)!==spaceWindow)return report(new Error('Navigation SPACE non autorisée.'));try{const view=parseSpaceView(payload),data=await spaceData(),next={...spacePreferences,...view,selection:existingSelection(view.selection,data)};spaceStore.save(next);spacePreferences=next;return {ok:true};}catch(error){return report(error);}});
+  const echoOwner=(event:Electron.IpcMainInvokeEvent)=>{authorize(event);if(BrowserWindow.fromWebContents(event.sender)!==echoWindow)throw new Error('Le consentement et les commandes ECHO se donnent dans son panneau.');};
+  ipcMain.handle(IPC.echoGet,event=>{authorize(event);return requireEcho().snapshot();});
+  ipcMain.handle(IPC.echoChoose,async(event,purpose:unknown)=>{echoOwner(event);if(!['session','exclusion'].includes(String(purpose)))throw new Error('Choix de dossier invalide.');const result=await dialog.showOpenDialog(echoWindow!,{title:purpose==='session'?'Dossier de test autorisé pour cette session':'Dossier à exclure d’ECHO',properties:['openDirectory','dontAddToRecent']});if(result.canceled||!result.filePaths[0])return null;if(purpose==='session')return requireEcho().choose(result.filePaths[0]);return {token:'',folder:resolve(result.filePaths[0]),expiresAt:''};});
+  ipcMain.handle(IPC.echoStart,(event,input:unknown)=>{echoOwner(event);try{curiosity?.cancel('Session ECHO : priorité à la démonstration humaine.');requireEcho().start(input as Parameters<EchoEngine['start']>[0]);return {ok:true};}catch(error){curiosity?.start();return report(error);}});
+  ipcMain.handle(IPC.echoControl,async(event,command:unknown)=>{echoOwner(event);try{const engine=requireEcho();if(command==='enable')engine.enable();else if(command==='stop')await engine.stop();else if(command==='pause')engine.pause();else if(command==='resume')engine.resume();else if(command==='disable')engine.disable();else if(command==='cancel-analysis')engine.cancelAnalysis();else throw new Error('Commande ECHO invalide.');if(!engine.isBusy())curiosity?.start();return {ok:true};}catch(error){return report(error);}});
+  ipcMain.handle(IPC.echoValidate,(event,input:unknown)=>{echoOwner(event);try{requireMind().engine.reset('Validation ECHO : seules les habitudes confirmées sont utilisées.');requireEcho().validate(input as Parameters<EchoEngine['validate']>[0]);return {ok:true};}catch(error){return report(error);}});
+  ipcMain.handle(IPC.echoRemove,(event,id:unknown)=>{echoOwner(event);try{if(typeof id!=='string')throw new Error('Session invalide.');requireMind().engine.reset('Session ECHO supprimée, contexte effacé.');requireEcho().removeSession(id);curiosity?.start();return {ok:true};}catch(error){return report(error);}});
+  ipcMain.handle(IPC.echoExclusions,(event,input:unknown)=>{echoOwner(event);try{requireMind().engine.reset('Exclusions ECHO modifiées, contexte effacé.');requireEcho().configure(input);curiosity?.start();return {ok:true};}catch(error){return report(error);}});
 }
 async function bootstrap() {
   await app.whenReady();
@@ -371,8 +460,12 @@ async function bootstrap() {
   let mindFailure: string | null = null;
   try { mindService = new DesktopMindService(app.getPath('userData')); }
   catch { mindFailure = 'MIND / MEMORY n’a pas pu démarrer. Les données existantes sont conservées et PRESENCE reste disponible. Vérifiez memory.sqlite et les droits du dossier AETHER.'; }
-  if(mindService) { try { curiosity=createCuriosity(app.getPath('userData'),mindService,()=>mindService!.engine.snapshot().state==='thinking'||Boolean(dialogue?.isVisible())); } catch { mindFailure='CURIOSITY n’a pas pu démarrer. PRESENCE, MIND et MEMORY sont conservés.'; } }
-  model = new PresenceModel(loaded.preferences, mindService !== null, mindService !== null,curiosity!==null);
+  if(mindService){try{echo=createEcho(app.getPath('userData'),mindService);}catch{mindFailure='ECHO n’a pas pu démarrer. La perception reste désactivée.';}}
+  if(mindService) { try { curiosity=createCuriosity(app.getPath('userData'),mindService,()=>mindService!.engine.snapshot().state==='thinking'||Boolean(dialogue?.isVisible())||Boolean(echo?.isBusy()),()=>!echo?.repository.habits().some(h=>h.state==='confirmed')); } catch { mindFailure='CURIOSITY n’a pas pu démarrer. PRESENCE, MIND et MEMORY sont conservés.'; } }
+  model = new PresenceModel(loaded.preferences, mindService !== null, mindService !== null,curiosity!==null,true,echo!==null);
+  spaceStore=new SpacePreferencesStore(join(app.getPath('userData'),'space-state.json'));spacePreferences=spaceStore.load();
+  portalStore=new PortalSettingsStore(join(app.getPath('userData'),'portal-settings.json'));portalSettings=portalStore.load();
+  if(spaceStore.notice||portalStore.notice)model.setNotice(spaceStore.notice??portalStore.notice);
   if (mindFailure) model.setNotice(mindFailure);
   if (mindService) { const view = mindService.view(); model.setCloudAllowed(view.provider === 'openai' && view.cloudConsent); }
   if (loaded.notice) model.setNotice(loaded.notice);
@@ -390,14 +483,23 @@ async function bootstrap() {
   entity.on('blur', () => finishDrag(false));
   entity.on('close', event => { if (!quitting) { event.preventDefault(); hide(); } });
   model.events.on('presence.changed', snapshot => {
-    for (const window of [entity, settings, dialogue, memoryWindow,curiosityWindow]) if (window && !window.isDestroyed() && !window.webContents.isDestroyed()) window.webContents.send(IPC.changed, snapshot);
+    for (const window of [entity, settings, dialogue, memoryWindow,curiosityWindow,spaceWindow,echoWindow]) if (window && !window.isDestroyed() && !window.webContents.isDestroyed()) window.webContents.send(IPC.changed, snapshot);
   });
   mindService?.engine.events.on('changed', reflectMind);
   curiosity?.events.on('changed',reflectCuriosity);
+  echo?.events.on('changed',reflectEcho);
+  portal.events.on('changed',snapshot=>{
+    if(quitting)return;
+    for(const window of [entity,settings,spaceWindow])if(window&&!window.isDestroyed())window.webContents.send(IPC.portalChanged,snapshot);
+    if(snapshot.phase==='open')spaceWindow?.setAlwaysOnTop(false);
+    if(snapshot.phase==='closed'){if(portalTimer)clearTimeout(portalTimer);portalTimer=undefined;if(spaceWindow&&!spaceWindow.isDestroyed())spaceWindow.destroy();restoreDesktop();}
+  });
   setupIPC();
   shortcuts = new ShortcutManager(globalShortcut, recall);
   try { shortcuts.prepare(loaded.preferences.recallShortcut).commit(); model.setShortcutRegistered(true); }
   catch (error) { report(error); }
+  portalShortcuts=new ShortcutManager(globalShortcut,()=>{void togglePortal().catch(report);});
+  try{portalShortcuts.prepare(portalSettings.shortcut).commit();}catch(error){report(error);}
   const trayIcon = nativeImage.createFromPath(resolve(__dirname, '../assets/tray.png'));
   if (trayIcon.isEmpty()) throw new Error('Icône de notification introuvable.');
   tray = new Tray(trayIcon);
@@ -407,8 +509,8 @@ async function bootstrap() {
   guardPersistence(() => persist({ ...loaded.preferences, position: point }));
   if (loaded.preferences.visible) { entity.showInactive(); startHitTesting(); }
   refreshTray();
-  screen.on('display-removed', () => { finishDrag(false); reposition(); });
-  screen.on('display-metrics-changed', () => { finishDrag(false); reposition(); });
+  screen.on('display-removed', () => { finishDrag(false); if(spaceWindow)closePortal();reposition(); });
+  screen.on('display-metrics-changed', () => { finishDrag(false); if(spaceWindow)closePortal();reposition(); });
   if (model.snapshot().notice) await openSettings();
   if(curiosity) {reflectCuriosity(curiosity.snapshot());curiosity.start();}
 }
@@ -420,10 +522,11 @@ else {
   app.on('window-all-closed', () => { /* Tray lifecycle, explicit quit only. */ });
   app.on('before-quit', () => {
     quitting = true; finishDrag(false); stopHitTesting();
+    if(portalTimer)clearTimeout(portalTimer);if(singleClickTimer)clearTimeout(singleClickTimer);
     if (attentionTimer) clearTimeout(attentionTimer);
     if (model && store) guardPersistence(rememberPosition);
-    curiosity?.close(); mindService?.close();
-    shortcuts?.dispose(); tray?.destroy(); tray = null;
+    echo?.close();curiosity?.close(); mindService?.close();
+    shortcuts?.dispose();portalShortcuts?.dispose(); tray?.destroy(); tray = null;
   });
   void bootstrap().catch(error => {
     const message = error instanceof Error ? error.message : String(error);

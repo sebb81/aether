@@ -3,6 +3,7 @@ import type { PresenceSnapshot } from '@aether/shared';
 import { EntityShape } from './Entity';
 import { AiSettings } from './AiSettings';
 import { RouterSettings } from './RouterSettings';
+import {PortalSettings} from './PortalSettings';
 
 const displayShortcut = (value: string) => value.replace('CommandOrControl', 'Ctrl').replace('Control', 'Ctrl').replace('Super', 'Windows').replace('Space', 'Espace').split('+').join(' + ');
 export function Settings({ snapshot }: { snapshot: PresenceSnapshot }) {
@@ -12,7 +13,7 @@ export function Settings({ snapshot }: { snapshot: PresenceSnapshot }) {
   const [saving, setSaving] = useState(false);
   useEffect(() => { setShortcut(snapshot.preferences.recallShortcut); setReducedMotion(snapshot.preferences.reducedMotion); }, [snapshot.preferences.recallShortcut, snapshot.preferences.reducedMotion]);
   return <main className={`settings-page ${reducedMotion ? 'reduce-motion' : ''}`}>
-    <header className="brand"><span className="brand-mark">◌</span><span>AETHER</span><span className="version">FIRST LIFE · 03</span></header>
+    <header className="brand"><span className="brand-mark">◌</span><span>AETHER</span><span className="version">FIRST LIFE · 04</span></header>
     <section className="presence-intro">
       <div className="mini-entity"><EntityShape id="settings" /></div>
       <div><p className="eyebrow">PRÉSENCE</p><h1>ENTITY, sur votre bureau</h1><p className="subtle">Une présence discrète, que vous gardez sous votre contrôle.</p></div>
@@ -47,10 +48,11 @@ export function Settings({ snapshot }: { snapshot: PresenceSnapshot }) {
       <div className="form-actions"><p role={result?.error ? 'alert' : 'status'} className={result?.error ? 'error-message' : 'saved-message'}>{result?.text ?? ''}</p><button type="submit" disabled={saving}>{saving ? 'Enregistrement…' : 'Enregistrer'}</button></div>
     </form>
     <AiSettings />
+    <PortalSettings/>
     <RouterSettings />
     <section className="memory-link-row"><div><h2>CURIOSITY · Histoire intellectuelle</h2><p className="subtle">Intérêts, questions, connexions et contrôle de l’autonomie locale.</p></div><button className="secondary" onClick={()=>{void window.aether.command('curiosity');}}>Ouvrir CURIOSITY</button></section>
     <section className="memory-link-row"><div><h2>MEMORY · Souvenirs locaux</h2><p className="subtle">Consulter, corriger, supprimer ou exporter ce qu’ENTITY retient.</p></div><button className="secondary" onClick={() => { void window.aether.command('memory'); }}>Ouvrir MEMORY</button></section>
     <section className="usage"><h2>À portée de main</h2><p>Glissez ENTITY pour la déplacer. Un clic ouvre l’échange ; un clic droit ouvre ses commandes. L’icône AETHER de la zone de notification permet toujours de la rappeler ou de quitter.</p></section>
-    <footer><p><span className="local-indicator">●</span> MIND, MEMORY et CURIOSITY · aucune observation active</p><p className="unavailable">ECHO, FORGE, MIRROR, voix, portail et capacités : non implémentés dans ce jalon.</p></footer>
+    <footer><p><span className="local-indicator">●</span> MIND, MEMORY, CURIOSITY, SPACE et ECHO · {snapshot.echoActive?'session ECHO active':'aucune observation active'}</p><button className="text-button" onClick={()=>void window.aether.command('echo')}>ECHO · Regarde comment je fais</button><p className="unavailable">FORGE, MIRROR, voix et capacités générées : non implémentés dans ce jalon.</p></footer>
   </main>;
 }

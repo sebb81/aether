@@ -2,13 +2,13 @@ import { join } from 'node:path';
 import { CuriosityEngine, CuriosityRepository, isBlocked, sourceSeeds } from '@aether/curiosity';
 import type { DesktopMindService } from './mind-service';
 
-export function createCuriosity(folder: string,mind: DesktopMindService,busy: ()=>boolean) {
+export function createCuriosity(folder: string,mind: DesktopMindService,busy: ()=>boolean,allowDialogueSeeds:()=>boolean=()=>true) {
   const repository=new CuriosityRepository(join(folder,'memory.sqlite'));
   const engine=new CuriosityEngine(repository,mind.router,async()=>{
-    const messages=mind.engine.snapshot().messages;
+    const messages=allowDialogueSeeds()?mind.engine.snapshot().messages:[];
     const conversation=messages.filter(message=>message.role==='user').slice(-1).map(message=>({key:`conversation:${message.id}`,kind:'conversation' as const,ref:message.id,content:message.content}));
     const suggestions=messages.filter(message=>message.role==='assistant').slice(-1).map(message=>({key:`mind:${message.id}`,kind:'mind' as const,ref:message.id,content:message.content}));
-    const memories=(await mind.memory.list()).slice(0,2).map(memory=>({key:`memory:${memory.id}`,kind:'memory' as const,ref:memory.id,content:memory.content}));
+    const memories=(await mind.memory.list()).filter(memory=>!memory.source.startsWith('ECHO:')).slice(0,2).map(memory=>({key:`memory:${memory.id}`,kind:'memory' as const,ref:memory.id,content:memory.content}));
     return [...conversation,...suggestions,...memories,...sourceSeeds(repository.journal())];
   },busy);
   mind.curiosityContext=()=>{
