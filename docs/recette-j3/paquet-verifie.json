@@ -1,0 +1,56 @@
+{
+  "result": "PASS",
+  "checkedAt": "2026-10-05T08:35:54.718Z",
+  "version": "0.3.0",
+  "executable": "C:\\Dev\\CRTHON10\\aether\\release\\AETHER-win32-x64\\AETHER.exe",
+  "runtime": {
+    "packaged": true,
+    "windows": 1,
+    "appPath": "C:\\Dev\\CRTHON10\\aether\\release\\AETHER-win32-x64\\resources\\app.asar",
+    "visible": true
+  },
+  "configuration": {
+    "schemaVersion": 1,
+    "provider": "ollama",
+    "model": "qwen3.5:9b",
+    "cloudConsent": false,
+    "ollamaUrl": "http://127.0.0.1:11434",
+    "keyConfigured": false,
+    "secureStorageAvailable": true
+  },
+  "router": {
+    "DEEP": {
+      "provider": "ollama",
+      "model": "qwen3.5:9b"
+    },
+    "VISION": null,
+    "FAST": {
+      "provider": "ollama",
+      "model": "qwen3.5:9b"
+    },
+    "cloudConsent": false
+  },
+  "curiosity": {
+    "enabled": false,
+    "interests": 0
+  },
+  "answer": {
+    "id": "bf4b7136-b001-4a1d-ad51-3166f1c74ce6",
+    "role": "assistant",
+    "content": "Je m'appelle ENTITY. Je suis la présence numérique d'AETHER. Comment puis-je t'aider aujourd'hui ?",
+    "createdAt": "2026-10-05T08:35:54.710Z",
+    "model": "qwen3.5:9b"
+  },
+  "shortcutRegistered": true,
+  "preferences": {
+    "schemaVersion": 1,
+    "visible": true,
+    "position": {
+      "x": 71,
+      "y": 745
+    },
+    "recallShortcut": "Control+Alt+Space",
+    "reducedMotion": false
+  },
+  "packagedEntries": 14
+}

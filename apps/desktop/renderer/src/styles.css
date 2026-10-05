@@ -1,0 +1,34 @@
+@import url('./settings.css');
+@import url('./mind.css');
+
+:root { color-scheme: dark; font-family: 'Segoe UI', system-ui, sans-serif; font-synthesis: none; }
+* { box-sizing: border-box; }
+body { margin: 0; }
+.entity-window { background: transparent; overflow: hidden; user-select: none; }
+.entity-stage { width: 160px; height: 160px; position: relative; }
+.entity-shape { width: 160px; height: 160px; display: block; overflow: visible; pointer-events: none; }
+.entity-body { transform-origin: 80px 82px; animation: breathe 5.8s ease-in-out infinite; }
+.entity-eyes { transform-origin: 80px 79px; animation: blink 8.2s ease-in-out infinite; }
+.entity-halo { transform-origin: 80px 80px; animation: glow 5.8s ease-in-out infinite; }
+.entity-target { position: absolute; left: 31px; top: 31px; width: 98px; height: 98px; padding: 0; border: 0; border-radius: 50%; background: transparent; cursor: grab; touch-action: none; -webkit-app-region: no-drag; }
+.entity-target:active { cursor: grabbing; }
+.entity-target:focus-visible { outline: 2px solid #e4f6db; outline-offset: 3px; }
+.entity-stage[data-state='attention'] .entity-body { animation: attention 1.4s ease-out; }
+.entity-stage[data-state='attention'] .entity-eyes { animation: none; }
+.entity-stage[data-state='attention'] .entity-halo { opacity: 1; transform: scale(1.08); }
+.entity-stage[data-state='thinking'] .entity-halo { animation: thinking-glow 2.2s ease-in-out infinite; }
+.entity-stage[data-state='thinking'] .entity-body { animation: thinking-breathe 3s ease-in-out infinite; }
+.entity-stage[data-state='thinking'] .entity-eyes { animation: none; opacity: 0.7; }
+.entity-stage[data-state='error'] .entity-body { opacity: 0.72; }
+.entity-stage[data-state='error'] .entity-halo { opacity: 0.5; animation: none; }
+.bootstrap-error { margin: 12px; font-size: 12px; color: #ffdfc9; background: #17242b; }
+@keyframes breathe { 0%, 100% { transform: scale(0.97, 0.99) translateY(1px); } 50% { transform: scale(1.018, 1.02) translateY(-1px); } }
+@keyframes glow { 0%, 100% { opacity: 0.7; transform: scale(0.94); } 50% { opacity: 1; transform: scale(1.025); } }
+@keyframes blink { 0%, 42%, 46%, 100% { transform: scaleY(1); } 44% { transform: scaleY(0.17); } }
+@keyframes attention { 0% { transform: scale(1); } 18% { transform: translateY(-3px) scale(1.055); } 50% { transform: translateY(-1px) scale(1.025); } 100% { transform: scale(1); } }
+@keyframes thinking-glow { 0%, 100% { opacity: 0.45; transform: scale(0.91); } 50% { opacity: 1; transform: scale(1.065); } }
+@keyframes thinking-breathe { 0%, 100% { transform: scale(0.97, 1.02); } 50% { transform: scale(1.018, 0.99); } }
+.reduce-motion .entity-body, .reduce-motion .entity-eyes, .reduce-motion .entity-halo { animation: none !important; }
+.reduce-motion[data-state='attention'] .entity-body { opacity: 0.88; }
+.reduce-motion[data-state='thinking'] .entity-eyes { opacity: 0.65; }
+@media (prefers-reduced-motion: reduce) { .entity-body, .entity-eyes, .entity-halo { animation: none !important; } .entity-stage[data-state='attention'] .entity-body { opacity: 0.88; } }
