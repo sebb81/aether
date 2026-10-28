@@ -1,0 +1,13 @@
+{
+    "at":  "2026-10-15T15:48:07.7488814Z",
+    "requestId":  "44fa75ee-c15d-4cad-8ecb-870126afe9a0",
+    "status":  "READY",
+    "attempts":  3,
+    "unfinishedAttempts":  0,
+    "manifestDigest":  "a7c16aeaa8c0b9f05f3e32fec7b7c6f1e35b0b69aca4d65595a8eebec5f0f79f",
+    "actualSourceDigest":  "a7c16aeaa8c0b9f05f3e32fec7b7c6f1e35b0b69aca4d65595a8eebec5f0f79f",
+    "digestMatches":  true,
+    "isolatedInstalled":  0,
+    "personalInstalled":  0,
+    "temporaryRegistryFiles":  0
+}

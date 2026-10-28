@@ -1,0 +1,46 @@
+{
+  "date": "2026-10-08T15:37:28.801Z",
+  "executable": "C:\\Dev\\CRTHON10\\aether\\release\\AETHER-win32-x64\\AETHER.exe",
+  "helpers": [
+    "voice-worker.py",
+    "live-audio-worker.py",
+    "gemini-live-worker.cjs",
+    "voice-speech.ps1",
+    "echo-context.ps1"
+  ],
+  "compiledHashes": {
+    "main/main.cjs": "6408bd193e432f44b31e58f52a609271d8606b3bfa9692538c69ef9c19b64710",
+    "main/preload.cjs": "15dcf7a0a4ab02fa99ece5557983b7588c9a44fdf69066020d1d0da8cbf4e622",
+    "main/live-audio-preload.cjs": "9bf94d49998ad6e35d39213729bfcc740935b87744b985dfedc392e6831647d1",
+    "audio/live-audio.html": "87cf1dbddfbe2ac7c6db69d2dc8a4c93671d2b54c3d3422689303a3a5499b2d1",
+    "audio/live-audio.js": "43293bb42b4de03aa7b24a3d669bb74bbc70cd348ad06f9490a7ffebced05bdc",
+    "audio/capture-worklet.js": "6b48e79bc6c0a547cff01422d697cb93bd50f156a7313eb66fd3aab7a85c14e2"
+  },
+  "archiveEntries": 24,
+  "runtime": {
+    "packaged": true,
+    "version": "0.5.6",
+    "pid": 27400
+  },
+  "startup": {
+    "liveState": "idle",
+    "liveConsent": "granted",
+    "keyConfigured": true,
+    "defaultMode": "LIVE",
+    "localState": "idle",
+    "microphoneActive": false
+  },
+  "data": {
+    "memories": 0,
+    "interests": 1,
+    "memoryDigest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "interestDigest": "d58608ca35a7e59d586e745e18522e171d378ce7208b6d633bca0d6773c45e1f",
+    "unchangedDuringCheck": true
+  },
+  "packagedTransport": {
+    "realWebSocketOpened": true,
+    "invalidCredentialRejected": true,
+    "noCapture": true
+  },
+  "settingsUnchanged": true
+}

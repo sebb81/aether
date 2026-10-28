@@ -1,10 +1,56 @@
 # AETHER
 
-**AETHER 0.5.0 — Jalon 5 : ECHO apprend vos méthodes avec votre accord.** Vous choisissez un dossier de test dans Explorer, montrez une procédure, arrêtez l’observation et validez l’hypothèse avant MEMORY. ECHO revient OFF à chaque démarrage. PRESENCE, MIND, MEMORY, CURIOSITY, PORTAL et SPACE sont conservés. Sur ce poste : **Ollama local, FAST et DEEP = `qwen3.5:9b`**, sans clé. Le réglage d’autonomie existant reste conservé.
+**AETHER 0.6.0 — Jalon 6 : FORGE + MIRROR.** Spécifications à approuver, adaptateur Codex officiel, tests isolés et registre de capacités. La recette fondatrice et les validations humaines sont suivies dans [RECETTE-J6](docs/RECETTE-J6.md) ; une interface ou des tests avec doubles ne valent pas preuve de génération réelle. Les jalons précédents sont considérés validés par le brief J6 ; leurs recettes datées sont conservées.
+
+## Tester AETHER pas à pas
+
+Le [carnet de test utilisateur guidé](docs/CARNET-TEST-UTILISATEUR.md) propose une première séance de 15 à 20 minutes, puis des séances séparées pour la voix, CURIOSITY, ECHO, Gemini LIVE et FORGE/MIRROR. Chaque test indique les actions, le résultat attendu, les points d'arrêt et les observations à noter. Commencez par la préparation puis T01 ; les résultats restent à remplir par l'utilisateur.
+
+## Utiliser FORGE / MIRROR
+
+Ouvrir **FORGE / MIRROR** depuis SPACE, les réglages ou le menu d'ENTITY. Une demande vocale de construction peut ouvrir ce même panneau et y proposer le besoin. Décrire la règle précise, puis **Préparer la spécification avec MIND**. Cette étape utilise DEEP/Ollama local et peut demander des précisions. La spécification reste modifiable ; elle contient les entrées, sorties, droits, contraintes et tests d'acceptation. Les données incohérentes sont refusées.
+
+Après lecture, **Autoriser la fabrication Codex**, puis confirmer. La spécification et le contrat de capacité sont transmis au compte Codex authentifié. La génération produit du vrai JavaScript dans un workspace séparé ; les étapes et les erreurs proviennent des opérations réelles. **Tout arrêter** annule préparation, génération, MIRROR et aperçu. Un échec ne crée aucune capacité acquise ; une nouvelle tentative demande une nouvelle confirmation.
+
+MIRROR compile le JavaScript et exécute les tests approuvés et ceux de Codex dans QuickJS/WebAssembly, sous Windows MXC. Les noms de fichiers et paramètres sont des données JSON, sans API hôte. Dépendances externes, réseau, processus et périphériques sont refusés au J6. Codex CLI doit être installé/authentifié (`codex login`), et MXC disponible ; aucun repli vers une exécution Node non isolée n'existe. Node/Electron est requis pour le helper fiable, pas comme API du code généré.
+
+**Essayer le prototype** utilise un dossier choisi dans Windows, sur des copies : 500 fichiers, 64 Mio et profondeur 10 maximum. Les propositions de déplacement sont contrôlées par le noyau (chemins relatifs, sources présentes, collisions, liens et droits). Pour un calcul sans permission fichiers, les paramètres JSON suffisent. L'aperçu ne modifie pas les originaux.
+
+**Installer cette capacité**, puis confirmer, inscrit l'artefact testé et ses permissions au registre. Après installation, **Essayer / prévisualiser** produit un nouvel aperçu ; un autre bouton confirme ensuite les écritures dans le dossier choisi. Un aperçu expire après deux minutes et devient invalide si le dossier, la capacité ou sa version change. Désactivation, désinstallation et version précédente sont accessibles dans FORGE. La désinstallation conserve les données utilisateur et l'historique.
+
+Les propositions CURIOSITY et opportunités d'une habitude ECHO confirmée répétée sont consultables dans FORGE, avec leur origine. Les accepter prépare seulement une spécification. Aucun de ces moteurs n'autorise Codex, l'installation ou l'écriture à la place de l'utilisateur.
+
+Stockage sous `%APPDATA%\AETHER\evolution` : registre JSON versionné écrit atomiquement, `forge/<UUID>/attempt-N` (spécification, code, tests et rapport), `installed/<id>/<version>` et copies d'aperçu. Le code n'est pas stocké dans MEMORY. Les empreintes sont revérifiées avant installation et exécution. Les limites et les preuves exactes figurent dans la recette et [SECURITE](docs/SECURITE.md).
+
+## Utiliser LIVE VOICE
+
+Ouvrez **Réglages → LIVE VOICE**, ou le menu **LIVE VOICE · Gemini** d'ENTITY. Activez Gemini Live, saisissez la clé (chiffrement Windows) puis enregistrez. En développement, la variable `GEMINI_API_KEY` peut être héritée par AETHER ; aucune clé n'est à placer dans Git ou SQLite. Modèle et voix se configurent dans ce panneau ; le nom de modèle par défaut est centralisé dans `packages/live/src/configuration.ts`.
+
+Lisez et autorisez explicitement le consentement cloud Gemini, puis donnez séparément le consentement microphone dans VOICE. Choisissez le bon périphérique et lancez **Démarrer LIVE**. Ces consentements et réglages n'ouvrent pas automatiquement un micro. Pendant LIVE, le micro reste ouvert jusqu'à l'arrêt, même pendant la réponse audio ; un casque évite que la sortie sonore soit recapturée. **Arrêter LIVE**, fermer son panneau, masquer ENTITY, révoquer le cloud ou le micro et quitter arrêtent les flux. Une erreur propose LOCAL ; aucun changement de canal n'est automatique.
+
+Le choix du mode au raccourci vocal est LOCAL, LIVE ou demander à chaque session. Les boutons LOCAL/LIVE permettent un choix explicite à tout moment. La transcription est consultable dans le dialogue, temporaire et distincte de MEMORY. Les mutations MEMORY demandées par un outil nécessitent une confirmation humaine dans LIVE VOICE ; ECHO ouvre toujours son workflow existant de consentement.
+
+Le diagnostic affiche connexion, réception du premier audio après fin de parole détectée, fonctions, DEEP, interruptions et erreurs de reconnexion. Les chiffres ne sont pas une mesure acoustique d'un haut-parleur. Reconnecter ouvre explicitement une nouvelle session ; le contexte Gemini précédent n'est pas restauré.
+
+Correctif haut-parleurs du 8 octobre : LIVE utilise maintenant l'annulation d'écho Chromium et un tampon de lecture de 180 ms. Le bruit du micro ne coupe plus à lui seul la réponse ; l'interruption de parole reconnue par Gemini reste active. La voix Gemini et une réponse complète ont été testées réellement avec une entrée synthétique et la sortie native. Le résultat avec votre micro/haut-parleurs reste à confirmer.
+
+```powershell
+npm run typecheck
+npm test
+npm run test:e2e
+# Avec GEMINI_API_KEY hérité ou la clé chiffrée configurée dans AETHER :
+npx playwright test tests/e2e/live-real.spec.ts
+```
+
+La recette cloud utilise un profil temporaire avec des données fictives et une entrée Windows TTS synthétique ; Gemini et la sortie PortAudio sont réels. Elle n'ouvre aucun microphone physique. Sans clé, ce test est explicitement ignoré et aucune réussite Gemini n'est déclarée. La recette humaine reste distincte.
 
 ## Démarrer sous Windows
 
 Ouvrez `release\AETHER-win32-x64\AETHER.exe`. Le dossier entier contient le programme et son runtime ; copiez-le en entier. Node/npm ne sont pas nécessaires à l’exécution. Paquet Windows x64, sans installateur ni signature de distribution.
+
+Le paquet principal **0.5.6** intègre les correctifs audio du 6 octobre. Pour mettre à jour une instance ancienne, quittez-la par clic droit sur ENTITY → « Quitter AETHER », puis lancez `release\AETHER-win32-x64\AETHER.exe`. VOICE détecte le véritable Python local et enregistre son chemin absolu ; le lancement par double-clic ne dépend plus d’un terminal Anaconda activé. Sur ce poste : `C:\ProgramData\anaconda3\python.exe`. Un chemin Python choisi explicitement reste conservé.
+
+Une jauge montre le niveau réellement reçu pendant la prise ; les prises silencieuses et transcriptions vides affichent leur cause. Les signaux faibles sont transmis à Whisper avec un gain borné. Le premier traitement local peut prendre environ une minute sur ce poste. Dans VOICE, choisissez explicitement « Headset (Poly V4320 Series) » si vous parlez dans ce casque, puis vérifiez la jauge pendant une prise.
 
 Développement : Windows 11 x64, Node 24 recommandé (validé avec 24.18.1), npm. Internet sert à installer les dépendances et Electron ; Ollama utilise ensuite un modèle déjà installé.
 
@@ -65,6 +111,18 @@ Les exclusions se règlent dans le panneau : dossiers, processus, mots dans les 
 
 Limites : 15 minutes/session, 600 événements, 5 000 entrées/dossier, profondeur 20, 200 sessions. Réseau, racines trop larges, données AETHER, Windows, AppData, liens et jonctions refusés. Les sessions restent locales dans SQLite jusqu’à suppression ; aucun consentement n’est conservé pour un futur lancement. La zone ECHO de SPACE expose sessions, hypothèses, habitudes, variations et liens vers MEMORY. MIND référence uniquement les habitudes confirmées. ECHO ne déclenche aucune exploration CURIOSITY ni génération FORGE/MIRROR.
 
+## Parler avec ENTITY
+
+Ouvrez **VOICE** depuis le clic droit sur ENTITY, les réglages, le tray ou le dialogue. Au premier usage, choisissez votre microphone puis **Autoriser le microphone**. Ce consentement ne commence pas une prise. Cliquez ensuite sur **Parler au micro**, ou pressez **Ctrl + Alt + V**. Une seconde pression termine la prise ; un silence la termine aussi. Pendant une réponse, le même raccourci l’interrompt. « Stop voix » ou un clic sur ENTITY arrêtent la lecture.
+
+Le halo d’écoute et **● MICRO** correspondent à la capture native active. La transcription apparaît dans l’échange habituel, avec **VOIX**, puis ENTITY répond oralement. Dans SPACE, les mêmes contrôles utilisent cette conversation. « Ouvre ton espace » et « Regarde comment je fais » passent par MIND : ils ouvrent SPACE ou le panneau ECHO ; aucune observation n’est autorisée par ces phrases.
+
+Le panneau règle langue (fr-FR initialement), raccourci, voix, vitesse, volume et réponses **Toujours / Seulement lorsque je lui parle / Jamais**. Le défaut est **Seulement lorsque je lui parle**. **Écouter cette voix** réalise un essai local sans appeler MIND. Refuser le microphone, désactiver VOICE ou arrêter une prise reste possible à tout moment. Wake word « Aether » et interruption par la voix : interfaces préparées, extensions futures désactivées.
+
+Sur ce poste, VOICE utilise **faster-whisper 1.2.1**, le modèle **medium déjà présent**, CTranslate2 CPU int8, PortAudio/sounddevice et **Microsoft Hortense Desktop** (System.Speech). Python est nécessaire à l’audio, même dans le paquet Electron : `C:\ProgramData\anaconda3\python.exe` est actuellement disponible. Le panneau permet de choisir l’exécutable Python et le dossier d’un autre modèle faster-whisper complet (`model.bin`, `config.json`, `tokenizer.json`). Aucun téléchargement automatique. Un autre poste doit disposer de Python, faster-whisper, sounddevice, NumPy, SciPy, d’un modèle local et d’une voix Windows installée.
+
+STT/TTS ne transmettent rien à un service externe. Si vous choisissez MIND/OpenAI avec son consentement existant, la transcription et le contexte pertinent suivent ce choix comme un message écrit. Aucun fichier audio par défaut. Le diagnostic de latence est optionnel ; conserver les prises exige un second choix explicite, au maximum cinq WAV temporaires, expiration de dix minutes vérifiée chaque minute et suppression immédiate accessible. [Recette, mesures et limites VOICE](docs/RECETTE-J5.5-VOICE.md).
+
 ## Choisir l’IA
 
 Réglages → MIND : fournisseur, modèle, puis **Enregistrer l’IA**, distinct du bouton des préférences PRESENCE.
@@ -96,6 +154,7 @@ Supprimer un intérêt retire ses questions, découvertes, connexions, explorati
 | `router-settings.json` | Cibles DEEP et VISION ; FAST suit MIND |
 | `portal-settings.json` | Raccourci distinct de PORTAL, version 1 |
 | `space-state.json` | Caméra, zoom, préférences visuelles, sélection, dernière visite ; version 1 |
+| `voice-settings.json` | Consentement microphone, périphérique, langue, fournisseurs, voix, raccourci et diagnostics |
 | `openai-key.encrypted` | Clé chiffrée Windows si saisie |
 | `memory.sqlite` | Souvenirs/FTS5, journal CURIOSITY et sessions/habitudes ECHO, schéma v3 |
 
@@ -103,7 +162,7 @@ Conversation immédiate en RAM, effacée à la fermeture complète. Souvenirs ut
 
 Sauvegarde/restauration : quittez AETHER puis copiez/remplacez ces fichiers. Sur un autre compte Windows, la clé peut nécessiter une nouvelle saisie. Export MEMORY en JSON via dialogue système. Souvenirs/exports non chiffrés. JSON invalide conservé en `.invalid-<date>` avec notice ; base incompatible préservée.
 
-Aucune voix, caméra, capture, observation de dossier ou exécution de code généré. Le modèle ne peut pas ouvrir vos fichiers/applications. Curseur consulté seulement pour les interactions, sans historique.
+Microphone uniquement pendant une prise VOICE déclenchée et autorisée. ECHO observe uniquement les métadonnées de son dossier consenti. Caméra, capture d’écran et exécution de code généré indisponibles. MIND peut ouvrir seulement SPACE, CURIOSITY et le panneau ECHO ; il ne peut pas ouvrir vos fichiers/applications. Curseur consulté seulement pour les interactions, sans historique.
 
 ## Vérifier
 
@@ -113,7 +172,7 @@ npm test
 npm run test:e2e
 ```
 
-`npm run check` regroupe les contrôles. **69 tests unitaires et sept parcours Electron**, dont J1 natif, J2 Ollama réel A–E, coffre Windows, J3 réel A–F, J4 PORTAL/SPACE et ECHO A–I : perception native, hypothèses locales, habitudes, répétition, correction, suppression, OFF et exclusions. Résultats et incidents de recette dans [RECETTE-J5](docs/RECETTE-J5.md).
+`npm run check` regroupe les contrôles. **86 tests unitaires et huit parcours Electron** couvrent J1–J5 et VOICE : providers, consentement, annulation, mémoire persistante, navigation et confidentialité. Le parcours VOICE emploie des échantillons audio synthétiques identifiés comme tels, avec STT/MIND/TTS/lecture locaux réels. La parole humaine est vérifiée séparément. Résultats courants et incidents dans [RECETTE-J5.5-VOICE](docs/RECETTE-J5.5-VOICE.md) ; historique dans [RECETTE-J5](docs/RECETTE-J5.md).
 
 **Ollama actif, `llama3.1:8b` pour J2 et `qwen3.5:9b` pour J3 ; aucune simulation dans les recettes réelles.** Les doubles restent dans les tests unitaires. La recette native déplace le curseur et presse les raccourcis. Quittez l’instance personnelle pour libérer le raccourci avant les tests. Profils temporaires isolés ; captures, preuve JSON et traces dans `test-results/`, exclu de Git.
 
@@ -125,4 +184,4 @@ npm run test:e2e
 
 Recherche mémoire lexicale, six souvenirs maximum ; certaines paraphrases peuvent manquer. Conversation bornée à 12 messages, réponses non streamées, précision dépendante du modèle. Le profil ne garantit pas l’absence d’erreurs du LLM. Les autres configurations physiques multi-écrans/DPI restent à vérifier au-delà du poste à 150 %.
 
-La réception FIRST LIFE entière reste à terminer : voix, dépôt de fichier et EVOLUTION restent futurs. Prochain jalon proposé : **J6 FORGE + MIRROR**, avec spécification validée et essais isolés avant adoption. Aucun développement suivant ne démarre automatiquement.
+La réception FIRST LIFE entière dépend de la recette fondatrice J6 et des validations humaines consignées dans RECETTE-J6. J7 sera proposé après cette réception ; aucun jalon suivant ne démarre automatiquement.

@@ -1,0 +1,4 @@
+{
+  "name": "@aether/live", "version": "0.5.6", "private": true, "type": "module",
+  "exports": "./src/index.ts", "dependencies": { "@aether/shared": "*", "@aether/core": "*", "@aether/mind": "*" }
+}

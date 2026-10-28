@@ -79,6 +79,21 @@ function Activate($window){
  if([EchoRecipeWindow]::GetForegroundWindow() -ne $handle){throw ('Native Explorer window could not receive focus: expected '+$handle.ToInt64()+', foreground '+[EchoRecipeWindow]::GetForegroundWindow().ToInt64())}
 }
 function Navigate($window,[string]$path){Activate $window;$window.Navigate2($path);Start-Sleep -Milliseconds 1200}
+function Rename-TestItem($window,[string]$name,[string]$target){
+ $expected=Join-Path $Folder $target
+ for($attempt=0;$attempt -lt 3;$attempt++){
+  Activate $window
+  if(Test-Path -LiteralPath $expected){return}
+  if($attempt -gt 0){$keys.SendKeys('{ESC}');Start-Sleep -Milliseconds 200}
+  $item=$window.Document.Folder.ParseName($name)
+  if(-not $item){throw ('Original test file absent before native rename: '+$name)}
+  $window.Document.SelectItem($item,29);Start-Sleep -Milliseconds 350
+  $keys.SendKeys('{F2}');Start-Sleep -Milliseconds 400
+  Text-Key ([IO.Path]::GetFileNameWithoutExtension($target));$keys.SendKeys('{ENTER}')
+  for($wait=0;$wait -lt 15;$wait++){Start-Sleep -Milliseconds 100;if(Test-Path -LiteralPath $expected){Start-Sleep -Milliseconds 800;return}}
+ }
+ throw ('Native Explorer rename did not produce: '+$target)
+}
 if($Action -eq 'picker'){
  Start-Sleep -Milliseconds 400
  $script:picker=[IntPtr]::Zero
@@ -107,8 +122,8 @@ if($Action -eq 'rename'){
  $item=$window.Document.Folder.ParseName($Files[0]);if(-not $item){throw 'Test file absent'};$window.Document.SelectItem($item,29);Start-Sleep -Milliseconds 200;$keys.SendKeys('{F2}');Start-Sleep -Milliseconds 250;Text-Key $NewName;$keys.SendKeys('{ENTER}');Start-Sleep -Milliseconds 700
 }
 if($Action -eq 'procedure'){
- foreach($name in $Files){$item=$window.Document.Folder.ParseName($name);if(-not $item){throw ('Test file absent: '+$name)};$window.Document.SelectItem($item,29);Start-Sleep -Milliseconds 200;$keys.SendKeys('{F2}');Start-Sleep -Milliseconds 250;Text-Key ($DateFolder+'_'+[IO.Path]::GetFileNameWithoutExtension($name));$keys.SendKeys('{ENTER}');Start-Sleep -Milliseconds 650}
- $keys.SendKeys('^+n');Start-Sleep -Milliseconds 400;Text-Key $DateFolder;$keys.SendKeys('{ENTER}');Start-Sleep -Milliseconds 700
+ foreach($name in $Files){Rename-TestItem $window $name ($DateFolder+'_'+$name)}
+ $keys.SendKeys('^+n');Start-Sleep -Milliseconds 1000;Text-Key $DateFolder;$keys.SendKeys('{ENTER}');Start-Sleep -Milliseconds 1000
  $flag=29
  foreach($name in $Files){$renamed=$DateFolder+'_'+$name;$item=$window.Document.Folder.ParseName($renamed);if(-not $item){throw ('Renamed test file absent: '+$renamed)};$window.Document.SelectItem($item,$flag);$flag=25}
  Start-Sleep -Milliseconds 200;$keys.SendKeys('^x');Start-Sleep -Milliseconds 300;Navigate $window (Join-Path $Folder $DateFolder);$keys.SendKeys('^v');Start-Sleep -Milliseconds 1000

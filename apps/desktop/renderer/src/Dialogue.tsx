@@ -2,10 +2,13 @@ import { useEffect, useRef, useState } from 'react';
 import type { AiConfigurationView } from '@aether/shared';
 import { useMind } from './useMind';
 import { CuriosityNotice } from './CuriosityNotice';
+import {VoiceControls} from './VoiceControls';
+import { useLive, liveLabels } from './LiveVoice';
 
 const STATE_LABEL = { idle: 'À votre écoute', listening: 'À votre écoute', thinking: 'Réflexion en cours', replying: 'Réponse reçue', error: 'Échange interrompu' };
 export function Dialogue() {
   const { snapshot, error } = useMind();
+  const { snapshot: live } = useLive();
   const [message, setMessage] = useState('');
   const [sendError, setSendError] = useState<string | null>(null);
   const [configuration, setConfiguration] = useState<AiConfigurationView | null>(null);
@@ -29,13 +32,13 @@ export function Dialogue() {
     finally { input.current?.focus(); }
   }
   return <main className="dialogue-page" data-mind-state={snapshot?.state ?? 'idle'}>
-    <header className="dialogue-header"><div><span className="dialogue-spark">◌</span><strong>ENTITY</strong><span className="dialogue-state">{STATE_LABEL[snapshot?.state ?? 'idle']}</span></div><button className="icon-button" aria-label="Fermer l’échange" onClick={() => { void window.aether.command('close-dialogue'); }}>×</button></header>
+    <header className="dialogue-header"><div><span className="dialogue-spark">◌</span><strong>ENTITY</strong><span className="dialogue-state">{live?.sessionId?liveLabels[live.state]:STATE_LABEL[snapshot?.state ?? 'idle']}</span></div><button className="icon-button" aria-label="Fermer l’échange" onClick={() => { void window.aether.command('close-dialogue'); }}>×</button></header>
     <div className="dialogue-tools"><span>{configuration?.provider === 'ollama' ? `Ollama local · ${configuration.model}` : configuration?.provider === 'openai' ? `OpenAI · ${configuration.model}` : 'IA non configurée'}</span><button className="text-button" onClick={() => { void window.aether.command('settings'); }}>Réglages</button><button className="text-button" onClick={() => { void window.aether.command('memory'); }}>MEMORY</button></div>
     <section className="dialogue-content" aria-label="Échange avec ENTITY" aria-live="polite">
       <CuriosityNotice />
       {!snapshot?.messages.length && <div className="dialogue-empty"><p>Un moment avec ENTITY</p><span>Posez une question, ou confiez une information avec « Retiens que… ».</span><small>Les échanges restent temporaires. MEMORY conserve vos souvenirs ; CURIOSITY conserve ses réflexions autorisées.</small></div>}
       {snapshot?.notice && <p className="dialogue-notice">{snapshot.notice}</p>}
-      {snapshot?.messages.map(item => <article className={`dialogue-message ${item.role}`} key={item.id}><span className="message-author">{item.role === 'user' ? 'VOUS' : 'ENTITY'}</span><p>{item.content}</p>{item.model && <small className="model-source">{item.model}</small>}</article>)}
+      {snapshot?.messages.filter(item=>item.modality!=='live'||live?.settings.showTranscription!==false).map(item => <article className={`dialogue-message ${item.role}`} key={item.id}><span className="message-author">{item.role === 'user' ? 'VOUS' : 'ENTITY'}{item.modality==='voice'?' · VOIX':item.modality==='live'?' · LIVE':''}</span><p>{item.content}</p>{item.model && <small className="model-source">{item.model}</small>}</article>)}
       {snapshot?.storedMemory && <p className="memory-receipt">Souvenir enregistré localement : {snapshot.storedMemory.content}</p>}
       {thinking && <p className="thinking-indicator" role="status"><span />Le modèle prépare sa réponse…</p>}
       {(snapshot?.error || sendError || error) && <p className="dialogue-error" role="alert">{snapshot?.error || sendError || error}</p>}
@@ -43,6 +46,7 @@ export function Dialogue() {
       <div ref={scrollEnd} />
     </section>
     <form className="dialogue-compose" onSubmit={event => { event.preventDefault(); void submit(); }}>
+      <VoiceControls/>
       <textarea ref={input} aria-label="Message à ENTITY" placeholder="Écrire à ENTITY…" maxLength={4000} value={message} disabled={thinking} rows={2}
         onFocus={() => { if (!thinking) void window.aether.mindControl('listening'); }}
         onChange={event => setMessage(event.target.value)} onKeyDown={event => { if (event.key === 'Enter' && !event.shiftKey) { event.preventDefault(); void submit(); } }} />

@@ -1,0 +1,142 @@
+{
+  "startedAt": "2026-10-06T10:45:43.921Z",
+  "source": "Actual user microphone; native PortAudio capture, faster-whisper, Ollama and Windows TTS. No audio retained.",
+  "sessions": [
+    {
+      "runtime": {
+        "packaged": true,
+        "version": "0.5.5"
+      },
+      "startup": {
+        "state": "idle",
+        "microphoneActive": false,
+        "audioLevel": 0,
+        "source": null,
+        "error": null,
+        "notice": null,
+        "transcription": null,
+        "fullResponse": null,
+        "spokenResponse": null,
+        "settings": {
+          "enabled": true,
+          "microphone": "default",
+          "language": "fr-FR",
+          "shortcut": "Control+Alt+V",
+          "sttProvider": "faster-whisper",
+          "ttsProvider": "windows-speech",
+          "ttsEnabled": true,
+          "voice": "Microsoft Hortense Desktop",
+          "speed": 0.95,
+          "volume": 0.65,
+          "responsePolicy": "always",
+          "diagnostics": false,
+          "retainDiagnosticAudio": false,
+          "wakeWordEnabled": false,
+          "pythonPath": "C:\\ProgramData\\anaconda3\\python.exe",
+          "modelPath": "C:\\Users\\sebas\\.cache\\huggingface\\hub\\models--Systran--faster-whisper-medium\\snapshots\\08e178d48790749d25932bbc082711ddcfdfbc4f",
+          "schemaVersion": 1,
+          "microphoneConsent": "granted"
+        },
+        "metrics": null,
+        "diagnostics": [],
+        "shortcutRegistered": true,
+        "wakeWordAvailable": false,
+        "cloudActive": false
+      }
+    }
+  ],
+  "runs": [],
+  "restarts": 0,
+  "lastMind": {
+    "state": "idle",
+    "messages": [],
+    "error": null,
+    "usedMemories": [],
+    "storedMemory": null,
+    "notice": null
+  },
+  "lastVoice": {
+    "state": "idle",
+    "microphoneActive": false,
+    "audioLevel": 0,
+    "source": null,
+    "error": null,
+    "notice": null,
+    "transcription": null,
+    "fullResponse": null,
+    "spokenResponse": null,
+    "settings": {
+      "enabled": true,
+      "microphone": "default",
+      "language": "fr-FR",
+      "shortcut": "Control+Alt+V",
+      "sttProvider": "faster-whisper",
+      "ttsProvider": "windows-speech",
+      "ttsEnabled": true,
+      "voice": "Microsoft Hortense Desktop",
+      "speed": 0.95,
+      "volume": 0.65,
+      "responsePolicy": "always",
+      "diagnostics": false,
+      "retainDiagnosticAudio": false,
+      "wakeWordEnabled": false,
+      "pythonPath": "C:\\ProgramData\\anaconda3\\python.exe",
+      "modelPath": "C:\\Users\\sebas\\.cache\\huggingface\\hub\\models--Systran--faster-whisper-medium\\snapshots\\08e178d48790749d25932bbc082711ddcfdfbc4f",
+      "schemaVersion": 1,
+      "microphoneConsent": "granted"
+    },
+    "metrics": null,
+    "diagnostics": [],
+    "shortcutRegistered": true,
+    "wakeWordAvailable": false,
+    "cloudActive": false
+  },
+  "lastEcho": {
+    "enabled": false,
+    "state": "off",
+    "activeSessionId": null,
+    "context": null,
+    "error": null,
+    "sessions": [],
+    "habits": [],
+    "opportunities": [],
+    "exclusions": {
+      "folders": [],
+      "processes": [
+        "1password.exe",
+        "keepass.exe",
+        "keepassxc.exe",
+        "bitwarden.exe",
+        "outlook.exe",
+        "chrome.exe",
+        "msedge.exe",
+        "firefox.exe"
+      ],
+      "windows": [
+        "banque",
+        "password",
+        "mot de passe",
+        "confidentiel",
+        "inprivate",
+        "private browsing"
+      ]
+    }
+  },
+  "lastPortal": {
+    "phase": "closed",
+    "token": 0,
+    "origin": {
+      "x": 80,
+      "y": 80
+    },
+    "viewport": {
+      "x": 0,
+      "y": 0,
+      "width": 1,
+      "height": 1
+    },
+    "durationMs": 0,
+    "reducedMotion": false
+  },
+  "audioFiles": []
+}

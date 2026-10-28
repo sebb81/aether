@@ -1,0 +1,111 @@
+{
+  "at": "2026-10-15T15:43:58.951Z",
+  "result": "PASS",
+  "profile": "isolated",
+  "requestId": "44fa75ee-c15d-4cad-8ecb-870126afe9a0",
+  "attempt": 3,
+  "capability": "classement-wav-par-date",
+  "version": "1.0.0",
+  "digest": "a7c16aeaa8c0b9f05f3e32fec7b7c6f1e35b0b69aca4d65595a8eebec5f0f79f",
+  "generatedBy": "@openai/codex-sdk 0.162.1 / Codex CLI",
+  "method": "Production ForgeEngine + Windows MXC/QuickJS + FileBroker, invoked by a test harness, without the native UI folder picker",
+  "durationMs": 2045,
+  "folder": "C:\\Dev\\CRTHON10\\aether-j6-controlled-files\\c6cdb0c1-0466-4a7b-9e62-d595badae54f",
+  "preview": {
+    "id": "3f6d93f7-2579-46a4-977c-b2ca1f7edc57",
+    "capabilityId": "classement-wav-par-date",
+    "version": "1.0.0",
+    "folder": "C:\\Dev\\CRTHON10\\aether-j6-controlled-files\\c6cdb0c1-0466-4a7b-9e62-d595badae54f",
+    "expiresAt": "2026-10-15T15:45:57.953Z",
+    "output": {
+      "summary": "Plan de classement WAV",
+      "renames": [
+        {
+          "from": "prise-c5f29929.WAV",
+          "to": "2026-11-23/prise-c5f29929.WAV"
+        }
+      ],
+      "data": null
+    },
+    "files": [
+      {
+        "path": "2026-11-23/bloque.wav",
+        "size": 46,
+        "modifiedAt": "2026-10-15T15:43:56.889Z"
+      },
+      {
+        "path": "archives/ancien.wav",
+        "size": 46,
+        "modifiedAt": "2026-10-15T15:43:56.889Z"
+      },
+      {
+        "path": "bloque.wav",
+        "size": 46,
+        "modifiedAt": "2026-10-15T15:43:56.888Z"
+      },
+      {
+        "path": "notes.txt",
+        "size": 55,
+        "modifiedAt": "2026-10-15T15:43:56.889Z"
+      },
+      {
+        "path": "prise-c5f29929.WAV",
+        "size": 46,
+        "modifiedAt": "2026-10-15T15:43:56.888Z"
+      }
+    ],
+    "applied": false
+  },
+  "collisionReview": {
+    "at": "2026-10-15T15:43:58.951Z",
+    "attempt": 3,
+    "input": {
+      "files": [
+        {
+          "path": "PRISE.WAV",
+          "size": 2,
+          "modifiedAt": "2026-10-15T00:00:00.000Z"
+        },
+        {
+          "path": "2026-11-23/prise.wav",
+          "size": 2,
+          "modifiedAt": "2026-10-15T00:00:00.000Z"
+        }
+      ],
+      "parameters": {
+        "date": "2026-11-23"
+      }
+    },
+    "output": {
+      "summary": "Plan de classement WAV",
+      "renames": [],
+      "data": null
+    },
+    "error": null,
+    "passed": true
+  },
+  "sourceHashesBefore": {
+    "2026-11-23/bloque.wav": "4aebda3a657a0d8f532d11ceacb1679081d7bdf7d7d301a53f1096af3580be91",
+    "archives/ancien.wav": "4aebda3a657a0d8f532d11ceacb1679081d7bdf7d7d301a53f1096af3580be91",
+    "bloque.wav": "4aebda3a657a0d8f532d11ceacb1679081d7bdf7d7d301a53f1096af3580be91",
+    "notes.txt": "a1f0f0ee6fab41b310b8052feb315da86ae1f5ed47a8c64c419881da9b24d832",
+    "prise-c5f29929.WAV": "4aebda3a657a0d8f532d11ceacb1679081d7bdf7d7d301a53f1096af3580be91"
+  },
+  "sourceHashesAfter": {
+    "2026-11-23/bloque.wav": "4aebda3a657a0d8f532d11ceacb1679081d7bdf7d7d301a53f1096af3580be91",
+    "archives/ancien.wav": "4aebda3a657a0d8f532d11ceacb1679081d7bdf7d7d301a53f1096af3580be91",
+    "bloque.wav": "4aebda3a657a0d8f532d11ceacb1679081d7bdf7d7d301a53f1096af3580be91",
+    "notes.txt": "a1f0f0ee6fab41b310b8052feb315da86ae1f5ed47a8c64c419881da9b24d832",
+    "prise-c5f29929.WAV": "4aebda3a657a0d8f532d11ceacb1679081d7bdf7d7d301a53f1096af3580be91"
+  },
+  "copyHashesAfter": {
+    "2026-11-23/bloque.wav": "4aebda3a657a0d8f532d11ceacb1679081d7bdf7d7d301a53f1096af3580be91",
+    "2026-11-23/prise-c5f29929.WAV": "4aebda3a657a0d8f532d11ceacb1679081d7bdf7d7d301a53f1096af3580be91",
+    "archives/ancien.wav": "4aebda3a657a0d8f532d11ceacb1679081d7bdf7d7d301a53f1096af3580be91",
+    "bloque.wav": "4aebda3a657a0d8f532d11ceacb1679081d7bdf7d7d301a53f1096af3580be91",
+    "notes.txt": "a1f0f0ee6fab41b310b8052feb315da86ae1f5ed47a8c64c419881da9b24d832"
+  },
+  "originalFilesUnchanged": true,
+  "installation": false,
+  "originalFileApplication": false
+}

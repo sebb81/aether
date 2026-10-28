@@ -1,0 +1,243 @@
+{
+  "at": "2026-10-15T15:12:38.390Z",
+  "profile": "isolated",
+  "actualCodex": true,
+  "request": {
+    "id": "44fa75ee-c15d-4cad-8ecb-870126afe9a0",
+    "specification": {
+      "title": "Classement WAV par date",
+      "objective": "Proposer un plan de déplacement des fichiers .wav du dossier racine vers un sous-dossier nommé sur la base d'une date fournie, sans écraser les fichiers existants.",
+      "description": "Analyser les métadonnées des fichiers du dossier sélectionné. Filtrer uniquement les fichiers avec l'extension '.wav' (insensible à la casse) situés directement dans le dossier racine. Ignorer les fichiers non .wav et ceux déjà dans un sous-dossier. Pour chaque fichier .wav valide, vérifier si le sous-dossier correspondant à la date fournie (format AAAA-MM-JJ) existe ; s'il n'existe pas, il sera créé implicitement dans le plan. Vérifier l'existence du fichier de destination (nom original + dossier date). Si un fichier avec ce nom existe déjà dans le sous-dossier cible, exclure le déplacement pour éviter l'écrasement. Générer un résumé stable et un tableau de renommage/déplacement relatif.",
+      "inputs": [
+        "files : chemins relatifs, taille et date de modification",
+        "parameters.date : date AAAA-MM-JJ choisie pour ce classement"
+      ],
+      "outputs": [
+        "summary",
+        "renames[].from",
+        "renames[].to",
+        "data"
+      ],
+      "constraints": [
+        "Le dossier cible est relatif au dossier choisi par l'utilisateur.",
+        "Seuls les fichiers .wav du dossier racine sont traités.",
+        "Les sous-dossiers existants ne sont pas considérés comme des collisions pour la création de dossiers cibles.",
+        "Un fichier de destination déjà occupé bloque le déplacement.",
+        "L'extension est insensible à la casse.",
+        "La date fournie est utilisée telle quelle sans déduction.",
+        "Aucun traitement du contenu des fichiers.",
+        "data doit être null."
+      ],
+      "permissions": [
+        "filesystem.read",
+        "filesystem.write"
+      ],
+      "dependencies": [],
+      "successCriteria": [
+        "Seuls les WAV du dossier racine sont proposes, extension insensible a la casse.",
+        "Les fichiers deja classes et les autres formats restent intacts.",
+        "Une destination deja occupee est exclue du plan.",
+        "La date fournie est un parametre reutilisable, pas une valeur codee en dur.",
+        "Les chemins restent relatifs, sans remontee ni chemin absolu.",
+        "summary vaut exactement Plan de classement WAV ; data est null."
+      ],
+      "acceptanceTests": [
+        {
+          "name": "WAV racine et TXT ignore",
+          "input": {
+            "files": [
+              {
+                "path": "musique.wav",
+                "size": 3,
+                "modifiedAt": "2026-10-15T00:00:00.000Z"
+              },
+              {
+                "path": "note.txt",
+                "size": 3,
+                "modifiedAt": "2026-10-15T00:00:00.000Z"
+              }
+            ],
+            "parameters": {
+              "date": "2026-10-15"
+            }
+          },
+          "expected": {
+            "summary": "Plan de classement WAV",
+            "renames": [
+              {
+                "from": "musique.wav",
+                "to": "2026-10-15/musique.wav"
+              }
+            ],
+            "data": null
+          }
+        },
+        {
+          "name": "Dossier vide",
+          "input": {
+            "files": [],
+            "parameters": {
+              "date": "2026-10-15"
+            }
+          },
+          "expected": {
+            "summary": "Plan de classement WAV",
+            "renames": [],
+            "data": null
+          }
+        },
+        {
+          "name": "WAV deja classe",
+          "input": {
+            "files": [
+              {
+                "path": "2026-10-15/existe.wav",
+                "size": 3,
+                "modifiedAt": "2026-10-15T00:00:00.000Z"
+              }
+            ],
+            "parameters": {
+              "date": "2026-10-15"
+            }
+          },
+          "expected": {
+            "summary": "Plan de classement WAV",
+            "renames": [],
+            "data": null
+          }
+        },
+        {
+          "name": "Autre WAV",
+          "input": {
+            "files": [
+              {
+                "path": "autre.wav",
+                "size": 3,
+                "modifiedAt": "2026-10-15T00:00:00.000Z"
+              }
+            ],
+            "parameters": {
+              "date": "2026-10-15"
+            }
+          },
+          "expected": {
+            "summary": "Plan de classement WAV",
+            "renames": [
+              {
+                "from": "autre.wav",
+                "to": "2026-10-15/autre.wav"
+              }
+            ],
+            "data": null
+          }
+        },
+        {
+          "name": "Collision non ecrasable",
+          "input": {
+            "files": [
+              {
+                "path": "prise.wav",
+                "size": 3,
+                "modifiedAt": "2026-10-15T00:00:00.000Z"
+              },
+              {
+                "path": "2026-10-15/prise.wav",
+                "size": 3,
+                "modifiedAt": "2026-10-15T00:00:00.000Z"
+              }
+            ],
+            "parameters": {
+              "date": "2026-10-15"
+            }
+          },
+          "expected": {
+            "summary": "Plan de classement WAV",
+            "renames": [],
+            "data": null
+          }
+        },
+        {
+          "name": "Autre date et extension majuscule",
+          "input": {
+            "files": [
+              {
+                "path": "NOUVELLE.WAV",
+                "size": 3,
+                "modifiedAt": "2026-10-15T00:00:00.000Z"
+              },
+              {
+                "path": "sous-dossier/ancien.wav",
+                "size": 3,
+                "modifiedAt": "2026-10-15T00:00:00.000Z"
+              }
+            ],
+            "parameters": {
+              "date": "2026-10-16"
+            }
+          },
+          "expected": {
+            "summary": "Plan de classement WAV",
+            "renames": [
+              {
+                "from": "NOUVELLE.WAV",
+                "to": "2026-10-16/NOUVELLE.WAV"
+              }
+            ],
+            "data": null
+          }
+        }
+      ]
+    },
+    "origin": {
+      "kind": "USER",
+      "ref": null,
+      "reason": "Demande explicite de l’utilisateur."
+    },
+    "createdAt": "2026-10-15T12:29:49.301Z",
+    "updatedAt": "2026-10-15T15:12:38.165Z",
+    "status": "FAILED",
+    "approvedAt": "2026-10-15T15:12:00.616Z",
+    "attempts": [
+      {
+        "number": 1,
+        "startedAt": "2026-10-15T15:12:00.616Z",
+        "endedAt": "2026-10-15T15:12:38.165Z",
+        "status": "FAILED",
+        "events": [
+          {
+            "at": "2026-10-15T15:12:00.616Z",
+            "phase": "specification",
+            "detail": "Spécification approuvée ; espace de fabrication créé."
+          },
+          {
+            "at": "2026-10-15T15:12:00.687Z",
+            "phase": "generation",
+            "detail": "Codex officiel sollicité ; seuls la spécification et le contrat API lui sont transmis."
+          },
+          {
+            "at": "2026-10-15T15:12:01.559Z",
+            "phase": "connected",
+            "detail": "Session Codex créée."
+          },
+          {
+            "at": "2026-10-15T15:12:37.303Z",
+            "phase": "received",
+            "detail": "Génération reçue (1684 tokens de sortie)."
+          }
+        ],
+        "report": null,
+        "error": "Métadonnées invalides.",
+        "provider": null
+      }
+    ],
+    "questions": [],
+    "manifest": null
+  },
+  "installed": 0,
+  "errors": [
+    "[AETHER] Ce raccourci est déjà utilisé par une autre application. Le précédent est conservé.",
+    "[AETHER] Ce raccourci est déjà utilisé par une autre application. Le précédent est conservé.",
+    "[AETHER] Ce raccourci est déjà utilisé par une autre application. Le précédent est conservé.",
+    "Error occurred in handler for 'aether:evolution-action': Error: Les confirmations et accès fichiers se donnent dans FORGE ou SPACE.\n    at forgeOwner (C:\\Dev\\CRTHON10\\aether\\dist\\main\\main.cjs:28252:115)\n    at C:\\Dev\\CRTHON10\\aether\\dist\\main\\main.cjs:28286:5\n    at Session.<anonymous> (node:electron/js2c/browser_init:1:118964)\n    at Session.emit (node:events:514:28)"
+  ]
+}

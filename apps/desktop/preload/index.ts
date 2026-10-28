@@ -2,6 +2,15 @@ import { contextBridge, ipcRenderer } from 'electron';
 import { IPC, type CuriositySnapshot, type DesktopBridge, type MindSnapshot, type PresenceSnapshot,type PortalSnapshot } from '@aether/shared';
 
 const bridge: DesktopBridge = {
+  getEvolution:()=>ipcRenderer.invoke(IPC.evolutionGet),
+  onEvolution:listener=>{const handler=(_event:Electron.IpcRendererEvent,value:import('@aether/shared').EvolutionSnapshot)=>listener(value);ipcRenderer.on(IPC.evolutionChanged,handler);return ()=>ipcRenderer.removeListener(IPC.evolutionChanged,handler);},
+  prepareForge:input=>ipcRenderer.invoke(IPC.forgePrepare,input),saveForgeSpecification:(id,spec)=>ipcRenderer.invoke(IPC.forgeSave,id,spec),evolutionAction:(action,id,confirmed)=>ipcRenderer.invoke(IPC.evolutionAction,action,id,confirmed),stopEvolution:()=>ipcRenderer.invoke(IPC.evolutionStop),previewCapability:(id,parameters)=>ipcRenderer.invoke(IPC.capabilityPreview,id,parameters),applyCapability:(id,confirmed)=>ipcRenderer.invoke(IPC.capabilityApply,id,confirmed),proposeExperiment:id=>ipcRenderer.invoke(IPC.experimentPropose,id),
+  getLive: () => ipcRenderer.invoke(IPC.liveGet),
+  onLive: listener => { const handler = (_event: Electron.IpcRendererEvent, value: import('@aether/shared').LiveSnapshot) => listener(value); ipcRenderer.on(IPC.liveChanged, handler); return () => ipcRenderer.removeListener(IPC.liveChanged, handler); },
+  saveLiveSettings: input => ipcRenderer.invoke(IPC.liveSave, input), liveConsent: decision => ipcRenderer.invoke(IPC.liveConsent, decision), liveControl: command => ipcRenderer.invoke(IPC.liveControl, command), liveConfirm: (id, approved) => ipcRenderer.invoke(IPC.liveConfirm, id, approved),
+  getVoice:()=>ipcRenderer.invoke(IPC.voiceGet),
+  onVoice:listener=>{const handler=(_event:Electron.IpcRendererEvent,value:import('@aether/shared').VoiceSnapshot)=>listener(value);ipcRenderer.on(IPC.voiceChanged,handler);return ()=>ipcRenderer.removeListener(IPC.voiceChanged,handler);},
+  getVoiceInventory:()=>ipcRenderer.invoke(IPC.voiceInventory),saveVoiceSettings:input=>ipcRenderer.invoke(IPC.voiceSave,input),voiceConsent:decision=>ipcRenderer.invoke(IPC.voiceConsent,decision),voiceControl:command=>ipcRenderer.invoke(IPC.voiceControl,command),chooseVoiceResource:kind=>ipcRenderer.invoke(IPC.voiceResource,kind),
   getSnapshot: () => ipcRenderer.invoke(IPC.snapshot),
   command: command => ipcRenderer.invoke(IPC.command, command),
   saveSettings: settings => ipcRenderer.invoke(IPC.settings, settings),

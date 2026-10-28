@@ -1,0 +1,13 @@
+{
+  "result": "PASS",
+  "checkedAt": "2026-10-06T06:17:06.268Z",
+  "executable": "C:\\Dev\\CRTHON10\\aether\\release\\AETHER-win32-x64-voice-corrige\\AETHER.exe",
+  "version": "0.5.5",
+  "mainMatchesTestedBuild": true,
+  "mainSha256": "68ce33c7292e413dd2b20c7b94a65d84b864e51b1340ac02b0bd55614c9b999f",
+  "packagedHelperMatchesTestedSource": true,
+  "packagedEntries": 17,
+  "noNestedRelease": true,
+  "userRestartPending": true,
+  "microphoneOpened": false
+}

@@ -1,0 +1,18 @@
+{
+  "forgeRequestId": "44fa75ee-c15d-4cad-8ecb-870126afe9a0",
+  "specification": "spec-reference.json",
+  "generationAndTests": {
+    "decision": "approved",
+    "source": "Explicit user reply in this conversation",
+    "answer": "Autoriser la fabrication et les tests",
+    "scope": "Real Codex generation and MIRROR tests in the isolated reference profile. No installation and no personal file modifications."
+  },
+  "installation": {
+    "decision": "pending",
+    "proposedCapability": "classement-wav-par-date",
+    "version": "1.0.0",
+    "attempt": 3,
+    "digest": "a7c16aeaa8c0b9f05f3e32fec7b7c6f1e35b0b69aca4d65595a8eebec5f0f79f",
+    "scopeRequested": "Install in the normal AETHER profile, restart completely, and verify on a new controlled test folder. No personal files used in that verification."
+  }
+}

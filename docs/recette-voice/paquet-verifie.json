@@ -1,0 +1,195 @@
+{
+  "result": "PASS",
+  "checkedAt": "2026-10-05T15:19:51.982Z",
+  "executable": "C:\\Dev\\CRTHON10\\aether\\release\\AETHER-win32-x64\\AETHER.exe",
+  "runtime": {
+    "packaged": true,
+    "version": "0.5.5",
+    "appPath": "C:\\Dev\\CRTHON10\\aether\\release\\AETHER-win32-x64\\resources\\app.asar",
+    "visible": true
+  },
+  "configuration": {
+    "schemaVersion": 1,
+    "provider": "ollama",
+    "model": "qwen3.5:9b",
+    "cloudConsent": false,
+    "ollamaUrl": "http://127.0.0.1:11434",
+    "keyConfigured": false,
+    "secureStorageAvailable": true
+  },
+  "router": {
+    "DEEP": {
+      "provider": "ollama",
+      "model": "qwen3.5:9b"
+    },
+    "VISION": {
+      "provider": "ollama",
+      "model": "qwen3.5:9b"
+    },
+    "FAST": {
+      "provider": "ollama",
+      "model": "qwen3.5:9b"
+    },
+    "cloudConsent": false
+  },
+  "portalSettings": {
+    "shortcut": "Control+Alt+A",
+    "registered": true
+  },
+  "answer": {
+    "id": "2441b785-2c78-4589-8f84-15da60504196",
+    "role": "assistant",
+    "content": "Je m'appelle ENTITY, la présence numérique d'AETHER. Je ne suis pas consciente ni dotée de sentiments, mais je suis curieuse et prête à converser avec toi.",
+    "spokenResponse": "Je m'appelle ENTITY, la présence numérique d'AETHER. Je n'ai pas de sentiments, mais je suis curieuse de t'entendre.",
+    "capability": "none",
+    "modality": "text",
+    "createdAt": "2026-10-05T15:19:44.059Z",
+    "model": "qwen3.5:9b"
+  },
+  "originalBounds": {
+    "x": 1466,
+    "y": 338,
+    "width": 162,
+    "height": 162
+  },
+  "returnedBounds": {
+    "x": 1466,
+    "y": 338,
+    "width": 160,
+    "height": 160
+  },
+  "spaceDestroyed": true,
+  "profileIntegrity": {
+    "previousInterestIds": [
+      "3946c537-4739-40f8-a48f-a4932c6731ee"
+    ],
+    "interestsBefore": 1,
+    "interestsAfter": 1,
+    "attemptsBefore": 15,
+    "attemptsAfter": 16,
+    "memoriesBefore": 0,
+    "memoriesAfter": 0,
+    "autonomyEnabledBefore": true,
+    "autonomyEnabledAfter": true,
+    "noTestImport": true
+  },
+  "echoAtStartup": {
+    "enabled": false,
+    "state": "off",
+    "activeSessionId": null,
+    "context": null,
+    "error": null,
+    "sessions": [],
+    "habits": [],
+    "opportunities": [],
+    "exclusions": {
+      "folders": [],
+      "processes": [
+        "1password.exe",
+        "keepass.exe",
+        "keepassxc.exe",
+        "bitwarden.exe",
+        "outlook.exe",
+        "chrome.exe",
+        "msedge.exe",
+        "firefox.exe"
+      ],
+      "windows": [
+        "banque",
+        "password",
+        "mot de passe",
+        "confidentiel",
+        "inprivate",
+        "private browsing"
+      ]
+    }
+  },
+  "packagedHelper": {
+    "path": "C:\\Dev\\CRTHON10\\aether\\release\\AETHER-win32-x64\\resources\\app.asar.unpacked\\dist\\main\\echo-context.ps1",
+    "context": {
+      "reason": "Contexte Explorer dans le dossier autorisé.",
+      "windowTitle": "packaged-echo-mDLq9e : Explorateur de fichiers",
+      "folder": "C:\\Dev\\CRTHON10\\aether\\test-results\\packaged-echo-mDLq9e",
+      "allowed": true,
+      "application": "explorer.exe"
+    },
+    "emptySessionDeleted": true,
+    "finalState": "off"
+  },
+  "voiceAtStartup": {
+    "state": "idle",
+    "microphoneActive": false,
+    "audioLevel": 0,
+    "source": null,
+    "error": null,
+    "notice": null,
+    "transcription": null,
+    "fullResponse": null,
+    "spokenResponse": null,
+    "settings": {
+      "schemaVersion": 1,
+      "enabled": false,
+      "microphoneConsent": "prompt",
+      "microphone": "default",
+      "language": "fr-FR",
+      "shortcut": "Control+Alt+V",
+      "sttProvider": "faster-whisper",
+      "ttsProvider": "windows-speech",
+      "ttsEnabled": true,
+      "voice": "Microsoft Hortense Desktop",
+      "speed": 0.95,
+      "volume": 0.65,
+      "responsePolicy": "voice-only",
+      "diagnostics": false,
+      "retainDiagnosticAudio": false,
+      "wakeWordEnabled": false,
+      "pythonPath": "python",
+      "modelPath": "C:\\Users\\sebas\\.cache\\huggingface\\hub\\models--Systran--faster-whisper-medium\\snapshots\\08e178d48790749d25932bbc082711ddcfdfbc4f"
+    },
+    "metrics": null,
+    "diagnostics": [],
+    "shortcutRegistered": true,
+    "wakeWordAvailable": false,
+    "cloudActive": false
+  },
+  "voiceInventory": {
+    "microphones": [
+      {
+        "id": "fa5f080bd55ce647a541068c",
+        "name": "Headset (Poly V4320 Series)",
+        "host": "Windows WASAPI",
+        "default": false
+      },
+      {
+        "id": "4eb91711a1d399322c03e95e",
+        "name": "Microphone Array (Intel® Smart Sound Technology for Digital Microphones)",
+        "host": "Windows WASAPI",
+        "default": false
+      }
+    ],
+    "voices": [
+      {
+        "language": "fr-FR",
+        "name": "Microsoft Hortense Desktop",
+        "id": "Microsoft Hortense Desktop"
+      },
+      {
+        "language": "en-US",
+        "name": "Microsoft Zira Desktop",
+        "id": "Microsoft Zira Desktop"
+      },
+      {
+        "language": "en-US",
+        "name": "Microsoft David Desktop",
+        "id": "Microsoft David Desktop"
+      }
+    ],
+    "sttAvailable": true,
+    "ttsAvailable": true,
+    "model": "C:\\Users\\sebas\\.cache\\huggingface\\hub\\models--Systran--faster-whisper-medium\\snapshots\\08e178d48790749d25932bbc082711ddcfdfbc4f",
+    "runtime": "C:\\ProgramData\\anaconda3\\python.exe",
+    "errors": []
+  },
+  "voiceHelper": "C:\\Dev\\CRTHON10\\aether\\release\\AETHER-win32-x64\\resources\\app.asar.unpacked\\dist\\main\\voice-speech.ps1",
+  "packagedEntries": 17
+}

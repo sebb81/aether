@@ -1,0 +1,2317 @@
+{
+  "startedAt": "2026-10-05T15:17:42.988Z",
+  "observationSource": "Actual fs.watch + metadata diff + actual Win32/Shell foreground context",
+  "nativeActions": "Explorer F2, Ctrl+Shift+N, Ctrl+X/Ctrl+V",
+  "folderPicker": "Actual native directory picker",
+  "model": "Ollama qwen3.5:9b, no provider mock",
+  "profile": "C:\\Users\\sebas\\AppData\\Local\\Temp\\aether-j5-profile-NxrKWI",
+  "A": {
+    "result": "PASS",
+    "explicitConsent": true,
+    "noSessionBeforeValidation": true,
+    "foreignWindowRejected": "Error: page.evaluate: Error: Error invoking remote method 'aether:echo-start': Error: Le consentement et les commandes ECHO se donnent dans son panneau."
+  },
+  "nativeFirst": {
+    "stdout": "Real Explorer rename, create-folder, cut/paste procedure completed\r\n",
+    "stderr": ""
+  },
+  "observationDiagnostic": {
+    "enabled": true,
+    "state": "observing",
+    "activeSessionId": "7977900e-acef-4a76-932e-23512031d665",
+    "context": {
+      "reason": "Contexte Explorer dans le dossier autorisé.",
+      "windowTitle": "2026-10-05 : Explorateur de fichiers",
+      "folder": "C:\\Dev\\CRTHON10\\aether\\test-results\\echo\\files-POv0BY\\2026-10-05",
+      "allowed": true,
+      "application": "explorer.exe"
+    },
+    "error": null,
+    "sessions": [
+      {
+        "id": "7977900e-acef-4a76-932e-23512031d665",
+        "startedAt": "2026-10-05T15:17:45.697Z",
+        "endedAt": null,
+        "durationMs": 12987,
+        "applications": [
+          "explorer.exe"
+        ],
+        "resources": [
+          "C:\\Dev\\CRTHON10\\aether\\test-results\\echo\\files-POv0BY"
+        ],
+        "status": "observing",
+        "summary": null,
+        "error": null,
+        "events": [
+          {
+            "kind": "renamed",
+            "path": "2026-10-05_audio_01.wav",
+            "previousPath": "audio_01.wav",
+            "nodeKind": "file",
+            "size": 52,
+            "id": "b09f8b83-9f6f-45ff-9081-f53e44b90cc4",
+            "sessionId": "7977900e-acef-4a76-932e-23512031d665",
+            "at": "2026-10-05T15:17:50.199Z",
+            "source": "filesystem",
+            "application": "explorer.exe",
+            "windowTitle": "files-POv0BY : Explorateur de fichiers",
+            "contextFolder": "C:\\Dev\\CRTHON10\\aether\\test-results\\echo\\files-POv0BY"
+          },
+          {
+            "kind": "renamed",
+            "path": "2026-10-05_audio_02.wav",
+            "previousPath": "audio_02.wav",
+            "nodeKind": "file",
+            "size": 52,
+            "id": "18d092e7-e56f-4deb-9cef-e34edb4e5abf",
+            "sessionId": "7977900e-acef-4a76-932e-23512031d665",
+            "at": "2026-10-05T15:17:52.426Z",
+            "source": "filesystem",
+            "application": "explorer.exe",
+            "windowTitle": "files-POv0BY : Explorateur de fichiers",
+            "contextFolder": "C:\\Dev\\CRTHON10\\aether\\test-results\\echo\\files-POv0BY"
+          },
+          {
+            "kind": "created",
+            "path": "Nouveau dossier",
+            "previousPath": null,
+            "nodeKind": "directory",
+            "size": 0,
+            "id": "63e92c4c-5e8d-490d-9623-5f1eaaefad85",
+            "sessionId": "7977900e-acef-4a76-932e-23512031d665",
+            "at": "2026-10-05T15:17:53.492Z",
+            "source": "filesystem",
+            "application": "explorer.exe",
+            "windowTitle": "files-POv0BY : Explorateur de fichiers",
+            "contextFolder": "C:\\Dev\\CRTHON10\\aether\\test-results\\echo\\files-POv0BY"
+          },
+          {
+            "kind": "renamed",
+            "path": "2026-10-05",
+            "previousPath": "Nouveau dossier",
+            "nodeKind": "directory",
+            "size": 0,
+            "id": "82cc1532-8749-48de-8db8-1e2f7a62235f",
+            "sessionId": "7977900e-acef-4a76-932e-23512031d665",
+            "at": "2026-10-05T15:17:54.384Z",
+            "source": "filesystem",
+            "application": "explorer.exe",
+            "windowTitle": "files-POv0BY : Explorateur de fichiers",
+            "contextFolder": "C:\\Dev\\CRTHON10\\aether\\test-results\\echo\\files-POv0BY"
+          },
+          {
+            "kind": "moved",
+            "path": "2026-10-05\\2026-10-05_audio_01.wav",
+            "previousPath": "2026-10-05_audio_01.wav",
+            "nodeKind": "file",
+            "size": 52,
+            "id": "23ddff35-1200-457d-9627-5a10b60ebf2a",
+            "sessionId": "7977900e-acef-4a76-932e-23512031d665",
+            "at": "2026-10-05T15:17:57.762Z",
+            "source": "filesystem",
+            "application": "explorer.exe",
+            "windowTitle": "2026-10-05 : Explorateur de fichiers",
+            "contextFolder": "C:\\Dev\\CRTHON10\\aether\\test-results\\echo\\files-POv0BY\\2026-10-05"
+          },
+          {
+            "kind": "moved",
+            "path": "2026-10-05\\2026-10-05_audio_02.wav",
+            "previousPath": "2026-10-05_audio_02.wav",
+            "nodeKind": "file",
+            "size": 52,
+            "id": "68f923ba-01db-4ec4-b4cb-9fb886e65469",
+            "sessionId": "7977900e-acef-4a76-932e-23512031d665",
+            "at": "2026-10-05T15:17:57.762Z",
+            "source": "filesystem",
+            "application": "explorer.exe",
+            "windowTitle": "2026-10-05 : Explorateur de fichiers",
+            "contextFolder": "C:\\Dev\\CRTHON10\\aether\\test-results\\echo\\files-POv0BY\\2026-10-05"
+          }
+        ],
+        "hypotheses": []
+      }
+    ],
+    "habits": [],
+    "opportunities": [],
+    "exclusions": {
+      "folders": [],
+      "processes": [
+        "1password.exe",
+        "keepass.exe",
+        "keepassxc.exe",
+        "bitwarden.exe",
+        "outlook.exe",
+        "chrome.exe",
+        "msedge.exe",
+        "firefox.exe"
+      ],
+      "windows": [
+        "banque",
+        "password",
+        "mot de passe",
+        "confidentiel",
+        "inprivate",
+        "private browsing"
+      ]
+    }
+  },
+  "B": {
+    "result": "PASS",
+    "events": [
+      {
+        "kind": "renamed",
+        "path": "2026-10-05_audio_01.wav",
+        "previousPath": "audio_01.wav",
+        "nodeKind": "file",
+        "size": 52,
+        "id": "b09f8b83-9f6f-45ff-9081-f53e44b90cc4",
+        "sessionId": "7977900e-acef-4a76-932e-23512031d665",
+        "at": "2026-10-05T15:17:50.199Z",
+        "source": "filesystem",
+        "application": "explorer.exe",
+        "windowTitle": "files-POv0BY : Explorateur de fichiers",
+        "contextFolder": "C:\\Dev\\CRTHON10\\aether\\test-results\\echo\\files-POv0BY"
+      },
+      {
+        "kind": "renamed",
+        "path": "2026-10-05_audio_02.wav",
+        "previousPath": "audio_02.wav",
+        "nodeKind": "file",
+        "size": 52,
+        "id": "18d092e7-e56f-4deb-9cef-e34edb4e5abf",
+        "sessionId": "7977900e-acef-4a76-932e-23512031d665",
+        "at": "2026-10-05T15:17:52.426Z",
+        "source": "filesystem",
+        "application": "explorer.exe",
+        "windowTitle": "files-POv0BY : Explorateur de fichiers",
+        "contextFolder": "C:\\Dev\\CRTHON10\\aether\\test-results\\echo\\files-POv0BY"
+      },
+      {
+        "kind": "created",
+        "path": "Nouveau dossier",
+        "previousPath": null,
+        "nodeKind": "directory",
+        "size": 0,
+        "id": "63e92c4c-5e8d-490d-9623-5f1eaaefad85",
+        "sessionId": "7977900e-acef-4a76-932e-23512031d665",
+        "at": "2026-10-05T15:17:53.492Z",
+        "source": "filesystem",
+        "application": "explorer.exe",
+        "windowTitle": "files-POv0BY : Explorateur de fichiers",
+        "contextFolder": "C:\\Dev\\CRTHON10\\aether\\test-results\\echo\\files-POv0BY"
+      },
+      {
+        "kind": "renamed",
+        "path": "2026-10-05",
+        "previousPath": "Nouveau dossier",
+        "nodeKind": "directory",
+        "size": 0,
+        "id": "82cc1532-8749-48de-8db8-1e2f7a62235f",
+        "sessionId": "7977900e-acef-4a76-932e-23512031d665",
+        "at": "2026-10-05T15:17:54.384Z",
+        "source": "filesystem",
+        "application": "explorer.exe",
+        "windowTitle": "files-POv0BY : Explorateur de fichiers",
+        "contextFolder": "C:\\Dev\\CRTHON10\\aether\\test-results\\echo\\files-POv0BY"
+      },
+      {
+        "kind": "moved",
+        "path": "2026-10-05\\2026-10-05_audio_01.wav",
+        "previousPath": "2026-10-05_audio_01.wav",
+        "nodeKind": "file",
+        "size": 52,
+        "id": "23ddff35-1200-457d-9627-5a10b60ebf2a",
+        "sessionId": "7977900e-acef-4a76-932e-23512031d665",
+        "at": "2026-10-05T15:17:57.762Z",
+        "source": "filesystem",
+        "application": "explorer.exe",
+        "windowTitle": "2026-10-05 : Explorateur de fichiers",
+        "contextFolder": "C:\\Dev\\CRTHON10\\aether\\test-results\\echo\\files-POv0BY\\2026-10-05"
+      },
+      {
+        "kind": "moved",
+        "path": "2026-10-05\\2026-10-05_audio_02.wav",
+        "previousPath": "2026-10-05_audio_02.wav",
+        "nodeKind": "file",
+        "size": 52,
+        "id": "68f923ba-01db-4ec4-b4cb-9fb886e65469",
+        "sessionId": "7977900e-acef-4a76-932e-23512031d665",
+        "at": "2026-10-05T15:17:57.762Z",
+        "source": "filesystem",
+        "application": "explorer.exe",
+        "windowTitle": "2026-10-05 : Explorateur de fichiers",
+        "contextFolder": "C:\\Dev\\CRTHON10\\aether\\test-results\\echo\\files-POv0BY\\2026-10-05"
+      }
+    ]
+  },
+  "C": {
+    "result": "PASS",
+    "session": {
+      "id": "7977900e-acef-4a76-932e-23512031d665",
+      "startedAt": "2026-10-05T15:17:45.697Z",
+      "endedAt": "2026-10-05T15:17:59.795Z",
+      "durationMs": 14098,
+      "applications": [
+        "explorer.exe"
+      ],
+      "resources": [
+        "C:\\Dev\\CRTHON10\\aether\\test-results\\echo\\files-POv0BY"
+      ],
+      "status": "completed",
+      "summary": "L'utilisateur a créé un dossier temporaire nommé 'Nouveau dossier', renommé ce dossier en '2026-10-05' (format YYYY-MM-DD), puis déplacé deux fichiers audio ('audio_01.wav', 'audio_02.wav') dans ce nouveau dossier tout en les renommant pour inclure la date complète du chemin (ex: '2026-10-05\\2026-10-05_audio_01.wav').",
+      "error": null,
+      "events": [
+        {
+          "kind": "renamed",
+          "path": "2026-10-05_audio_01.wav",
+          "previousPath": "audio_01.wav",
+          "nodeKind": "file",
+          "size": 52,
+          "id": "b09f8b83-9f6f-45ff-9081-f53e44b90cc4",
+          "sessionId": "7977900e-acef-4a76-932e-23512031d665",
+          "at": "2026-10-05T15:17:50.199Z",
+          "source": "filesystem",
+          "application": "explorer.exe",
+          "windowTitle": "files-POv0BY : Explorateur de fichiers",
+          "contextFolder": "C:\\Dev\\CRTHON10\\aether\\test-results\\echo\\files-POv0BY"
+        },
+        {
+          "kind": "renamed",
+          "path": "2026-10-05_audio_02.wav",
+          "previousPath": "audio_02.wav",
+          "nodeKind": "file",
+          "size": 52,
+          "id": "18d092e7-e56f-4deb-9cef-e34edb4e5abf",
+          "sessionId": "7977900e-acef-4a76-932e-23512031d665",
+          "at": "2026-10-05T15:17:52.426Z",
+          "source": "filesystem",
+          "application": "explorer.exe",
+          "windowTitle": "files-POv0BY : Explorateur de fichiers",
+          "contextFolder": "C:\\Dev\\CRTHON10\\aether\\test-results\\echo\\files-POv0BY"
+        },
+        {
+          "kind": "created",
+          "path": "Nouveau dossier",
+          "previousPath": null,
+          "nodeKind": "directory",
+          "size": 0,
+          "id": "63e92c4c-5e8d-490d-9623-5f1eaaefad85",
+          "sessionId": "7977900e-acef-4a76-932e-23512031d665",
+          "at": "2026-10-05T15:17:53.492Z",
+          "source": "filesystem",
+          "application": "explorer.exe",
+          "windowTitle": "files-POv0BY : Explorateur de fichiers",
+          "contextFolder": "C:\\Dev\\CRTHON10\\aether\\test-results\\echo\\files-POv0BY"
+        },
+        {
+          "kind": "renamed",
+          "path": "2026-10-05",
+          "previousPath": "Nouveau dossier",
+          "nodeKind": "directory",
+          "size": 0,
+          "id": "82cc1532-8749-48de-8db8-1e2f7a62235f",
+          "sessionId": "7977900e-acef-4a76-932e-23512031d665",
+          "at": "2026-10-05T15:17:54.384Z",
+          "source": "filesystem",
+          "application": "explorer.exe",
+          "windowTitle": "files-POv0BY : Explorateur de fichiers",
+          "contextFolder": "C:\\Dev\\CRTHON10\\aether\\test-results\\echo\\files-POv0BY"
+        },
+        {
+          "kind": "moved",
+          "path": "2026-10-05\\2026-10-05_audio_01.wav",
+          "previousPath": "2026-10-05_audio_01.wav",
+          "nodeKind": "file",
+          "size": 52,
+          "id": "23ddff35-1200-457d-9627-5a10b60ebf2a",
+          "sessionId": "7977900e-acef-4a76-932e-23512031d665",
+          "at": "2026-10-05T15:17:57.762Z",
+          "source": "filesystem",
+          "application": "explorer.exe",
+          "windowTitle": "2026-10-05 : Explorateur de fichiers",
+          "contextFolder": "C:\\Dev\\CRTHON10\\aether\\test-results\\echo\\files-POv0BY\\2026-10-05"
+        },
+        {
+          "kind": "moved",
+          "path": "2026-10-05\\2026-10-05_audio_02.wav",
+          "previousPath": "2026-10-05_audio_02.wav",
+          "nodeKind": "file",
+          "size": 52,
+          "id": "68f923ba-01db-4ec4-b4cb-9fb886e65469",
+          "sessionId": "7977900e-acef-4a76-932e-23512031d665",
+          "at": "2026-10-05T15:17:57.762Z",
+          "source": "filesystem",
+          "application": "explorer.exe",
+          "windowTitle": "2026-10-05 : Explorateur de fichiers",
+          "contextFolder": "C:\\Dev\\CRTHON10\\aether\\test-results\\echo\\files-POv0BY\\2026-10-05"
+        }
+      ],
+      "hypotheses": [
+        {
+          "id": "13f5fd7d-cea9-4c73-8ff9-3fd20ca5045a",
+          "sessionId": "7977900e-acef-4a76-932e-23512031d665",
+          "habitId": "06ce9b55-3c4a-4a9a-844f-34363559b6c6",
+          "createdAt": "2026-10-05T15:18:15.690Z",
+          "interpretation": {
+            "summary": "L'utilisateur a créé un dossier temporaire nommé 'Nouveau dossier', renommé ce dossier en '2026-10-05' (format YYYY-MM-DD), puis déplacé deux fichiers audio ('audio_01.wav', 'audio_02.wav') dans ce nouveau dossier tout en les renommant pour inclure la date complète du chemin (ex: '2026-10-05\\2026-10-05_audio_01.wav').",
+            "name": "Classement journalier avec nommage hiérarchique par date",
+            "description": "La méthode consiste à regrouper les fichiers audio d'une journée spécifique dans un dossier portant la date du jour, tout en appliquant une convention de nommage où le chemin complet inclut la répertoire racine et le nom du fichier, souvent doublant la date au début du nom du fichier pour assurer l'unicité ou la clarté.",
+            "context": "Organisation de fichiers audio bruts par date d'enregistrement ou de traitement.",
+            "triggers": [
+              "Création d'un dossier vide",
+              "Renommage du dossier vers une date formatée",
+              "Déplacement et renommage simultané de fichiers audio dans le nouveau dossier"
+            ],
+            "procedure": [
+              {
+                "action": "created",
+                "description": "Création d'un conteneur temporaire pour le tri.",
+                "evidenceIds": [
+                  "63e92c4c-5e8d-490d-9623-5f1eaaefad85"
+                ]
+              },
+              {
+                "action": "renamed",
+                "description": "Renommage du conteneur temporaire vers la date cible.",
+                "evidenceIds": [
+                  "82cc1532-8749-48de-8db8-1e2f7a62235f"
+                ]
+              },
+              {
+                "action": "moved",
+                "description": "Déplacement du premier fichier audio dans le dossier daté avec mise à jour du nom.",
+                "evidenceIds": [
+                  "23ddff35-1200-457d-9627-5a10b60ebf2a"
+                ]
+              },
+              {
+                "action": "moved",
+                "description": "Déplacement du second fichier audio dans le dossier daté avec mise à jour du nom.",
+                "evidenceIds": [
+                  "68f923ba-01db-4ec4-b4cb-9fb886e65469"
+                ]
+              },
+              {
+                "action": "renamed",
+                "description": "Renommage des fichiers originaux (avant déplacement) pour intégrer la date dans le nom du fichier.",
+                "evidenceIds": [
+                  "b09f8b83-9f6f-45ff-9081-f53e44b90cc4",
+                  "18d092e7-e56f-4deb-9cef-e34edb4e5abf"
+                ]
+              }
+            ],
+            "evidenceIds": [
+              "b09f8b83-9f6f-45ff-9081-f53e44b90cc4",
+              "18d092e7-e56f-4deb-9cef-e34edb4e5abf",
+              "63e92c4c-5e8d-490d-9623-5f1eaaefad85",
+              "82cc1532-8749-48de-8db8-1e2f7a62235f",
+              "23ddff35-1200-457d-9627-5a10b60ebf2a",
+              "68f923ba-01db-4ec4-b4cb-9fb886e65469"
+            ],
+            "confidence": 0.95,
+            "matchedHabitId": null,
+            "variations": [
+              "Le fichier pourrait être renommé uniquement dans le dossier sans changer la racine du nom.",
+              "Plusieurs fichiers pourraient être traités en parallèle avant d'être déplacés."
+            ]
+          },
+          "decision": "pending",
+          "correction": null,
+          "model": "qwen3.5:9b",
+          "route": {
+            "requested": "DEEP",
+            "selected": "DEEP",
+            "provider": "ollama",
+            "model": "qwen3.5:9b",
+            "fallback": false
+          },
+          "invalidated": false
+        }
+      ]
+    }
+  },
+  "D": {
+    "result": "PASS",
+    "habit": {
+      "id": "06ce9b55-3c4a-4a9a-844f-34363559b6c6",
+      "name": "Classement journalier avec nommage hiérarchique par date",
+      "description": "La méthode consiste à regrouper les fichiers audio d'une journée spécifique dans un dossier portant la date du jour, tout en appliquant une convention de nommage où le chemin complet inclut la répertoire racine et le nom du fichier, souvent doublant la date au début du nom du fichier pour assurer l'unicité ou la clarté.",
+      "context": "Organisation de fichiers audio bruts par date d'enregistrement ou de traitement.",
+      "applications": [
+        "explorer.exe"
+      ],
+      "triggers": [
+        "Création d'un dossier vide",
+        "Renommage du dossier vers une date formatée",
+        "Déplacement et renommage simultané de fichiers audio dans le nouveau dossier"
+      ],
+      "procedure": [
+        {
+          "action": "created",
+          "description": "Création d'un conteneur temporaire pour le tri.",
+          "evidenceIds": [
+            "63e92c4c-5e8d-490d-9623-5f1eaaefad85"
+          ]
+        },
+        {
+          "action": "renamed",
+          "description": "Renommage du conteneur temporaire vers la date cible.",
+          "evidenceIds": [
+            "82cc1532-8749-48de-8db8-1e2f7a62235f"
+          ]
+        },
+        {
+          "action": "moved",
+          "description": "Déplacement du premier fichier audio dans le dossier daté avec mise à jour du nom.",
+          "evidenceIds": [
+            "23ddff35-1200-457d-9627-5a10b60ebf2a"
+          ]
+        },
+        {
+          "action": "moved",
+          "description": "Déplacement du second fichier audio dans le dossier daté avec mise à jour du nom.",
+          "evidenceIds": [
+            "68f923ba-01db-4ec4-b4cb-9fb886e65469"
+          ]
+        },
+        {
+          "action": "renamed",
+          "description": "Renommage des fichiers originaux (avant déplacement) pour intégrer la date dans le nom du fichier.",
+          "evidenceIds": [
+            "b09f8b83-9f6f-45ff-9081-f53e44b90cc4",
+            "18d092e7-e56f-4deb-9cef-e34edb4e5abf"
+          ]
+        }
+      ],
+      "firstObservedAt": "2026-10-05T15:17:45.697Z",
+      "lastObservedAt": "2026-10-05T15:17:45.697Z",
+      "occurrences": 1,
+      "confidence": 0.95,
+      "state": "confirmed",
+      "provenance": {
+        "engine": "ECHO",
+        "sessionIds": [
+          "7977900e-acef-4a76-932e-23512031d665"
+        ]
+      },
+      "memoryId": "c1f7223a-bc14-49a4-b266-d3cfdafd1a3a",
+      "variations": [],
+      "signature": [
+        "created:directory::named",
+        "moved:file:.wav:dated",
+        "renamed:directory::dated",
+        "renamed:file:.wav:dated"
+      ]
+    },
+    "memory": [
+      {
+        "id": "c1f7223a-bc14-49a4-b266-d3cfdafd1a3a",
+        "content": "Habitude confirmée : Classement journalier avec nommage hiérarchique par date. La méthode consiste à regrouper les fichiers audio d'une journée spécifique dans un dossier portant la date du jour, tout en appliquant une convention de nommage où le chemin complet inclut la répertoire racine et le nom du fichier, souvent doublant la date au début du nom du fichier pour assurer l'unicité ou la clarté.\nContexte : Organisation de fichiers audio bruts par date d'enregistrement ou de traitement.\nProcédure observée : Création d'un conteneur temporaire pour le tri. ; Renommage du conteneur temporaire vers la date cible. ; Déplacement du premier fichier audio dans le dossier daté avec mise à jour du nom. ; Déplacement du second fichier audio dans le dossier daté avec mise à jour du nom. ; Renommage des fichiers originaux (avant déplacement) pour intégrer la date dans le nom du fichier.",
+        "kind": "habit",
+        "category": "experience",
+        "source": "ECHO:06ce9b55-3c4a-4a9a-844f-34363559b6c6",
+        "scope": "personal",
+        "createdAt": "2026-10-05T15:17:45.697Z",
+        "updatedAt": "2026-10-05T15:18:16.343Z",
+        "confidence": null,
+        "status": "confirmed",
+        "origin": "explicit"
+      }
+    ]
+  },
+  "nativeSecond": {
+    "stdout": "Real Explorer rename, create-folder, cut/paste procedure completed\r\n",
+    "stderr": ""
+  },
+  "E": {
+    "result": "PASS",
+    "habit": {
+      "id": "06ce9b55-3c4a-4a9a-844f-34363559b6c6",
+      "name": "Classement journalier avec nommage hiérarchique par date",
+      "description": "La méthode consiste à regrouper les fichiers audio d'une journée spécifique dans un dossier portant la date du jour, tout en appliquant une convention de nommage où le chemin complet inclut la répertoire racine et le nom du fichier, souvent doublant la date au début du nom du fichier pour assurer l'unicité ou la clarté.",
+      "context": "Organisation de fichiers audio bruts par date d'enregistrement ou de traitement.",
+      "applications": [
+        "explorer.exe"
+      ],
+      "triggers": [
+        "Création d'un dossier vide",
+        "Renommage du dossier vers une date formatée",
+        "Déplacement et renommage simultané de fichiers audio dans le nouveau dossier"
+      ],
+      "procedure": [
+        {
+          "action": "created",
+          "description": "Création d'un conteneur temporaire pour le tri.",
+          "evidenceIds": [
+            "63e92c4c-5e8d-490d-9623-5f1eaaefad85"
+          ]
+        },
+        {
+          "action": "renamed",
+          "description": "Renommage du conteneur temporaire vers la date cible.",
+          "evidenceIds": [
+            "82cc1532-8749-48de-8db8-1e2f7a62235f"
+          ]
+        },
+        {
+          "action": "moved",
+          "description": "Déplacement du premier fichier audio dans le dossier daté avec mise à jour du nom.",
+          "evidenceIds": [
+            "23ddff35-1200-457d-9627-5a10b60ebf2a"
+          ]
+        },
+        {
+          "action": "moved",
+          "description": "Déplacement du second fichier audio dans le dossier daté avec mise à jour du nom.",
+          "evidenceIds": [
+            "68f923ba-01db-4ec4-b4cb-9fb886e65469"
+          ]
+        },
+        {
+          "action": "renamed",
+          "description": "Renommage des fichiers originaux (avant déplacement) pour intégrer la date dans le nom du fichier.",
+          "evidenceIds": [
+            "b09f8b83-9f6f-45ff-9081-f53e44b90cc4",
+            "18d092e7-e56f-4deb-9cef-e34edb4e5abf"
+          ]
+        }
+      ],
+      "firstObservedAt": "2026-10-05T15:17:45.697Z",
+      "lastObservedAt": "2026-10-05T15:18:21.723Z",
+      "occurrences": 2,
+      "confidence": 0.95,
+      "state": "confirmed",
+      "provenance": {
+        "engine": "ECHO",
+        "sessionIds": [
+          "7977900e-acef-4a76-932e-23512031d665",
+          "85d42068-6a93-41cb-a85a-ece74d6d1d45"
+        ]
+      },
+      "memoryId": "c1f7223a-bc14-49a4-b266-d3cfdafd1a3a",
+      "variations": [
+        {
+          "sessionId": "85d42068-6a93-41cb-a85a-ece74d6d1d45",
+          "comparedSessionId": "7977900e-acef-4a76-932e-23512031d665",
+          "description": "Dates dans les noms : 2026-10-05 → 2026-10-08.",
+          "evidenceIds": [
+            "8a2e09c5-f13b-40b9-b8ec-382c13ef2b50",
+            "80048445-657a-4ac3-8d44-a62e67864365",
+            "a0dd217d-b45c-40a8-a3f4-b395701c7fd4",
+            "82ac05e4-8c0e-4d12-8198-e567218bbe44",
+            "ae24089e-71b1-4653-938b-e4496701dc33"
+          ],
+          "decision": "pending"
+        }
+      ],
+      "signature": [
+        "created:directory::named",
+        "moved:file:.wav:dated",
+        "renamed:directory::dated",
+        "renamed:file:.wav:dated"
+      ]
+    },
+    "session": {
+      "id": "85d42068-6a93-41cb-a85a-ece74d6d1d45",
+      "startedAt": "2026-10-05T15:18:21.723Z",
+      "endedAt": "2026-10-05T15:18:34.786Z",
+      "durationMs": 13063,
+      "applications": [
+        "explorer.exe"
+      ],
+      "resources": [
+        "C:\\Dev\\CRTHON10\\aether\\test-results\\echo\\files-POv0BY"
+      ],
+      "status": "completed",
+      "summary": "L'utilisateur a créé un dossier temporaire, le renommé avec la date du jour (2026-10-08), puis déplacé et renommé deux fichiers audio (.wav) existants pour les intégrer dans ce nouveau dossier en préfixant leurs noms par la même date.",
+      "error": null,
+      "events": [
+        {
+          "kind": "renamed",
+          "path": "2026-10-08_audio_01.wav",
+          "previousPath": "audio_01.wav",
+          "nodeKind": "file",
+          "size": 28,
+          "id": "8a2e09c5-f13b-40b9-b8ec-382c13ef2b50",
+          "sessionId": "85d42068-6a93-41cb-a85a-ece74d6d1d45",
+          "at": "2026-10-05T15:18:26.336Z",
+          "source": "filesystem",
+          "application": "explorer.exe",
+          "windowTitle": "files-POv0BY : Explorateur de fichiers",
+          "contextFolder": "C:\\Dev\\CRTHON10\\aether\\test-results\\echo\\files-POv0BY"
+        },
+        {
+          "kind": "renamed",
+          "path": "2026-10-08_audio_02.wav",
+          "previousPath": "audio_02.wav",
+          "nodeKind": "file",
+          "size": 28,
+          "id": "80048445-657a-4ac3-8d44-a62e67864365",
+          "sessionId": "85d42068-6a93-41cb-a85a-ece74d6d1d45",
+          "at": "2026-10-05T15:18:28.593Z",
+          "source": "filesystem",
+          "application": "explorer.exe",
+          "windowTitle": "files-POv0BY : Explorateur de fichiers",
+          "contextFolder": "C:\\Dev\\CRTHON10\\aether\\test-results\\echo\\files-POv0BY"
+        },
+        {
+          "kind": "created",
+          "path": "Nouveau dossier",
+          "previousPath": null,
+          "nodeKind": "directory",
+          "size": 0,
+          "id": "25b7cd53-e8c4-4bf5-a1e5-33bf8ce750c8",
+          "sessionId": "85d42068-6a93-41cb-a85a-ece74d6d1d45",
+          "at": "2026-10-05T15:18:29.660Z",
+          "source": "filesystem",
+          "application": "explorer.exe",
+          "windowTitle": "files-POv0BY : Explorateur de fichiers",
+          "contextFolder": "C:\\Dev\\CRTHON10\\aether\\test-results\\echo\\files-POv0BY"
+        },
+        {
+          "kind": "renamed",
+          "path": "2026-10-08",
+          "previousPath": "Nouveau dossier",
+          "nodeKind": "directory",
+          "size": 0,
+          "id": "a0dd217d-b45c-40a8-a3f4-b395701c7fd4",
+          "sessionId": "85d42068-6a93-41cb-a85a-ece74d6d1d45",
+          "at": "2026-10-05T15:18:30.567Z",
+          "source": "filesystem",
+          "application": "explorer.exe",
+          "windowTitle": "files-POv0BY : Explorateur de fichiers",
+          "contextFolder": "C:\\Dev\\CRTHON10\\aether\\test-results\\echo\\files-POv0BY"
+        },
+        {
+          "kind": "moved",
+          "path": "2026-10-08\\2026-10-08_audio_01.wav",
+          "previousPath": "2026-10-08_audio_01.wav",
+          "nodeKind": "file",
+          "size": 28,
+          "id": "82ac05e4-8c0e-4d12-8198-e567218bbe44",
+          "sessionId": "85d42068-6a93-41cb-a85a-ece74d6d1d45",
+          "at": "2026-10-05T15:18:33.896Z",
+          "source": "filesystem",
+          "application": "explorer.exe",
+          "windowTitle": "2026-10-08 : Explorateur de fichiers",
+          "contextFolder": "C:\\Dev\\CRTHON10\\aether\\test-results\\echo\\files-POv0BY\\2026-10-08"
+        },
+        {
+          "kind": "moved",
+          "path": "2026-10-08\\2026-10-08_audio_02.wav",
+          "previousPath": "2026-10-08_audio_02.wav",
+          "nodeKind": "file",
+          "size": 28,
+          "id": "ae24089e-71b1-4653-938b-e4496701dc33",
+          "sessionId": "85d42068-6a93-41cb-a85a-ece74d6d1d45",
+          "at": "2026-10-05T15:18:33.896Z",
+          "source": "filesystem",
+          "application": "explorer.exe",
+          "windowTitle": "2026-10-08 : Explorateur de fichiers",
+          "contextFolder": "C:\\Dev\\CRTHON10\\aether\\test-results\\echo\\files-POv0BY\\2026-10-08"
+        }
+      ],
+      "hypotheses": [
+        {
+          "id": "470fabac-2ca5-4201-a517-1f0f742eff37",
+          "sessionId": "85d42068-6a93-41cb-a85a-ece74d6d1d45",
+          "habitId": "06ce9b55-3c4a-4a9a-844f-34363559b6c6",
+          "createdAt": "2026-10-05T15:18:50.313Z",
+          "interpretation": {
+            "summary": "L'utilisateur a créé un dossier temporaire, le renommé avec la date du jour (2026-10-08), puis déplacé et renommé deux fichiers audio (.wav) existants pour les intégrer dans ce nouveau dossier en préfixant leurs noms par la même date.",
+            "name": "Classement journalier avec nommage hiérarchique par date",
+            "description": "La méthode consiste à regrouper les fichiers audio d'une journée spécifique dans un dossier portant la date du jour, tout en appliquant une convention de nommage où le chemin complet inclut la répertoire racine et le nom du fichier, souvent doublant la date au début du nom du fichier pour assurer l'unicité ou la clarté.",
+            "context": "Gestion d'un flux de travail audio nécessitant un archivage quotidien structuré par date.",
+            "triggers": [
+              "Besoin d'organiser des fichiers audio récents",
+              "Nécessité de distinguer les fichiers par leur date de création ou d'enregistrement"
+            ],
+            "procedure": [
+              {
+                "action": "created",
+                "description": "Création d'un conteneur temporaire nommé 'Nouveau dossier'.",
+                "evidenceIds": [
+                  "25b7cd53-e8c4-4bf5-a1e5-33bf8ce750c8"
+                ]
+              },
+              {
+                "action": "renamed",
+                "description": "Renommage du conteneur temporaire vers la date cible '2026-10-08'.",
+                "evidenceIds": [
+                  "a0dd217d-b45c-40a8-a3f4-b395701c7fd4"
+                ]
+              },
+              {
+                "action": "moved",
+                "description": "Déplacement du fichier 'audio_01.wav' dans le dossier daté avec mise à jour du nom en '2026-10-08_audio_01.wav'.",
+                "evidenceIds": [
+                  "8a2e09c5-f13b-40b9-b8ec-382c13ef2b50",
+                  "82ac05e4-8c0e-4d12-8198-e567218bbe44"
+                ]
+              },
+              {
+                "action": "moved",
+                "description": "Déplacement du fichier 'audio_02.wav' dans le dossier daté avec mise à jour du nom en '2026-10-08_audio_02.wav'.",
+                "evidenceIds": [
+                  "ae24089e-71b1-4653-938b-e4496701dc33"
+                ]
+              }
+            ],
+            "evidenceIds": [
+              "8a2e09c5-f13b-40b9-b8ec-382c13ef2b50",
+              "80048445-657a-4ac3-8d44-a62e67864365",
+              "25b7cd53-e8c4-4bf5-a1e5-33bf8ce750c8",
+              "a0dd217d-b45c-40a8-a3f4-b395701c7fd4",
+              "82ac05e4-8c0e-4d12-8198-e567218bbe44",
+              "ae24089e-71b1-4653-938b-e4496701dc33"
+            ],
+            "confidence": 0.95,
+            "matchedHabitId": "06ce9b55-3c4a-4a9a-844f-34363559b6c6",
+            "variations": [
+              "Utilisation d'un dossier temporaire pour le tri avant finalisation du nommage.",
+              "Renommage simultané des fichiers lors de leur déplacement vers le dossier daté."
+            ]
+          },
+          "decision": "pending",
+          "correction": null,
+          "model": "qwen3.5:9b",
+          "route": {
+            "requested": "DEEP",
+            "selected": "DEEP",
+            "provider": "ollama",
+            "model": "qwen3.5:9b",
+            "fallback": false
+          },
+          "invalidated": false
+        }
+      ]
+    }
+  },
+  "F": {
+    "result": "PASS",
+    "misunderstanding": "The model describes date-based audio filing without the known client-export purpose. The user corrects this incomplete interpretation.",
+    "before": {
+      "id": "470fabac-2ca5-4201-a517-1f0f742eff37",
+      "sessionId": "85d42068-6a93-41cb-a85a-ece74d6d1d45",
+      "habitId": "06ce9b55-3c4a-4a9a-844f-34363559b6c6",
+      "createdAt": "2026-10-05T15:18:50.313Z",
+      "interpretation": {
+        "summary": "L'utilisateur a créé un dossier temporaire, le renommé avec la date du jour (2026-10-08), puis déplacé et renommé deux fichiers audio (.wav) existants pour les intégrer dans ce nouveau dossier en préfixant leurs noms par la même date.",
+        "name": "Classement journalier avec nommage hiérarchique par date",
+        "description": "La méthode consiste à regrouper les fichiers audio d'une journée spécifique dans un dossier portant la date du jour, tout en appliquant une convention de nommage où le chemin complet inclut la répertoire racine et le nom du fichier, souvent doublant la date au début du nom du fichier pour assurer l'unicité ou la clarté.",
+        "context": "Gestion d'un flux de travail audio nécessitant un archivage quotidien structuré par date.",
+        "triggers": [
+          "Besoin d'organiser des fichiers audio récents",
+          "Nécessité de distinguer les fichiers par leur date de création ou d'enregistrement"
+        ],
+        "procedure": [
+          {
+            "action": "created",
+            "description": "Création d'un conteneur temporaire nommé 'Nouveau dossier'.",
+            "evidenceIds": [
+              "25b7cd53-e8c4-4bf5-a1e5-33bf8ce750c8"
+            ]
+          },
+          {
+            "action": "renamed",
+            "description": "Renommage du conteneur temporaire vers la date cible '2026-10-08'.",
+            "evidenceIds": [
+              "a0dd217d-b45c-40a8-a3f4-b395701c7fd4"
+            ]
+          },
+          {
+            "action": "moved",
+            "description": "Déplacement du fichier 'audio_01.wav' dans le dossier daté avec mise à jour du nom en '2026-10-08_audio_01.wav'.",
+            "evidenceIds": [
+              "8a2e09c5-f13b-40b9-b8ec-382c13ef2b50",
+              "82ac05e4-8c0e-4d12-8198-e567218bbe44"
+            ]
+          },
+          {
+            "action": "moved",
+            "description": "Déplacement du fichier 'audio_02.wav' dans le dossier daté avec mise à jour du nom en '2026-10-08_audio_02.wav'.",
+            "evidenceIds": [
+              "ae24089e-71b1-4653-938b-e4496701dc33"
+            ]
+          }
+        ],
+        "evidenceIds": [
+          "8a2e09c5-f13b-40b9-b8ec-382c13ef2b50",
+          "80048445-657a-4ac3-8d44-a62e67864365",
+          "25b7cd53-e8c4-4bf5-a1e5-33bf8ce750c8",
+          "a0dd217d-b45c-40a8-a3f4-b395701c7fd4",
+          "82ac05e4-8c0e-4d12-8198-e567218bbe44",
+          "ae24089e-71b1-4653-938b-e4496701dc33"
+        ],
+        "confidence": 0.95,
+        "matchedHabitId": "06ce9b55-3c4a-4a9a-844f-34363559b6c6",
+        "variations": [
+          "Utilisation d'un dossier temporaire pour le tri avant finalisation du nommage.",
+          "Renommage simultané des fichiers lors de leur déplacement vers le dossier daté."
+        ]
+      },
+      "decision": "pending",
+      "correction": null,
+      "model": "qwen3.5:9b",
+      "route": {
+        "requested": "DEEP",
+        "selected": "DEEP",
+        "provider": "ollama",
+        "model": "qwen3.5:9b",
+        "fallback": false
+      },
+      "invalidated": false
+    },
+    "after": {
+      "id": "85d42068-6a93-41cb-a85a-ece74d6d1d45",
+      "startedAt": "2026-10-05T15:18:21.723Z",
+      "endedAt": "2026-10-05T15:18:34.786Z",
+      "durationMs": 13063,
+      "applications": [
+        "explorer.exe"
+      ],
+      "resources": [
+        "C:\\Dev\\CRTHON10\\aether\\test-results\\echo\\files-POv0BY"
+      ],
+      "status": "completed",
+      "summary": "Correction utilisateur : Je prépare des lots WAV datés pour un export client. Ce classement temporaire ne décrit pas ma bibliothèque audio personnelle.",
+      "error": null,
+      "events": [
+        {
+          "kind": "renamed",
+          "path": "2026-10-08_audio_01.wav",
+          "previousPath": "audio_01.wav",
+          "nodeKind": "file",
+          "size": 28,
+          "id": "8a2e09c5-f13b-40b9-b8ec-382c13ef2b50",
+          "sessionId": "85d42068-6a93-41cb-a85a-ece74d6d1d45",
+          "at": "2026-10-05T15:18:26.336Z",
+          "source": "filesystem",
+          "application": "explorer.exe",
+          "windowTitle": "files-POv0BY : Explorateur de fichiers",
+          "contextFolder": "C:\\Dev\\CRTHON10\\aether\\test-results\\echo\\files-POv0BY"
+        },
+        {
+          "kind": "renamed",
+          "path": "2026-10-08_audio_02.wav",
+          "previousPath": "audio_02.wav",
+          "nodeKind": "file",
+          "size": 28,
+          "id": "80048445-657a-4ac3-8d44-a62e67864365",
+          "sessionId": "85d42068-6a93-41cb-a85a-ece74d6d1d45",
+          "at": "2026-10-05T15:18:28.593Z",
+          "source": "filesystem",
+          "application": "explorer.exe",
+          "windowTitle": "files-POv0BY : Explorateur de fichiers",
+          "contextFolder": "C:\\Dev\\CRTHON10\\aether\\test-results\\echo\\files-POv0BY"
+        },
+        {
+          "kind": "created",
+          "path": "Nouveau dossier",
+          "previousPath": null,
+          "nodeKind": "directory",
+          "size": 0,
+          "id": "25b7cd53-e8c4-4bf5-a1e5-33bf8ce750c8",
+          "sessionId": "85d42068-6a93-41cb-a85a-ece74d6d1d45",
+          "at": "2026-10-05T15:18:29.660Z",
+          "source": "filesystem",
+          "application": "explorer.exe",
+          "windowTitle": "files-POv0BY : Explorateur de fichiers",
+          "contextFolder": "C:\\Dev\\CRTHON10\\aether\\test-results\\echo\\files-POv0BY"
+        },
+        {
+          "kind": "renamed",
+          "path": "2026-10-08",
+          "previousPath": "Nouveau dossier",
+          "nodeKind": "directory",
+          "size": 0,
+          "id": "a0dd217d-b45c-40a8-a3f4-b395701c7fd4",
+          "sessionId": "85d42068-6a93-41cb-a85a-ece74d6d1d45",
+          "at": "2026-10-05T15:18:30.567Z",
+          "source": "filesystem",
+          "application": "explorer.exe",
+          "windowTitle": "files-POv0BY : Explorateur de fichiers",
+          "contextFolder": "C:\\Dev\\CRTHON10\\aether\\test-results\\echo\\files-POv0BY"
+        },
+        {
+          "kind": "moved",
+          "path": "2026-10-08\\2026-10-08_audio_01.wav",
+          "previousPath": "2026-10-08_audio_01.wav",
+          "nodeKind": "file",
+          "size": 28,
+          "id": "82ac05e4-8c0e-4d12-8198-e567218bbe44",
+          "sessionId": "85d42068-6a93-41cb-a85a-ece74d6d1d45",
+          "at": "2026-10-05T15:18:33.896Z",
+          "source": "filesystem",
+          "application": "explorer.exe",
+          "windowTitle": "2026-10-08 : Explorateur de fichiers",
+          "contextFolder": "C:\\Dev\\CRTHON10\\aether\\test-results\\echo\\files-POv0BY\\2026-10-08"
+        },
+        {
+          "kind": "moved",
+          "path": "2026-10-08\\2026-10-08_audio_02.wav",
+          "previousPath": "2026-10-08_audio_02.wav",
+          "nodeKind": "file",
+          "size": 28,
+          "id": "ae24089e-71b1-4653-938b-e4496701dc33",
+          "sessionId": "85d42068-6a93-41cb-a85a-ece74d6d1d45",
+          "at": "2026-10-05T15:18:33.896Z",
+          "source": "filesystem",
+          "application": "explorer.exe",
+          "windowTitle": "2026-10-08 : Explorateur de fichiers",
+          "contextFolder": "C:\\Dev\\CRTHON10\\aether\\test-results\\echo\\files-POv0BY\\2026-10-08"
+        }
+      ],
+      "hypotheses": [
+        {
+          "id": "470fabac-2ca5-4201-a517-1f0f742eff37",
+          "sessionId": "85d42068-6a93-41cb-a85a-ece74d6d1d45",
+          "habitId": "06ce9b55-3c4a-4a9a-844f-34363559b6c6",
+          "createdAt": "2026-10-05T15:18:50.313Z",
+          "interpretation": {
+            "summary": "L'utilisateur a créé un dossier temporaire, le renommé avec la date du jour (2026-10-08), puis déplacé et renommé deux fichiers audio (.wav) existants pour les intégrer dans ce nouveau dossier en préfixant leurs noms par la même date.",
+            "name": "Classement journalier avec nommage hiérarchique par date",
+            "description": "La méthode consiste à regrouper les fichiers audio d'une journée spécifique dans un dossier portant la date du jour, tout en appliquant une convention de nommage où le chemin complet inclut la répertoire racine et le nom du fichier, souvent doublant la date au début du nom du fichier pour assurer l'unicité ou la clarté.",
+            "context": "Gestion d'un flux de travail audio nécessitant un archivage quotidien structuré par date.",
+            "triggers": [
+              "Besoin d'organiser des fichiers audio récents",
+              "Nécessité de distinguer les fichiers par leur date de création ou d'enregistrement"
+            ],
+            "procedure": [
+              {
+                "action": "created",
+                "description": "Création d'un conteneur temporaire nommé 'Nouveau dossier'.",
+                "evidenceIds": [
+                  "25b7cd53-e8c4-4bf5-a1e5-33bf8ce750c8"
+                ]
+              },
+              {
+                "action": "renamed",
+                "description": "Renommage du conteneur temporaire vers la date cible '2026-10-08'.",
+                "evidenceIds": [
+                  "a0dd217d-b45c-40a8-a3f4-b395701c7fd4"
+                ]
+              },
+              {
+                "action": "moved",
+                "description": "Déplacement du fichier 'audio_01.wav' dans le dossier daté avec mise à jour du nom en '2026-10-08_audio_01.wav'.",
+                "evidenceIds": [
+                  "8a2e09c5-f13b-40b9-b8ec-382c13ef2b50",
+                  "82ac05e4-8c0e-4d12-8198-e567218bbe44"
+                ]
+              },
+              {
+                "action": "moved",
+                "description": "Déplacement du fichier 'audio_02.wav' dans le dossier daté avec mise à jour du nom en '2026-10-08_audio_02.wav'.",
+                "evidenceIds": [
+                  "ae24089e-71b1-4653-938b-e4496701dc33"
+                ]
+              }
+            ],
+            "evidenceIds": [
+              "8a2e09c5-f13b-40b9-b8ec-382c13ef2b50",
+              "80048445-657a-4ac3-8d44-a62e67864365",
+              "25b7cd53-e8c4-4bf5-a1e5-33bf8ce750c8",
+              "a0dd217d-b45c-40a8-a3f4-b395701c7fd4",
+              "82ac05e4-8c0e-4d12-8198-e567218bbe44",
+              "ae24089e-71b1-4653-938b-e4496701dc33"
+            ],
+            "confidence": 0.95,
+            "matchedHabitId": "06ce9b55-3c4a-4a9a-844f-34363559b6c6",
+            "variations": [
+              "Utilisation d'un dossier temporaire pour le tri avant finalisation du nommage.",
+              "Renommage simultané des fichiers lors de leur déplacement vers le dossier daté."
+            ]
+          },
+          "decision": "corrected",
+          "correction": "Je prépare des lots WAV datés pour un export client. Ce classement temporaire ne décrit pas ma bibliothèque audio personnelle.",
+          "model": "qwen3.5:9b",
+          "route": {
+            "requested": "DEEP",
+            "selected": "DEEP",
+            "provider": "ollama",
+            "model": "qwen3.5:9b",
+            "fallback": false
+          },
+          "invalidated": true
+        }
+      ]
+    },
+    "habit": {
+      "id": "06ce9b55-3c4a-4a9a-844f-34363559b6c6",
+      "name": "Je prépare des lots WAV datés pour un export client",
+      "description": "Je prépare des lots WAV datés pour un export client. Ce classement temporaire ne décrit pas ma bibliothèque audio personnelle.",
+      "context": "Explorer · C:\\Dev\\CRTHON10\\aether\\test-results\\echo\\files-POv0BY",
+      "applications": [
+        "explorer.exe"
+      ],
+      "triggers": [
+        "Fichier .wav",
+        "Dossier"
+      ],
+      "procedure": [
+        {
+          "action": "created",
+          "description": "created : Nouveau dossier",
+          "evidenceIds": [
+            "25b7cd53-e8c4-4bf5-a1e5-33bf8ce750c8"
+          ]
+        },
+        {
+          "action": "renamed",
+          "description": "renamed : Nouveau dossier → 2026-10-08",
+          "evidenceIds": [
+            "a0dd217d-b45c-40a8-a3f4-b395701c7fd4"
+          ]
+        },
+        {
+          "action": "moved",
+          "description": "moved : 2026-10-08_audio_01.wav → 2026-10-08\\2026-10-08_audio_01.wav",
+          "evidenceIds": [
+            "82ac05e4-8c0e-4d12-8198-e567218bbe44"
+          ]
+        },
+        {
+          "action": "moved",
+          "description": "moved : 2026-10-08_audio_02.wav → 2026-10-08\\2026-10-08_audio_02.wav",
+          "evidenceIds": [
+            "ae24089e-71b1-4653-938b-e4496701dc33"
+          ]
+        }
+      ],
+      "firstObservedAt": "2026-10-05T15:17:45.697Z",
+      "lastObservedAt": "2026-10-05T15:18:21.723Z",
+      "occurrences": 2,
+      "confidence": 0.95,
+      "state": "confirmed",
+      "provenance": {
+        "engine": "ECHO",
+        "sessionIds": [
+          "7977900e-acef-4a76-932e-23512031d665",
+          "85d42068-6a93-41cb-a85a-ece74d6d1d45"
+        ]
+      },
+      "memoryId": "c1f7223a-bc14-49a4-b266-d3cfdafd1a3a",
+      "variations": [
+        {
+          "sessionId": "85d42068-6a93-41cb-a85a-ece74d6d1d45",
+          "comparedSessionId": "7977900e-acef-4a76-932e-23512031d665",
+          "description": "Dates dans les noms : 2026-10-05 → 2026-10-08.",
+          "evidenceIds": [
+            "8a2e09c5-f13b-40b9-b8ec-382c13ef2b50",
+            "80048445-657a-4ac3-8d44-a62e67864365",
+            "a0dd217d-b45c-40a8-a3f4-b395701c7fd4",
+            "82ac05e4-8c0e-4d12-8198-e567218bbe44",
+            "ae24089e-71b1-4653-938b-e4496701dc33"
+          ],
+          "decision": "corrected"
+        }
+      ],
+      "signature": [
+        "created:directory::named",
+        "moved:file:.wav:dated",
+        "renamed:directory::dated",
+        "renamed:file:.wav:dated"
+      ]
+    }
+  },
+  "G": {
+    "result": "PASS",
+    "deletedSessionId": "85d42068-6a93-41cb-a85a-ece74d6d1d45",
+    "remaining": {
+      "enabled": true,
+      "state": "ready",
+      "activeSessionId": null,
+      "context": null,
+      "error": null,
+      "sessions": [
+        {
+          "id": "7977900e-acef-4a76-932e-23512031d665",
+          "startedAt": "2026-10-05T15:17:45.697Z",
+          "endedAt": "2026-10-05T15:17:59.795Z",
+          "durationMs": 14098,
+          "applications": [
+            "explorer.exe"
+          ],
+          "resources": [
+            "C:\\Dev\\CRTHON10\\aether\\test-results\\echo\\files-POv0BY"
+          ],
+          "status": "completed",
+          "summary": "L'utilisateur a créé un dossier temporaire nommé 'Nouveau dossier', renommé ce dossier en '2026-10-05' (format YYYY-MM-DD), puis déplacé deux fichiers audio ('audio_01.wav', 'audio_02.wav') dans ce nouveau dossier tout en les renommant pour inclure la date complète du chemin (ex: '2026-10-05\\2026-10-05_audio_01.wav').",
+          "error": null,
+          "events": [
+            {
+              "kind": "renamed",
+              "path": "2026-10-05_audio_01.wav",
+              "previousPath": "audio_01.wav",
+              "nodeKind": "file",
+              "size": 52,
+              "id": "b09f8b83-9f6f-45ff-9081-f53e44b90cc4",
+              "sessionId": "7977900e-acef-4a76-932e-23512031d665",
+              "at": "2026-10-05T15:17:50.199Z",
+              "source": "filesystem",
+              "application": "explorer.exe",
+              "windowTitle": "files-POv0BY : Explorateur de fichiers",
+              "contextFolder": "C:\\Dev\\CRTHON10\\aether\\test-results\\echo\\files-POv0BY"
+            },
+            {
+              "kind": "renamed",
+              "path": "2026-10-05_audio_02.wav",
+              "previousPath": "audio_02.wav",
+              "nodeKind": "file",
+              "size": 52,
+              "id": "18d092e7-e56f-4deb-9cef-e34edb4e5abf",
+              "sessionId": "7977900e-acef-4a76-932e-23512031d665",
+              "at": "2026-10-05T15:17:52.426Z",
+              "source": "filesystem",
+              "application": "explorer.exe",
+              "windowTitle": "files-POv0BY : Explorateur de fichiers",
+              "contextFolder": "C:\\Dev\\CRTHON10\\aether\\test-results\\echo\\files-POv0BY"
+            },
+            {
+              "kind": "created",
+              "path": "Nouveau dossier",
+              "previousPath": null,
+              "nodeKind": "directory",
+              "size": 0,
+              "id": "63e92c4c-5e8d-490d-9623-5f1eaaefad85",
+              "sessionId": "7977900e-acef-4a76-932e-23512031d665",
+              "at": "2026-10-05T15:17:53.492Z",
+              "source": "filesystem",
+              "application": "explorer.exe",
+              "windowTitle": "files-POv0BY : Explorateur de fichiers",
+              "contextFolder": "C:\\Dev\\CRTHON10\\aether\\test-results\\echo\\files-POv0BY"
+            },
+            {
+              "kind": "renamed",
+              "path": "2026-10-05",
+              "previousPath": "Nouveau dossier",
+              "nodeKind": "directory",
+              "size": 0,
+              "id": "82cc1532-8749-48de-8db8-1e2f7a62235f",
+              "sessionId": "7977900e-acef-4a76-932e-23512031d665",
+              "at": "2026-10-05T15:17:54.384Z",
+              "source": "filesystem",
+              "application": "explorer.exe",
+              "windowTitle": "files-POv0BY : Explorateur de fichiers",
+              "contextFolder": "C:\\Dev\\CRTHON10\\aether\\test-results\\echo\\files-POv0BY"
+            },
+            {
+              "kind": "moved",
+              "path": "2026-10-05\\2026-10-05_audio_01.wav",
+              "previousPath": "2026-10-05_audio_01.wav",
+              "nodeKind": "file",
+              "size": 52,
+              "id": "23ddff35-1200-457d-9627-5a10b60ebf2a",
+              "sessionId": "7977900e-acef-4a76-932e-23512031d665",
+              "at": "2026-10-05T15:17:57.762Z",
+              "source": "filesystem",
+              "application": "explorer.exe",
+              "windowTitle": "2026-10-05 : Explorateur de fichiers",
+              "contextFolder": "C:\\Dev\\CRTHON10\\aether\\test-results\\echo\\files-POv0BY\\2026-10-05"
+            },
+            {
+              "kind": "moved",
+              "path": "2026-10-05\\2026-10-05_audio_02.wav",
+              "previousPath": "2026-10-05_audio_02.wav",
+              "nodeKind": "file",
+              "size": 52,
+              "id": "68f923ba-01db-4ec4-b4cb-9fb886e65469",
+              "sessionId": "7977900e-acef-4a76-932e-23512031d665",
+              "at": "2026-10-05T15:17:57.762Z",
+              "source": "filesystem",
+              "application": "explorer.exe",
+              "windowTitle": "2026-10-05 : Explorateur de fichiers",
+              "contextFolder": "C:\\Dev\\CRTHON10\\aether\\test-results\\echo\\files-POv0BY\\2026-10-05"
+            }
+          ],
+          "hypotheses": [
+            {
+              "id": "13f5fd7d-cea9-4c73-8ff9-3fd20ca5045a",
+              "sessionId": "7977900e-acef-4a76-932e-23512031d665",
+              "habitId": "06ce9b55-3c4a-4a9a-844f-34363559b6c6",
+              "createdAt": "2026-10-05T15:18:15.690Z",
+              "interpretation": {
+                "summary": "L'utilisateur a créé un dossier temporaire nommé 'Nouveau dossier', renommé ce dossier en '2026-10-05' (format YYYY-MM-DD), puis déplacé deux fichiers audio ('audio_01.wav', 'audio_02.wav') dans ce nouveau dossier tout en les renommant pour inclure la date complète du chemin (ex: '2026-10-05\\2026-10-05_audio_01.wav').",
+                "name": "Classement journalier avec nommage hiérarchique par date",
+                "description": "La méthode consiste à regrouper les fichiers audio d'une journée spécifique dans un dossier portant la date du jour, tout en appliquant une convention de nommage où le chemin complet inclut la répertoire racine et le nom du fichier, souvent doublant la date au début du nom du fichier pour assurer l'unicité ou la clarté.",
+                "context": "Organisation de fichiers audio bruts par date d'enregistrement ou de traitement.",
+                "triggers": [
+                  "Création d'un dossier vide",
+                  "Renommage du dossier vers une date formatée",
+                  "Déplacement et renommage simultané de fichiers audio dans le nouveau dossier"
+                ],
+                "procedure": [
+                  {
+                    "action": "created",
+                    "description": "Création d'un conteneur temporaire pour le tri.",
+                    "evidenceIds": [
+                      "63e92c4c-5e8d-490d-9623-5f1eaaefad85"
+                    ]
+                  },
+                  {
+                    "action": "renamed",
+                    "description": "Renommage du conteneur temporaire vers la date cible.",
+                    "evidenceIds": [
+                      "82cc1532-8749-48de-8db8-1e2f7a62235f"
+                    ]
+                  },
+                  {
+                    "action": "moved",
+                    "description": "Déplacement du premier fichier audio dans le dossier daté avec mise à jour du nom.",
+                    "evidenceIds": [
+                      "23ddff35-1200-457d-9627-5a10b60ebf2a"
+                    ]
+                  },
+                  {
+                    "action": "moved",
+                    "description": "Déplacement du second fichier audio dans le dossier daté avec mise à jour du nom.",
+                    "evidenceIds": [
+                      "68f923ba-01db-4ec4-b4cb-9fb886e65469"
+                    ]
+                  },
+                  {
+                    "action": "renamed",
+                    "description": "Renommage des fichiers originaux (avant déplacement) pour intégrer la date dans le nom du fichier.",
+                    "evidenceIds": [
+                      "b09f8b83-9f6f-45ff-9081-f53e44b90cc4",
+                      "18d092e7-e56f-4deb-9cef-e34edb4e5abf"
+                    ]
+                  }
+                ],
+                "evidenceIds": [
+                  "b09f8b83-9f6f-45ff-9081-f53e44b90cc4",
+                  "18d092e7-e56f-4deb-9cef-e34edb4e5abf",
+                  "63e92c4c-5e8d-490d-9623-5f1eaaefad85",
+                  "82cc1532-8749-48de-8db8-1e2f7a62235f",
+                  "23ddff35-1200-457d-9627-5a10b60ebf2a",
+                  "68f923ba-01db-4ec4-b4cb-9fb886e65469"
+                ],
+                "confidence": 0.95,
+                "matchedHabitId": null,
+                "variations": [
+                  "Le fichier pourrait être renommé uniquement dans le dossier sans changer la racine du nom.",
+                  "Plusieurs fichiers pourraient être traités en parallèle avant d'être déplacés."
+                ]
+              },
+              "decision": "yes",
+              "correction": null,
+              "model": "qwen3.5:9b",
+              "route": {
+                "requested": "DEEP",
+                "selected": "DEEP",
+                "provider": "ollama",
+                "model": "qwen3.5:9b",
+                "fallback": false
+              },
+              "invalidated": false
+            }
+          ]
+        }
+      ],
+      "habits": [
+        {
+          "id": "06ce9b55-3c4a-4a9a-844f-34363559b6c6",
+          "name": "Classement journalier avec nommage hiérarchique par date",
+          "description": "La méthode consiste à regrouper les fichiers audio d'une journée spécifique dans un dossier portant la date du jour, tout en appliquant une convention de nommage où le chemin complet inclut la répertoire racine et le nom du fichier, souvent doublant la date au début du nom du fichier pour assurer l'unicité ou la clarté.",
+          "context": "Organisation de fichiers audio bruts par date d'enregistrement ou de traitement.",
+          "applications": [
+            "explorer.exe"
+          ],
+          "triggers": [
+            "Création d'un dossier vide",
+            "Renommage du dossier vers une date formatée",
+            "Déplacement et renommage simultané de fichiers audio dans le nouveau dossier"
+          ],
+          "procedure": [
+            {
+              "action": "created",
+              "description": "Création d'un conteneur temporaire pour le tri.",
+              "evidenceIds": [
+                "63e92c4c-5e8d-490d-9623-5f1eaaefad85"
+              ]
+            },
+            {
+              "action": "renamed",
+              "description": "Renommage du conteneur temporaire vers la date cible.",
+              "evidenceIds": [
+                "82cc1532-8749-48de-8db8-1e2f7a62235f"
+              ]
+            },
+            {
+              "action": "moved",
+              "description": "Déplacement du premier fichier audio dans le dossier daté avec mise à jour du nom.",
+              "evidenceIds": [
+                "23ddff35-1200-457d-9627-5a10b60ebf2a"
+              ]
+            },
+            {
+              "action": "moved",
+              "description": "Déplacement du second fichier audio dans le dossier daté avec mise à jour du nom.",
+              "evidenceIds": [
+                "68f923ba-01db-4ec4-b4cb-9fb886e65469"
+              ]
+            },
+            {
+              "action": "renamed",
+              "description": "Renommage des fichiers originaux (avant déplacement) pour intégrer la date dans le nom du fichier.",
+              "evidenceIds": [
+                "b09f8b83-9f6f-45ff-9081-f53e44b90cc4",
+                "18d092e7-e56f-4deb-9cef-e34edb4e5abf"
+              ]
+            }
+          ],
+          "firstObservedAt": "2026-10-05T15:17:45.697Z",
+          "lastObservedAt": "2026-10-05T15:17:45.697Z",
+          "occurrences": 1,
+          "confidence": 0.95,
+          "state": "confirmed",
+          "provenance": {
+            "engine": "ECHO",
+            "sessionIds": [
+              "7977900e-acef-4a76-932e-23512031d665"
+            ]
+          },
+          "memoryId": "c1f7223a-bc14-49a4-b266-d3cfdafd1a3a",
+          "variations": [],
+          "signature": [
+            "created:directory::named",
+            "moved:file:.wav:dated",
+            "renamed:directory::dated",
+            "renamed:file:.wav:dated"
+          ]
+        }
+      ],
+      "opportunities": [],
+      "exclusions": {
+        "folders": [],
+        "processes": [
+          "1password.exe",
+          "keepass.exe",
+          "keepassxc.exe",
+          "bitwarden.exe",
+          "outlook.exe",
+          "chrome.exe",
+          "msedge.exe",
+          "firefox.exe"
+        ],
+        "windows": [
+          "banque",
+          "password",
+          "mot de passe",
+          "confidentiel",
+          "inprivate",
+          "private browsing"
+        ]
+      }
+    }
+  },
+  "H": {
+    "result": "PASS",
+    "before": {
+      "enabled": false,
+      "state": "off",
+      "activeSessionId": null,
+      "context": null,
+      "error": null,
+      "sessions": [
+        {
+          "id": "7977900e-acef-4a76-932e-23512031d665",
+          "startedAt": "2026-10-05T15:17:45.697Z",
+          "endedAt": "2026-10-05T15:17:59.795Z",
+          "durationMs": 14098,
+          "applications": [
+            "explorer.exe"
+          ],
+          "resources": [
+            "C:\\Dev\\CRTHON10\\aether\\test-results\\echo\\files-POv0BY"
+          ],
+          "status": "completed",
+          "summary": "L'utilisateur a créé un dossier temporaire nommé 'Nouveau dossier', renommé ce dossier en '2026-10-05' (format YYYY-MM-DD), puis déplacé deux fichiers audio ('audio_01.wav', 'audio_02.wav') dans ce nouveau dossier tout en les renommant pour inclure la date complète du chemin (ex: '2026-10-05\\2026-10-05_audio_01.wav').",
+          "error": null,
+          "events": [
+            {
+              "kind": "renamed",
+              "path": "2026-10-05_audio_01.wav",
+              "previousPath": "audio_01.wav",
+              "nodeKind": "file",
+              "size": 52,
+              "id": "b09f8b83-9f6f-45ff-9081-f53e44b90cc4",
+              "sessionId": "7977900e-acef-4a76-932e-23512031d665",
+              "at": "2026-10-05T15:17:50.199Z",
+              "source": "filesystem",
+              "application": "explorer.exe",
+              "windowTitle": "files-POv0BY : Explorateur de fichiers",
+              "contextFolder": "C:\\Dev\\CRTHON10\\aether\\test-results\\echo\\files-POv0BY"
+            },
+            {
+              "kind": "renamed",
+              "path": "2026-10-05_audio_02.wav",
+              "previousPath": "audio_02.wav",
+              "nodeKind": "file",
+              "size": 52,
+              "id": "18d092e7-e56f-4deb-9cef-e34edb4e5abf",
+              "sessionId": "7977900e-acef-4a76-932e-23512031d665",
+              "at": "2026-10-05T15:17:52.426Z",
+              "source": "filesystem",
+              "application": "explorer.exe",
+              "windowTitle": "files-POv0BY : Explorateur de fichiers",
+              "contextFolder": "C:\\Dev\\CRTHON10\\aether\\test-results\\echo\\files-POv0BY"
+            },
+            {
+              "kind": "created",
+              "path": "Nouveau dossier",
+              "previousPath": null,
+              "nodeKind": "directory",
+              "size": 0,
+              "id": "63e92c4c-5e8d-490d-9623-5f1eaaefad85",
+              "sessionId": "7977900e-acef-4a76-932e-23512031d665",
+              "at": "2026-10-05T15:17:53.492Z",
+              "source": "filesystem",
+              "application": "explorer.exe",
+              "windowTitle": "files-POv0BY : Explorateur de fichiers",
+              "contextFolder": "C:\\Dev\\CRTHON10\\aether\\test-results\\echo\\files-POv0BY"
+            },
+            {
+              "kind": "renamed",
+              "path": "2026-10-05",
+              "previousPath": "Nouveau dossier",
+              "nodeKind": "directory",
+              "size": 0,
+              "id": "82cc1532-8749-48de-8db8-1e2f7a62235f",
+              "sessionId": "7977900e-acef-4a76-932e-23512031d665",
+              "at": "2026-10-05T15:17:54.384Z",
+              "source": "filesystem",
+              "application": "explorer.exe",
+              "windowTitle": "files-POv0BY : Explorateur de fichiers",
+              "contextFolder": "C:\\Dev\\CRTHON10\\aether\\test-results\\echo\\files-POv0BY"
+            },
+            {
+              "kind": "moved",
+              "path": "2026-10-05\\2026-10-05_audio_01.wav",
+              "previousPath": "2026-10-05_audio_01.wav",
+              "nodeKind": "file",
+              "size": 52,
+              "id": "23ddff35-1200-457d-9627-5a10b60ebf2a",
+              "sessionId": "7977900e-acef-4a76-932e-23512031d665",
+              "at": "2026-10-05T15:17:57.762Z",
+              "source": "filesystem",
+              "application": "explorer.exe",
+              "windowTitle": "2026-10-05 : Explorateur de fichiers",
+              "contextFolder": "C:\\Dev\\CRTHON10\\aether\\test-results\\echo\\files-POv0BY\\2026-10-05"
+            },
+            {
+              "kind": "moved",
+              "path": "2026-10-05\\2026-10-05_audio_02.wav",
+              "previousPath": "2026-10-05_audio_02.wav",
+              "nodeKind": "file",
+              "size": 52,
+              "id": "68f923ba-01db-4ec4-b4cb-9fb886e65469",
+              "sessionId": "7977900e-acef-4a76-932e-23512031d665",
+              "at": "2026-10-05T15:17:57.762Z",
+              "source": "filesystem",
+              "application": "explorer.exe",
+              "windowTitle": "2026-10-05 : Explorateur de fichiers",
+              "contextFolder": "C:\\Dev\\CRTHON10\\aether\\test-results\\echo\\files-POv0BY\\2026-10-05"
+            }
+          ],
+          "hypotheses": [
+            {
+              "id": "13f5fd7d-cea9-4c73-8ff9-3fd20ca5045a",
+              "sessionId": "7977900e-acef-4a76-932e-23512031d665",
+              "habitId": "06ce9b55-3c4a-4a9a-844f-34363559b6c6",
+              "createdAt": "2026-10-05T15:18:15.690Z",
+              "interpretation": {
+                "summary": "L'utilisateur a créé un dossier temporaire nommé 'Nouveau dossier', renommé ce dossier en '2026-10-05' (format YYYY-MM-DD), puis déplacé deux fichiers audio ('audio_01.wav', 'audio_02.wav') dans ce nouveau dossier tout en les renommant pour inclure la date complète du chemin (ex: '2026-10-05\\2026-10-05_audio_01.wav').",
+                "name": "Classement journalier avec nommage hiérarchique par date",
+                "description": "La méthode consiste à regrouper les fichiers audio d'une journée spécifique dans un dossier portant la date du jour, tout en appliquant une convention de nommage où le chemin complet inclut la répertoire racine et le nom du fichier, souvent doublant la date au début du nom du fichier pour assurer l'unicité ou la clarté.",
+                "context": "Organisation de fichiers audio bruts par date d'enregistrement ou de traitement.",
+                "triggers": [
+                  "Création d'un dossier vide",
+                  "Renommage du dossier vers une date formatée",
+                  "Déplacement et renommage simultané de fichiers audio dans le nouveau dossier"
+                ],
+                "procedure": [
+                  {
+                    "action": "created",
+                    "description": "Création d'un conteneur temporaire pour le tri.",
+                    "evidenceIds": [
+                      "63e92c4c-5e8d-490d-9623-5f1eaaefad85"
+                    ]
+                  },
+                  {
+                    "action": "renamed",
+                    "description": "Renommage du conteneur temporaire vers la date cible.",
+                    "evidenceIds": [
+                      "82cc1532-8749-48de-8db8-1e2f7a62235f"
+                    ]
+                  },
+                  {
+                    "action": "moved",
+                    "description": "Déplacement du premier fichier audio dans le dossier daté avec mise à jour du nom.",
+                    "evidenceIds": [
+                      "23ddff35-1200-457d-9627-5a10b60ebf2a"
+                    ]
+                  },
+                  {
+                    "action": "moved",
+                    "description": "Déplacement du second fichier audio dans le dossier daté avec mise à jour du nom.",
+                    "evidenceIds": [
+                      "68f923ba-01db-4ec4-b4cb-9fb886e65469"
+                    ]
+                  },
+                  {
+                    "action": "renamed",
+                    "description": "Renommage des fichiers originaux (avant déplacement) pour intégrer la date dans le nom du fichier.",
+                    "evidenceIds": [
+                      "b09f8b83-9f6f-45ff-9081-f53e44b90cc4",
+                      "18d092e7-e56f-4deb-9cef-e34edb4e5abf"
+                    ]
+                  }
+                ],
+                "evidenceIds": [
+                  "b09f8b83-9f6f-45ff-9081-f53e44b90cc4",
+                  "18d092e7-e56f-4deb-9cef-e34edb4e5abf",
+                  "63e92c4c-5e8d-490d-9623-5f1eaaefad85",
+                  "82cc1532-8749-48de-8db8-1e2f7a62235f",
+                  "23ddff35-1200-457d-9627-5a10b60ebf2a",
+                  "68f923ba-01db-4ec4-b4cb-9fb886e65469"
+                ],
+                "confidence": 0.95,
+                "matchedHabitId": null,
+                "variations": [
+                  "Le fichier pourrait être renommé uniquement dans le dossier sans changer la racine du nom.",
+                  "Plusieurs fichiers pourraient être traités en parallèle avant d'être déplacés."
+                ]
+              },
+              "decision": "yes",
+              "correction": null,
+              "model": "qwen3.5:9b",
+              "route": {
+                "requested": "DEEP",
+                "selected": "DEEP",
+                "provider": "ollama",
+                "model": "qwen3.5:9b",
+                "fallback": false
+              },
+              "invalidated": false
+            }
+          ]
+        }
+      ],
+      "habits": [
+        {
+          "id": "06ce9b55-3c4a-4a9a-844f-34363559b6c6",
+          "name": "Classement journalier avec nommage hiérarchique par date",
+          "description": "La méthode consiste à regrouper les fichiers audio d'une journée spécifique dans un dossier portant la date du jour, tout en appliquant une convention de nommage où le chemin complet inclut la répertoire racine et le nom du fichier, souvent doublant la date au début du nom du fichier pour assurer l'unicité ou la clarté.",
+          "context": "Organisation de fichiers audio bruts par date d'enregistrement ou de traitement.",
+          "applications": [
+            "explorer.exe"
+          ],
+          "triggers": [
+            "Création d'un dossier vide",
+            "Renommage du dossier vers une date formatée",
+            "Déplacement et renommage simultané de fichiers audio dans le nouveau dossier"
+          ],
+          "procedure": [
+            {
+              "action": "created",
+              "description": "Création d'un conteneur temporaire pour le tri.",
+              "evidenceIds": [
+                "63e92c4c-5e8d-490d-9623-5f1eaaefad85"
+              ]
+            },
+            {
+              "action": "renamed",
+              "description": "Renommage du conteneur temporaire vers la date cible.",
+              "evidenceIds": [
+                "82cc1532-8749-48de-8db8-1e2f7a62235f"
+              ]
+            },
+            {
+              "action": "moved",
+              "description": "Déplacement du premier fichier audio dans le dossier daté avec mise à jour du nom.",
+              "evidenceIds": [
+                "23ddff35-1200-457d-9627-5a10b60ebf2a"
+              ]
+            },
+            {
+              "action": "moved",
+              "description": "Déplacement du second fichier audio dans le dossier daté avec mise à jour du nom.",
+              "evidenceIds": [
+                "68f923ba-01db-4ec4-b4cb-9fb886e65469"
+              ]
+            },
+            {
+              "action": "renamed",
+              "description": "Renommage des fichiers originaux (avant déplacement) pour intégrer la date dans le nom du fichier.",
+              "evidenceIds": [
+                "b09f8b83-9f6f-45ff-9081-f53e44b90cc4",
+                "18d092e7-e56f-4deb-9cef-e34edb4e5abf"
+              ]
+            }
+          ],
+          "firstObservedAt": "2026-10-05T15:17:45.697Z",
+          "lastObservedAt": "2026-10-05T15:17:45.697Z",
+          "occurrences": 1,
+          "confidence": 0.95,
+          "state": "confirmed",
+          "provenance": {
+            "engine": "ECHO",
+            "sessionIds": [
+              "7977900e-acef-4a76-932e-23512031d665"
+            ]
+          },
+          "memoryId": "c1f7223a-bc14-49a4-b266-d3cfdafd1a3a",
+          "variations": [],
+          "signature": [
+            "created:directory::named",
+            "moved:file:.wav:dated",
+            "renamed:directory::dated",
+            "renamed:file:.wav:dated"
+          ]
+        }
+      ],
+      "opportunities": [],
+      "exclusions": {
+        "folders": [],
+        "processes": [
+          "1password.exe",
+          "keepass.exe",
+          "keepassxc.exe",
+          "bitwarden.exe",
+          "outlook.exe",
+          "chrome.exe",
+          "msedge.exe",
+          "firefox.exe"
+        ],
+        "windows": [
+          "banque",
+          "password",
+          "mot de passe",
+          "confidentiel",
+          "inprivate",
+          "private browsing"
+        ]
+      }
+    },
+    "after": {
+      "enabled": false,
+      "state": "off",
+      "activeSessionId": null,
+      "context": null,
+      "error": null,
+      "sessions": [
+        {
+          "id": "7977900e-acef-4a76-932e-23512031d665",
+          "startedAt": "2026-10-05T15:17:45.697Z",
+          "endedAt": "2026-10-05T15:17:59.795Z",
+          "durationMs": 14098,
+          "applications": [
+            "explorer.exe"
+          ],
+          "resources": [
+            "C:\\Dev\\CRTHON10\\aether\\test-results\\echo\\files-POv0BY"
+          ],
+          "status": "completed",
+          "summary": "L'utilisateur a créé un dossier temporaire nommé 'Nouveau dossier', renommé ce dossier en '2026-10-05' (format YYYY-MM-DD), puis déplacé deux fichiers audio ('audio_01.wav', 'audio_02.wav') dans ce nouveau dossier tout en les renommant pour inclure la date complète du chemin (ex: '2026-10-05\\2026-10-05_audio_01.wav').",
+          "error": null,
+          "events": [
+            {
+              "kind": "renamed",
+              "path": "2026-10-05_audio_01.wav",
+              "previousPath": "audio_01.wav",
+              "nodeKind": "file",
+              "size": 52,
+              "id": "b09f8b83-9f6f-45ff-9081-f53e44b90cc4",
+              "sessionId": "7977900e-acef-4a76-932e-23512031d665",
+              "at": "2026-10-05T15:17:50.199Z",
+              "source": "filesystem",
+              "application": "explorer.exe",
+              "windowTitle": "files-POv0BY : Explorateur de fichiers",
+              "contextFolder": "C:\\Dev\\CRTHON10\\aether\\test-results\\echo\\files-POv0BY"
+            },
+            {
+              "kind": "renamed",
+              "path": "2026-10-05_audio_02.wav",
+              "previousPath": "audio_02.wav",
+              "nodeKind": "file",
+              "size": 52,
+              "id": "18d092e7-e56f-4deb-9cef-e34edb4e5abf",
+              "sessionId": "7977900e-acef-4a76-932e-23512031d665",
+              "at": "2026-10-05T15:17:52.426Z",
+              "source": "filesystem",
+              "application": "explorer.exe",
+              "windowTitle": "files-POv0BY : Explorateur de fichiers",
+              "contextFolder": "C:\\Dev\\CRTHON10\\aether\\test-results\\echo\\files-POv0BY"
+            },
+            {
+              "kind": "created",
+              "path": "Nouveau dossier",
+              "previousPath": null,
+              "nodeKind": "directory",
+              "size": 0,
+              "id": "63e92c4c-5e8d-490d-9623-5f1eaaefad85",
+              "sessionId": "7977900e-acef-4a76-932e-23512031d665",
+              "at": "2026-10-05T15:17:53.492Z",
+              "source": "filesystem",
+              "application": "explorer.exe",
+              "windowTitle": "files-POv0BY : Explorateur de fichiers",
+              "contextFolder": "C:\\Dev\\CRTHON10\\aether\\test-results\\echo\\files-POv0BY"
+            },
+            {
+              "kind": "renamed",
+              "path": "2026-10-05",
+              "previousPath": "Nouveau dossier",
+              "nodeKind": "directory",
+              "size": 0,
+              "id": "82cc1532-8749-48de-8db8-1e2f7a62235f",
+              "sessionId": "7977900e-acef-4a76-932e-23512031d665",
+              "at": "2026-10-05T15:17:54.384Z",
+              "source": "filesystem",
+              "application": "explorer.exe",
+              "windowTitle": "files-POv0BY : Explorateur de fichiers",
+              "contextFolder": "C:\\Dev\\CRTHON10\\aether\\test-results\\echo\\files-POv0BY"
+            },
+            {
+              "kind": "moved",
+              "path": "2026-10-05\\2026-10-05_audio_01.wav",
+              "previousPath": "2026-10-05_audio_01.wav",
+              "nodeKind": "file",
+              "size": 52,
+              "id": "23ddff35-1200-457d-9627-5a10b60ebf2a",
+              "sessionId": "7977900e-acef-4a76-932e-23512031d665",
+              "at": "2026-10-05T15:17:57.762Z",
+              "source": "filesystem",
+              "application": "explorer.exe",
+              "windowTitle": "2026-10-05 : Explorateur de fichiers",
+              "contextFolder": "C:\\Dev\\CRTHON10\\aether\\test-results\\echo\\files-POv0BY\\2026-10-05"
+            },
+            {
+              "kind": "moved",
+              "path": "2026-10-05\\2026-10-05_audio_02.wav",
+              "previousPath": "2026-10-05_audio_02.wav",
+              "nodeKind": "file",
+              "size": 52,
+              "id": "68f923ba-01db-4ec4-b4cb-9fb886e65469",
+              "sessionId": "7977900e-acef-4a76-932e-23512031d665",
+              "at": "2026-10-05T15:17:57.762Z",
+              "source": "filesystem",
+              "application": "explorer.exe",
+              "windowTitle": "2026-10-05 : Explorateur de fichiers",
+              "contextFolder": "C:\\Dev\\CRTHON10\\aether\\test-results\\echo\\files-POv0BY\\2026-10-05"
+            }
+          ],
+          "hypotheses": [
+            {
+              "id": "13f5fd7d-cea9-4c73-8ff9-3fd20ca5045a",
+              "sessionId": "7977900e-acef-4a76-932e-23512031d665",
+              "habitId": "06ce9b55-3c4a-4a9a-844f-34363559b6c6",
+              "createdAt": "2026-10-05T15:18:15.690Z",
+              "interpretation": {
+                "summary": "L'utilisateur a créé un dossier temporaire nommé 'Nouveau dossier', renommé ce dossier en '2026-10-05' (format YYYY-MM-DD), puis déplacé deux fichiers audio ('audio_01.wav', 'audio_02.wav') dans ce nouveau dossier tout en les renommant pour inclure la date complète du chemin (ex: '2026-10-05\\2026-10-05_audio_01.wav').",
+                "name": "Classement journalier avec nommage hiérarchique par date",
+                "description": "La méthode consiste à regrouper les fichiers audio d'une journée spécifique dans un dossier portant la date du jour, tout en appliquant une convention de nommage où le chemin complet inclut la répertoire racine et le nom du fichier, souvent doublant la date au début du nom du fichier pour assurer l'unicité ou la clarté.",
+                "context": "Organisation de fichiers audio bruts par date d'enregistrement ou de traitement.",
+                "triggers": [
+                  "Création d'un dossier vide",
+                  "Renommage du dossier vers une date formatée",
+                  "Déplacement et renommage simultané de fichiers audio dans le nouveau dossier"
+                ],
+                "procedure": [
+                  {
+                    "action": "created",
+                    "description": "Création d'un conteneur temporaire pour le tri.",
+                    "evidenceIds": [
+                      "63e92c4c-5e8d-490d-9623-5f1eaaefad85"
+                    ]
+                  },
+                  {
+                    "action": "renamed",
+                    "description": "Renommage du conteneur temporaire vers la date cible.",
+                    "evidenceIds": [
+                      "82cc1532-8749-48de-8db8-1e2f7a62235f"
+                    ]
+                  },
+                  {
+                    "action": "moved",
+                    "description": "Déplacement du premier fichier audio dans le dossier daté avec mise à jour du nom.",
+                    "evidenceIds": [
+                      "23ddff35-1200-457d-9627-5a10b60ebf2a"
+                    ]
+                  },
+                  {
+                    "action": "moved",
+                    "description": "Déplacement du second fichier audio dans le dossier daté avec mise à jour du nom.",
+                    "evidenceIds": [
+                      "68f923ba-01db-4ec4-b4cb-9fb886e65469"
+                    ]
+                  },
+                  {
+                    "action": "renamed",
+                    "description": "Renommage des fichiers originaux (avant déplacement) pour intégrer la date dans le nom du fichier.",
+                    "evidenceIds": [
+                      "b09f8b83-9f6f-45ff-9081-f53e44b90cc4",
+                      "18d092e7-e56f-4deb-9cef-e34edb4e5abf"
+                    ]
+                  }
+                ],
+                "evidenceIds": [
+                  "b09f8b83-9f6f-45ff-9081-f53e44b90cc4",
+                  "18d092e7-e56f-4deb-9cef-e34edb4e5abf",
+                  "63e92c4c-5e8d-490d-9623-5f1eaaefad85",
+                  "82cc1532-8749-48de-8db8-1e2f7a62235f",
+                  "23ddff35-1200-457d-9627-5a10b60ebf2a",
+                  "68f923ba-01db-4ec4-b4cb-9fb886e65469"
+                ],
+                "confidence": 0.95,
+                "matchedHabitId": null,
+                "variations": [
+                  "Le fichier pourrait être renommé uniquement dans le dossier sans changer la racine du nom.",
+                  "Plusieurs fichiers pourraient être traités en parallèle avant d'être déplacés."
+                ]
+              },
+              "decision": "yes",
+              "correction": null,
+              "model": "qwen3.5:9b",
+              "route": {
+                "requested": "DEEP",
+                "selected": "DEEP",
+                "provider": "ollama",
+                "model": "qwen3.5:9b",
+                "fallback": false
+              },
+              "invalidated": false
+            }
+          ]
+        }
+      ],
+      "habits": [
+        {
+          "id": "06ce9b55-3c4a-4a9a-844f-34363559b6c6",
+          "name": "Classement journalier avec nommage hiérarchique par date",
+          "description": "La méthode consiste à regrouper les fichiers audio d'une journée spécifique dans un dossier portant la date du jour, tout en appliquant une convention de nommage où le chemin complet inclut la répertoire racine et le nom du fichier, souvent doublant la date au début du nom du fichier pour assurer l'unicité ou la clarté.",
+          "context": "Organisation de fichiers audio bruts par date d'enregistrement ou de traitement.",
+          "applications": [
+            "explorer.exe"
+          ],
+          "triggers": [
+            "Création d'un dossier vide",
+            "Renommage du dossier vers une date formatée",
+            "Déplacement et renommage simultané de fichiers audio dans le nouveau dossier"
+          ],
+          "procedure": [
+            {
+              "action": "created",
+              "description": "Création d'un conteneur temporaire pour le tri.",
+              "evidenceIds": [
+                "63e92c4c-5e8d-490d-9623-5f1eaaefad85"
+              ]
+            },
+            {
+              "action": "renamed",
+              "description": "Renommage du conteneur temporaire vers la date cible.",
+              "evidenceIds": [
+                "82cc1532-8749-48de-8db8-1e2f7a62235f"
+              ]
+            },
+            {
+              "action": "moved",
+              "description": "Déplacement du premier fichier audio dans le dossier daté avec mise à jour du nom.",
+              "evidenceIds": [
+                "23ddff35-1200-457d-9627-5a10b60ebf2a"
+              ]
+            },
+            {
+              "action": "moved",
+              "description": "Déplacement du second fichier audio dans le dossier daté avec mise à jour du nom.",
+              "evidenceIds": [
+                "68f923ba-01db-4ec4-b4cb-9fb886e65469"
+              ]
+            },
+            {
+              "action": "renamed",
+              "description": "Renommage des fichiers originaux (avant déplacement) pour intégrer la date dans le nom du fichier.",
+              "evidenceIds": [
+                "b09f8b83-9f6f-45ff-9081-f53e44b90cc4",
+                "18d092e7-e56f-4deb-9cef-e34edb4e5abf"
+              ]
+            }
+          ],
+          "firstObservedAt": "2026-10-05T15:17:45.697Z",
+          "lastObservedAt": "2026-10-05T15:17:45.697Z",
+          "occurrences": 1,
+          "confidence": 0.95,
+          "state": "confirmed",
+          "provenance": {
+            "engine": "ECHO",
+            "sessionIds": [
+              "7977900e-acef-4a76-932e-23512031d665"
+            ]
+          },
+          "memoryId": "c1f7223a-bc14-49a4-b266-d3cfdafd1a3a",
+          "variations": [],
+          "signature": [
+            "created:directory::named",
+            "moved:file:.wav:dated",
+            "renamed:directory::dated",
+            "renamed:file:.wav:dated"
+          ]
+        }
+      ],
+      "opportunities": [],
+      "exclusions": {
+        "folders": [],
+        "processes": [
+          "1password.exe",
+          "keepass.exe",
+          "keepassxc.exe",
+          "bitwarden.exe",
+          "outlook.exe",
+          "chrome.exe",
+          "msedge.exe",
+          "firefox.exe"
+        ],
+        "windows": [
+          "banque",
+          "password",
+          "mot de passe",
+          "confidentiel",
+          "inprivate",
+          "private browsing"
+        ]
+      }
+    }
+  },
+  "I": {
+    "result": "PASS",
+    "excludedFolder": "C:\\Dev\\CRTHON10\\aether\\test-results\\echo\\files-POv0BY\\private",
+    "events": [],
+    "confirmedMemory": [
+      {
+        "id": "c1f7223a-bc14-49a4-b266-d3cfdafd1a3a",
+        "content": "Habitude confirmée : Classement journalier avec nommage hiérarchique par date. La méthode consiste à regrouper les fichiers audio d'une journée spécifique dans un dossier portant la date du jour, tout en appliquant une convention de nommage où le chemin complet inclut la répertoire racine et le nom du fichier, souvent doublant la date au début du nom du fichier pour assurer l'unicité ou la clarté.\nContexte : Organisation de fichiers audio bruts par date d'enregistrement ou de traitement.\nProcédure observée : Création d'un conteneur temporaire pour le tri. ; Renommage du conteneur temporaire vers la date cible. ; Déplacement du premier fichier audio dans le dossier daté avec mise à jour du nom. ; Déplacement du second fichier audio dans le dossier daté avec mise à jour du nom. ; Renommage des fichiers originaux (avant déplacement) pour intégrer la date dans le nom du fichier.",
+        "kind": "habit",
+        "category": "experience",
+        "source": "ECHO:06ce9b55-3c4a-4a9a-844f-34363559b6c6",
+        "scope": "personal",
+        "createdAt": "2026-10-05T15:17:45.697Z",
+        "updatedAt": "2026-10-05T15:18:51.341Z",
+        "confidence": null,
+        "status": "confirmed",
+        "origin": "explicit"
+      }
+    ]
+  },
+  "restart": {
+    "result": "PASS",
+    "snapshot": {
+      "enabled": false,
+      "state": "off",
+      "activeSessionId": null,
+      "context": null,
+      "error": null,
+      "sessions": [
+        {
+          "id": "00cdbc99-f0fb-478c-bc66-d08af5193a1c",
+          "startedAt": "2026-10-05T15:19:01.803Z",
+          "endedAt": "2026-10-05T15:19:08.038Z",
+          "durationMs": 6235,
+          "applications": [
+            "explorer.exe"
+          ],
+          "resources": [
+            "C:\\Dev\\CRTHON10\\aether\\test-results\\echo\\files-POv0BY"
+          ],
+          "status": "completed",
+          "summary": null,
+          "error": null,
+          "events": [],
+          "hypotheses": []
+        },
+        {
+          "id": "7977900e-acef-4a76-932e-23512031d665",
+          "startedAt": "2026-10-05T15:17:45.697Z",
+          "endedAt": "2026-10-05T15:17:59.795Z",
+          "durationMs": 14098,
+          "applications": [
+            "explorer.exe"
+          ],
+          "resources": [
+            "C:\\Dev\\CRTHON10\\aether\\test-results\\echo\\files-POv0BY"
+          ],
+          "status": "completed",
+          "summary": "L'utilisateur a créé un dossier temporaire nommé 'Nouveau dossier', renommé ce dossier en '2026-10-05' (format YYYY-MM-DD), puis déplacé deux fichiers audio ('audio_01.wav', 'audio_02.wav') dans ce nouveau dossier tout en les renommant pour inclure la date complète du chemin (ex: '2026-10-05\\2026-10-05_audio_01.wav').",
+          "error": null,
+          "events": [
+            {
+              "kind": "renamed",
+              "path": "2026-10-05_audio_01.wav",
+              "previousPath": "audio_01.wav",
+              "nodeKind": "file",
+              "size": 52,
+              "id": "b09f8b83-9f6f-45ff-9081-f53e44b90cc4",
+              "sessionId": "7977900e-acef-4a76-932e-23512031d665",
+              "at": "2026-10-05T15:17:50.199Z",
+              "source": "filesystem",
+              "application": "explorer.exe",
+              "windowTitle": "files-POv0BY : Explorateur de fichiers",
+              "contextFolder": "C:\\Dev\\CRTHON10\\aether\\test-results\\echo\\files-POv0BY"
+            },
+            {
+              "kind": "renamed",
+              "path": "2026-10-05_audio_02.wav",
+              "previousPath": "audio_02.wav",
+              "nodeKind": "file",
+              "size": 52,
+              "id": "18d092e7-e56f-4deb-9cef-e34edb4e5abf",
+              "sessionId": "7977900e-acef-4a76-932e-23512031d665",
+              "at": "2026-10-05T15:17:52.426Z",
+              "source": "filesystem",
+              "application": "explorer.exe",
+              "windowTitle": "files-POv0BY : Explorateur de fichiers",
+              "contextFolder": "C:\\Dev\\CRTHON10\\aether\\test-results\\echo\\files-POv0BY"
+            },
+            {
+              "kind": "created",
+              "path": "Nouveau dossier",
+              "previousPath": null,
+              "nodeKind": "directory",
+              "size": 0,
+              "id": "63e92c4c-5e8d-490d-9623-5f1eaaefad85",
+              "sessionId": "7977900e-acef-4a76-932e-23512031d665",
+              "at": "2026-10-05T15:17:53.492Z",
+              "source": "filesystem",
+              "application": "explorer.exe",
+              "windowTitle": "files-POv0BY : Explorateur de fichiers",
+              "contextFolder": "C:\\Dev\\CRTHON10\\aether\\test-results\\echo\\files-POv0BY"
+            },
+            {
+              "kind": "renamed",
+              "path": "2026-10-05",
+              "previousPath": "Nouveau dossier",
+              "nodeKind": "directory",
+              "size": 0,
+              "id": "82cc1532-8749-48de-8db8-1e2f7a62235f",
+              "sessionId": "7977900e-acef-4a76-932e-23512031d665",
+              "at": "2026-10-05T15:17:54.384Z",
+              "source": "filesystem",
+              "application": "explorer.exe",
+              "windowTitle": "files-POv0BY : Explorateur de fichiers",
+              "contextFolder": "C:\\Dev\\CRTHON10\\aether\\test-results\\echo\\files-POv0BY"
+            },
+            {
+              "kind": "moved",
+              "path": "2026-10-05\\2026-10-05_audio_01.wav",
+              "previousPath": "2026-10-05_audio_01.wav",
+              "nodeKind": "file",
+              "size": 52,
+              "id": "23ddff35-1200-457d-9627-5a10b60ebf2a",
+              "sessionId": "7977900e-acef-4a76-932e-23512031d665",
+              "at": "2026-10-05T15:17:57.762Z",
+              "source": "filesystem",
+              "application": "explorer.exe",
+              "windowTitle": "2026-10-05 : Explorateur de fichiers",
+              "contextFolder": "C:\\Dev\\CRTHON10\\aether\\test-results\\echo\\files-POv0BY\\2026-10-05"
+            },
+            {
+              "kind": "moved",
+              "path": "2026-10-05\\2026-10-05_audio_02.wav",
+              "previousPath": "2026-10-05_audio_02.wav",
+              "nodeKind": "file",
+              "size": 52,
+              "id": "68f923ba-01db-4ec4-b4cb-9fb886e65469",
+              "sessionId": "7977900e-acef-4a76-932e-23512031d665",
+              "at": "2026-10-05T15:17:57.762Z",
+              "source": "filesystem",
+              "application": "explorer.exe",
+              "windowTitle": "2026-10-05 : Explorateur de fichiers",
+              "contextFolder": "C:\\Dev\\CRTHON10\\aether\\test-results\\echo\\files-POv0BY\\2026-10-05"
+            }
+          ],
+          "hypotheses": [
+            {
+              "id": "13f5fd7d-cea9-4c73-8ff9-3fd20ca5045a",
+              "sessionId": "7977900e-acef-4a76-932e-23512031d665",
+              "habitId": "06ce9b55-3c4a-4a9a-844f-34363559b6c6",
+              "createdAt": "2026-10-05T15:18:15.690Z",
+              "interpretation": {
+                "summary": "L'utilisateur a créé un dossier temporaire nommé 'Nouveau dossier', renommé ce dossier en '2026-10-05' (format YYYY-MM-DD), puis déplacé deux fichiers audio ('audio_01.wav', 'audio_02.wav') dans ce nouveau dossier tout en les renommant pour inclure la date complète du chemin (ex: '2026-10-05\\2026-10-05_audio_01.wav').",
+                "name": "Classement journalier avec nommage hiérarchique par date",
+                "description": "La méthode consiste à regrouper les fichiers audio d'une journée spécifique dans un dossier portant la date du jour, tout en appliquant une convention de nommage où le chemin complet inclut la répertoire racine et le nom du fichier, souvent doublant la date au début du nom du fichier pour assurer l'unicité ou la clarté.",
+                "context": "Organisation de fichiers audio bruts par date d'enregistrement ou de traitement.",
+                "triggers": [
+                  "Création d'un dossier vide",
+                  "Renommage du dossier vers une date formatée",
+                  "Déplacement et renommage simultané de fichiers audio dans le nouveau dossier"
+                ],
+                "procedure": [
+                  {
+                    "action": "created",
+                    "description": "Création d'un conteneur temporaire pour le tri.",
+                    "evidenceIds": [
+                      "63e92c4c-5e8d-490d-9623-5f1eaaefad85"
+                    ]
+                  },
+                  {
+                    "action": "renamed",
+                    "description": "Renommage du conteneur temporaire vers la date cible.",
+                    "evidenceIds": [
+                      "82cc1532-8749-48de-8db8-1e2f7a62235f"
+                    ]
+                  },
+                  {
+                    "action": "moved",
+                    "description": "Déplacement du premier fichier audio dans le dossier daté avec mise à jour du nom.",
+                    "evidenceIds": [
+                      "23ddff35-1200-457d-9627-5a10b60ebf2a"
+                    ]
+                  },
+                  {
+                    "action": "moved",
+                    "description": "Déplacement du second fichier audio dans le dossier daté avec mise à jour du nom.",
+                    "evidenceIds": [
+                      "68f923ba-01db-4ec4-b4cb-9fb886e65469"
+                    ]
+                  },
+                  {
+                    "action": "renamed",
+                    "description": "Renommage des fichiers originaux (avant déplacement) pour intégrer la date dans le nom du fichier.",
+                    "evidenceIds": [
+                      "b09f8b83-9f6f-45ff-9081-f53e44b90cc4",
+                      "18d092e7-e56f-4deb-9cef-e34edb4e5abf"
+                    ]
+                  }
+                ],
+                "evidenceIds": [
+                  "b09f8b83-9f6f-45ff-9081-f53e44b90cc4",
+                  "18d092e7-e56f-4deb-9cef-e34edb4e5abf",
+                  "63e92c4c-5e8d-490d-9623-5f1eaaefad85",
+                  "82cc1532-8749-48de-8db8-1e2f7a62235f",
+                  "23ddff35-1200-457d-9627-5a10b60ebf2a",
+                  "68f923ba-01db-4ec4-b4cb-9fb886e65469"
+                ],
+                "confidence": 0.95,
+                "matchedHabitId": null,
+                "variations": [
+                  "Le fichier pourrait être renommé uniquement dans le dossier sans changer la racine du nom.",
+                  "Plusieurs fichiers pourraient être traités en parallèle avant d'être déplacés."
+                ]
+              },
+              "decision": "yes",
+              "correction": null,
+              "model": "qwen3.5:9b",
+              "route": {
+                "requested": "DEEP",
+                "selected": "DEEP",
+                "provider": "ollama",
+                "model": "qwen3.5:9b",
+                "fallback": false
+              },
+              "invalidated": false
+            }
+          ]
+        }
+      ],
+      "habits": [
+        {
+          "id": "06ce9b55-3c4a-4a9a-844f-34363559b6c6",
+          "name": "Classement journalier avec nommage hiérarchique par date",
+          "description": "La méthode consiste à regrouper les fichiers audio d'une journée spécifique dans un dossier portant la date du jour, tout en appliquant une convention de nommage où le chemin complet inclut la répertoire racine et le nom du fichier, souvent doublant la date au début du nom du fichier pour assurer l'unicité ou la clarté.",
+          "context": "Organisation de fichiers audio bruts par date d'enregistrement ou de traitement.",
+          "applications": [
+            "explorer.exe"
+          ],
+          "triggers": [
+            "Création d'un dossier vide",
+            "Renommage du dossier vers une date formatée",
+            "Déplacement et renommage simultané de fichiers audio dans le nouveau dossier"
+          ],
+          "procedure": [
+            {
+              "action": "created",
+              "description": "Création d'un conteneur temporaire pour le tri.",
+              "evidenceIds": [
+                "63e92c4c-5e8d-490d-9623-5f1eaaefad85"
+              ]
+            },
+            {
+              "action": "renamed",
+              "description": "Renommage du conteneur temporaire vers la date cible.",
+              "evidenceIds": [
+                "82cc1532-8749-48de-8db8-1e2f7a62235f"
+              ]
+            },
+            {
+              "action": "moved",
+              "description": "Déplacement du premier fichier audio dans le dossier daté avec mise à jour du nom.",
+              "evidenceIds": [
+                "23ddff35-1200-457d-9627-5a10b60ebf2a"
+              ]
+            },
+            {
+              "action": "moved",
+              "description": "Déplacement du second fichier audio dans le dossier daté avec mise à jour du nom.",
+              "evidenceIds": [
+                "68f923ba-01db-4ec4-b4cb-9fb886e65469"
+              ]
+            },
+            {
+              "action": "renamed",
+              "description": "Renommage des fichiers originaux (avant déplacement) pour intégrer la date dans le nom du fichier.",
+              "evidenceIds": [
+                "b09f8b83-9f6f-45ff-9081-f53e44b90cc4",
+                "18d092e7-e56f-4deb-9cef-e34edb4e5abf"
+              ]
+            }
+          ],
+          "firstObservedAt": "2026-10-05T15:17:45.697Z",
+          "lastObservedAt": "2026-10-05T15:17:45.697Z",
+          "occurrences": 1,
+          "confidence": 0.95,
+          "state": "confirmed",
+          "provenance": {
+            "engine": "ECHO",
+            "sessionIds": [
+              "7977900e-acef-4a76-932e-23512031d665"
+            ]
+          },
+          "memoryId": "c1f7223a-bc14-49a4-b266-d3cfdafd1a3a",
+          "variations": [],
+          "signature": [
+            "created:directory::named",
+            "moved:file:.wav:dated",
+            "renamed:directory::dated",
+            "renamed:file:.wav:dated"
+          ]
+        }
+      ],
+      "opportunities": [],
+      "exclusions": {
+        "folders": [
+          "C:\\Dev\\CRTHON10\\aether\\test-results\\echo\\files-POv0BY\\private"
+        ],
+        "processes": [
+          "1password.exe",
+          "keepass.exe",
+          "keepassxc.exe",
+          "bitwarden.exe",
+          "outlook.exe",
+          "chrome.exe",
+          "msedge.exe",
+          "firefox.exe"
+        ],
+        "windows": [
+          "banque",
+          "password",
+          "mot de passe",
+          "confidentiel",
+          "inprivate",
+          "private browsing"
+        ]
+      }
+    }
+  },
+  "finishedAt": "2026-10-05T15:19:08.789Z",
+  "result": "PASS"
+}

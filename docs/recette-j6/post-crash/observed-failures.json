@@ -1,0 +1,10 @@
+[
+  {
+    "test": "echo-ECHO-A-I-explicit-con-b1ba7--deletion-OFF-and-exclusion",
+    "error": "Error: expect(received).toMatch(expected)\n\nExpected pattern: /date|dossier/i\nReceived string:  \"La méthode consiste à regrouper les ressources (fichiers audio) dans un conteneur nommé selon une convention temporelle stricte (YYYY-MM-DD), tout en appliquant cette même étiquette temporelle aux noms des fichiers eux-mêmes pour faciliter le tri futur.\""
+  },
+  {
+    "test": "live-real-Gemini-Live-actu-3dfc8-ion-and-actual-AETHER-tools",
+    "error": "Error: expect(received).not.toBe(expected) // Object.is equality\n\nExpected: not \"1f0ddf7e-53fd-4ec7-8546-300c8586fd2c\"\n\nCall Log:\n- Timeout 150000ms exceeded while waiting on the predicate"
+  }
+]

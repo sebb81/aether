@@ -1,5 +1,45 @@
 # Plan de développement AETHER
 
+## J6 FORGE + MIRROR — autorisé le 15 octobre 2026
+
+Le brief J6 joint valide les jalons précédents et autorise ce jalon uniquement. Les recettes historiques restent des preuves datées, avec leurs limites d'origine. Préserver les changements locaux J5.5/J5.6, les données et les consentements ; aucun commit/push ni démarrage de J7.
+
+1. Lire le CDC, les plans, toutes les recettes et le code ; exécuter la suite existante avant implémentation. Vérifier Codex et l'isolation Windows réellement disponibles.
+2. Créer `packages/evolution` : spécifications ForgeRequest inspectables, propositions ECHO/CURIOSITY sourcées, manifeste/API v1, historique des essais, registre persistant versionné. MIND clarifie via le modèle local ; aucun appel Codex avant confirmation de la spécification.
+3. Adaptateur Codex officiel isolé derrière CodeGenerationProvider : authentification Codex existante distincte des secrets AETHER, environnement filtré, événements réels, génération bornée hors noyau, annulation. Aucun script produit n'est exécuté directement par Node.
+4. MIRROR : JavaScript sans dépendance externe dans QuickJS/WebAssembly, processus séparé, mémoire/temps/sorties bornés, aucun accès hôte dans le langage. Étudier/prober MXC natif Windows comme protection supplémentaire ; bloquer plutôt que simuler une isolation manquante. Compiler et tester le véritable artefact ; conserver rapport et empreintes.
+5. API J6 : entrées/sorties JSON et métadonnées des fichiers du dossier choisi ; opérations proposées de renommage/rangement via un broker du noyau. Réseau, processus, presse-papiers et périphériques non exposés. Toute permission non supportée est refusée explicitement, y compris dans MIRROR. Aucun téléchargement de dépendance d'une capacité.
+6. Prévisualisation sur copies, vérification indépendante des chemins/collisions et confirmation distincte avant écriture. Installation après rapport réussi et acceptation humaine ; versions précédentes conservées, désactivation/désinstallation et arrêt immédiat. Aucune suppression des données utilisateur à la désinstallation.
+7. FORGE dans SPACE et les réglages, progression et échecs inspectables, états BUILDING/TESTING réels. MIND/VOICE peuvent préparer une demande sans autoriser génération, installation ou accès fichiers. Le contexte MIND ne déclare disponibles que les capacités actives.
+8. Recette contrôlée réelle avec Codex, puis adoption humaine distincte ; redémarrage complet et réutilisation sur de nouvelles données. Tests A–L, refus d'accès hostiles, non-régression, compilation/paquet et documentation dans `docs/RECETTE-J6.md`. Distinguer confirmations automatisées de recette et validation humaine.
+
+Précontrôles : Codex CLI 0.162.0-alpha.17.2 installé et authentifié ChatGPT ; `codex -c windows.sandbox=mxc sandbox --include-managed-config --permission-profile :workspace -- cmd.exe /d /c echo MXC_OK` réussit. Docker installé mais moteur Linux indisponible. Premier passage unitaire : 114 réussites ; suite Electron initiale en cours au moment de la rédaction du plan.
+
+## J5.6 LIVE VOICE — plan autorisé le 8 octobre 2026
+
+Le brief J5.6 autorise l'ajout du canal Gemini Live et sa recette. Conserver les changements J5.5 présents, VOICE LOCAL, les données et les permissions. Aucun développement FORGE/MIRROR.
+
+1. Contrats LIVE indépendants du SDK, configuration centrale du modèle, profils LIVE et CODE réservé dans MODEL ROUTER.
+2. Session WebSocket persistante via SDK officiel Google GenAI dans un processus dédié piloté par le main ; audio duplex PCM en RAM avec worker PortAudio local, interruption et nettoyage.
+3. TOOL BRIDGE fermé et validé vers MEMORY, CURIOSITY, SPACE, ECHO et délégation MIND/DEEP locale. Confirmation humaine des mutations MEMORY et consentement ECHO conservés.
+4. Consentement cloud séparé, révocation immédiate, secret safeStorage Windows/environnement, réglages et choix LOCAL/LIVE/à chaque session, états PRESENCE discrets et transcription dans le dialogue.
+5. Tests de contrats/sécurité/cycles de session, non-régression et recette Electron réelle ; recette Gemini réelle sous réserve d'une clé et accès fournisseur. Rapporter chaque preuve et limite, compiler/lancer AETHER puis arrêter.
+
+### Résultat J5.6 — intégration livrée, recette Gemini ouverte
+
+Correctif du 8 octobre après le premier essai humain : voix Gemini audible mais coupures répétées sur haut-parleurs, même sans parole utilisateur. Capture/lecture LIVE déplacées vers Chromium avec AEC vérifiée et tampon 180 ms ; l'énergie seule ne coupe plus la lecture, l'interruption de parole Gemini reste active. 111 unitaires et quatre parcours LIVE réussis, dont une réponse **Gemini réelle** sans interruption avec entrée synthétique ; flux Chromium du paquet Windows également vérifié (caméra refusée). Clé et réglages personnels préservés, nouvelle sauvegarde `backup-before-live-aec-20261008-142414`. Réception sur le micro/haut-parleurs de l'utilisateur encore à confirmer. LOCAL reste intact.
+
+- [x] LIVE indépendant du SDK, modèle central configurable, onze outils validés, profil CODE réservé.
+- [x] Audio duplex natif, session persistante, interruption, nettoyage et erreurs visibles ; LOCAL conservé.
+- [x] Consentements distincts, secret chiffré, minimisation et confirmations MEMORY ; DEEP réellement local.
+- [x] `npm run check` : typage/compilation, **109 tests unitaires et 12 parcours Electron réussis**, un parcours Gemini explicitement ignoré faute de clé. Cinq tests Python existants réussis.
+- [x] Correctif supplémentaire : interruption quand le serveur a fini mais que l'audio joue encore. **110 tests unitaires réussis**, puis 17 tests LIVE et deux parcours Electron LIVE ciblés réussis ; paquet reconstruit et revérifié.
+- [x] Paquet Windows **0.5.6** construit et vérifié : cinq helpers conformes, vrai WebSocket Gemini puis rejet d'une clé fictive, aucune capture au démarrage, données et réglages personnels inchangés. Sauvegarde `backup-before-j56-20261008-104851` dans le profil AETHER.
+- [x] AETHER lancé sur le profil personnel avec LIVE VOICE ouvert, micro arrêté. [Recette, preuves et limites](docs/RECETTE-J5.6-LIVE.md) documentées.
+- [ ] Conversation Gemini positive, commandes naturelles et barge-in humain avec clé valide ; latence parole → audio et coupure réseau en session active.
+
+La présence de la clé et les consentements doivent être établis dans l'application ; ils ne sont pas déduits du brief. Aucun succès Gemini positif annoncé à ce stade. Prochain jalon proposé après réception J5.6 : **J6 FORGE + MIRROR**. Aucun développement J6, commit ou push.
+
 Date de lancement : 5 octobre 2026. Source : [CDC](docs/CDC.md), transcrit intégralement depuis le document Word conservé dans `docs/`, et brief de lancement. Le dépôt initial contient uniquement le README et ce document Word ; aucun code existant à reprendre. Node 24 et npm sont disponibles sur le poste.
 
 Le premier jalon est autorisé immédiatement par le brief. La réception complète FIRST LIFE (REC-01 à REC-12) reste un objectif des jalons suivants et ne doit pas être confondue avec cette livraison.
@@ -13,7 +53,9 @@ Le premier jalon est autorisé immédiatement par le brief. La réception compl�
 | J3 CURIOSITY + MODEL ROUTER | Intérêts propres, questions, hypothèses, découvertes, connexions et explorations persistantes ; autonomie locale bornée ; FAST/DEEP/VISION. REC-10/11. | Livré et validé par l'utilisateur |
 | J4 PORTAL et SPACE | Portail et espace 2,5D utilisables, navigation clavier, contenu issu des opérations réelles. REC-03. | Livré et validé par l'utilisateur |
 | J5 ECHO | Consentement distinct, perception Explorer et dossier choisi, pause/arrêt, interprétation sourcée, validation humaine, habitudes et répétitions. REC-05/06. | Implémenté ; résultats et preuves dans RECETTE-J5 |
-| J6 EVOLUTION | Spécification approuvée, SDK Codex officiel, FORGE hors noyau, runner MIRROR isolé, copies de données, rapport et adoption explicite. REC-07/08/12. | À développer |
+| J5.5 VOICE LOCAL | STT/MIND/Qwen/TTS locaux, micro explicite, réglages et conversation partagés. | Conservé ; non-régression réussie |
+| J5.6 LIVE VOICE | Gemini Live persistant, audio natif et interruptions, outils AETHER et DEEP local, consentement cloud distinct. | Implémenté en 0.5.6 ; recette Gemini positive et humaine ouverte |
+| J6 EVOLUTION | Spécification approuvée, SDK Codex officiel, FORGE hors noyau, runner MIRROR isolé, copies de données, rapport et adoption explicite. REC-07/08/12. | Prototype Codex réel testé sur copies ; adoption humaine, redémarrage et usage persistant en attente |
 | J7 CAPABILITIES et recette | Registre versionné, runner borné, persistance et retour arrière ; validation de REC-01 à REC-12 sur Windows. | À développer |
 
 J1 à J4 sont validés par l’utilisateur. Le brief J5 autorise ECHO. Aucun jalon suivant ne démarre automatiquement.
@@ -127,3 +169,42 @@ Le brief autorise l’implémentation et la recette. Sauvegarder le profil exist
 Sauvegarde personnelle créée avant J5 dans `%APPDATA%\AETHER\backup-before-j5-20261005-132125`. Souvenirs et intérêt existants préservés ; autonomie choisie par l’utilisateur conservée. La session vide de vérification du paquet est supprimée, sans importer les données de recette. Les réponses du modèle restent non déterministes ; un résultat CURIOSITY refusé au premier passage et sa reprise réussie sont documentés.
 
 Preuves : [RECETTE-J5](docs/RECETTE-J5.md). Proposition suivante : **J6 FORGE + MIRROR**, spécification approuvée puis fabrication/essai isolés et adoption distincte. Aucun développement J6 commencé. Arrêt à J5.
+
+## Plan J5.5 VOICE avant développement
+
+Le brief valide J1–J5 et autorise VOICE. Version prévue : 0.5.5. Sauvegarde du profil avant modification ; conserver Ollama, MEMORY, CURIOSITY et ECHO.
+
+- Providers indépendants : capture et lecture locales PortAudio, STT faster-whisper/CTranslate2 CPU avec modèle local existant, TTS Windows System.Speech et voix installées. Dictée Windows étudiée puis écartée après erreurs sur les phrases de recette. Aucun appel cloud, téléchargement ou reconfiguration silencieuse pendant un échange.
+- Un seul MIND et une seule conversation. Transcription vocale et texte utilisent la même fonction de soumission, MEMORY et FAST. Intentions de navigation déterminées par MIND dans un contrat fermé : SPACE, journal CURIOSITY ou panneau ECHO, sans accorder de consentement ni exécuter de programme arbitraire.
+- Consentement microphone distinct et explicite, sélection du périphérique, bouton et raccourci configurable déclenchant/terminant une prise. Pas d’écoute permanente. Wake word et barge-in vocal préparés comme ports futurs, désactivés et indisponibles au J5.5.
+- États réels de capture, transcription, réflexion, synthèse et lecture, amplitude audio discrète dans ENTITY ; annulation immédiate, génération invalidant les réponses tardives. Même interaction sur le bureau et dans SPACE.
+- Panneau VOICE : langue, microphone, fournisseurs locaux, voix/vitesse/volume, réponses toujours/à la voix/jamais. Texte complet conservé dans la conversation temporaire, réponse parlée bornée. Diagnostic des latences et extraits opt-in temporaires/supprimables ; aucun audio sur disque par défaut.
+- Tests de providers, permissions, états, routage commun, interruption, erreurs, stockage et persistance ; recette A–J avec composants locaux réels, distinction explicite entre échantillons synthétiques et parole humaine. Rejouer J1–J5, compiler/vérifier/lancer le paquet, documenter preuves et limites puis arrêter. FORGE et MIRROR restent hors périmètre.
+
+## Résultat J5.5 — développement terminé, recette humaine ouverte
+
+Correctif du 6 octobre : l’alias `python` du Microsoft Store a reproduit la sortie 9009 après lancement Windows. Résolution/persistance du Python installé, code d’erreur explicite, 88 tests unitaires et parcours Electron avec PATH Windows standard réussis ; transcription et lecture locales réelles vérifiées sans ouvrir de micro. Paquet `release/AETHER-win32-x64-voice-corrige/AETHER.exe` prêt ; fermeture et relancement par l’utilisateur nécessaires avant la recette humaine. Voir [la recette VOICE](docs/RECETTE-J5.5-VOICE.md).
+
+Second correctif du 6 octobre : suppression du rejet prématuré des signaux faibles avant Whisper, gain STT borné, canal réel le plus actif pour les micros multicanaux, entrée par défaut WASAPI cohérente avec le sélecteur et buffer de capture géré par le pilote. Jauge et notices de silence/transcription vide visibles. 88 tests TypeScript, cinq tests Python et les deux parcours Electron ciblés ont réussi à leurs derniers passages. Les deux paquets ont été mis à jour ; le paquet principal est ouvert pour une prise physique supervisée, encore à vérifier. Aucun audio conservé.
+
+- [x] VOICE abstraite, capture/lecture PortAudio, STT Whisper local et TTS Windows réels, consentement distinct, réglages persistants et arrêt/clic/raccourci.
+- [x] Conversation unique clavier/voix, MEMORY/FAST partagés, réponses complètes/orales, navigations fermées décidées par MIND, ECHO sans permission implicite.
+- [x] PRESENCE écoute/parle avec amplitude réelle, erreurs et annulation stables, audio RAM par défaut, diagnostic et extraits temporaires opt-in.
+- [x] Typage/compilation et 86 tests unitaires ; huit parcours Electron validés à leurs derniers passages, avec correction de la fermeture pendant un chargement et fiabilisation des actions Explorer de recette.
+- [x] Paquet 0.5.5 construit, exécuté et vérifié sur le profil personnel : Qwen réel, sortie TTS réelle, helpers embarqués, données/réglage d’autonomie conservés ; aucune capture micro par les vérifications automatiques.
+- [x] Recette et preuves : [RECETTE-J5.5-VOICE](docs/RECETTE-J5.5-VOICE.md), providers/latences/limites documentés dans README/ARCHITECTURE/SÉCURITÉ.
+- [ ] Recette humaine A/B et demandes D/E au micro. L’utilisateur a accepté de la réaliser ; le vrai paquet est ouvert avec le panneau VOICE et le micro arrêté. Aucun essai physique n’est annoncé réussi sans la preuve de capture.
+
+Sauvegarde personnelle : `%APPDATA%\AETHER\backup-before-voice-20261005-161153`. Le modèle medium et les bibliothèques Python existaient déjà ; aucun téléchargement nécessaire. Sur les échantillons Hortense, « wombat » devient « bomba » : la persistance fonctionne pour la transcription réelle, mais le scénario exact B reste à valider humainement. Les latences chaudes/cold et les incidents/reprises ECHO sont consignés, sans réponse de remplacement. Proposition suivante après cette validation : J6 FORGE + MIRROR, spécification et adoption distinctes. Aucun développement suivant commencé, aucun commit/push effectué.
+
+## Etat J6 au 15 octobre 2026
+
+- Socle FORGE/MIRROR, CodeGenerationProvider/CodexProvider, CapabilityRegistry, API/manifeste v1, parcours de confirmations et zones SPACE implémentés.
+- Typage/compilation, 127 tests unitaires, cinq Python, deux parcours Electron J6 et paquet Windows/MXC/WASM vérifiés. Suite Electron globale : 15 réussites, un parcours Gemini cloud échoué, également en échec avant J6.
+- Profil personnel sauvegardé avant lancement 0.6.0 ; ancien paquet conservé dans release/AETHER-win32-x64-before-j6. Données et réglages antérieurs préservés pendant le contrôle du paquet.
+- Accord humain reçu pour la fabrication/tests isolés. Trois appels réels à Codex : réponse initiale refusée, revue Windows supplémentaire puis prototype corrigé. Treize contrôles MIRROR et démonstration sur copies réussis ; spécification approuvée inchangée, aucun code de capacité réparé manuellement.
+- J6 reste ouvert : acceptation distincte, installation, redémarrage et réutilisation persistante restent à faire. Zéro capacité acquise revendiquée. Présentation et preuves dans docs/RECETTE-J6.md et docs/recette-j6/prototype-review.md. J7 non commencé.
+
+### Vérification après le plantage du PC — 15 octobre 2026
+
+Code, historique et prototype J6 conservés ; empreintes conformes. Compilation, 127 unitaires, cinq Python, deux parcours Electron J6, 13 contrôles MIRROR et nouvel essai sur copies réussis. Paquet Windows 0.6.0 réellement lancé et vérifié avec données/réglages personnels préservés. Suite Electron globale : 15/17 réussis ; ECHO échoue aussi au rejeu isolé sur une citation d'observation inexistante par MIND ; Gemini reste en attente de transcription. Aucun accord d'adoption reçu, aucune capacité installée. J6 demeure ouvert. [Bilan de reprise](docs/recette-j6/post-crash/verification.md).

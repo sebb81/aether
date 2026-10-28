@@ -1,0 +1,130 @@
+{
+  "schemaVersion": 1,
+  "id": "classement-wav-par-date",
+  "name": "Classement WAV par date",
+  "version": "1.0.0",
+  "description": "Propose le déplacement des WAV racine vers le dossier de la date fournie, sans collision de fichiers ou de dossiers, y compris sans distinction de casse.",
+  "inputs": [
+    "files : chemins relatifs, taille et date de modification",
+    "parameters.date : date AAAA-MM-JJ choisie pour ce classement"
+  ],
+  "outputs": [
+    "summary",
+    "renames[].from",
+    "renames[].to",
+    "data"
+  ],
+  "permissions": [
+    "filesystem.read",
+    "filesystem.write"
+  ],
+  "entryPoint": "capability.js",
+  "compatibility": {
+    "apiVersion": 1,
+    "runtime": "quickjs-wasm",
+    "platform": "win32"
+  },
+  "provenance": {
+    "createdBy": "FORGE",
+    "forgeRequestId": "44fa75ee-c15d-4cad-8ecb-870126afe9a0",
+    "attempt": 3,
+    "origin": {
+      "kind": "USER",
+      "ref": null,
+      "reason": "Demande explicite de l’utilisateur."
+    },
+    "createdAt": "2026-10-15T15:18:21.487Z",
+    "provider": "@openai/codex-sdk 0.162.1 / Codex CLI"
+  },
+  "validation": {
+    "status": "tested",
+    "digest": "a7c16aeaa8c0b9f05f3e32fec7b7c6f1e35b0b69aca4d65595a8eebec5f0f79f",
+    "report": {
+      "at": "2026-10-15T15:18:21.486Z",
+      "passed": true,
+      "digest": "a7c16aeaa8c0b9f05f3e32fec7b7c6f1e35b0b69aca4d65595a8eebec5f0f79f",
+      "checks": [
+        {
+          "name": "Compilation JavaScript QuickJS",
+          "passed": true,
+          "detail": "Réussi",
+          "durationMs": 1049
+        },
+        {
+          "name": "Critère approuvé : WAV racine et TXT ignore",
+          "passed": true,
+          "detail": "Réussi",
+          "durationMs": 1010
+        },
+        {
+          "name": "Critère approuvé : Dossier vide",
+          "passed": true,
+          "detail": "Réussi",
+          "durationMs": 1063
+        },
+        {
+          "name": "Critère approuvé : WAV deja classe",
+          "passed": true,
+          "detail": "Réussi",
+          "durationMs": 982
+        },
+        {
+          "name": "Critère approuvé : Autre WAV",
+          "passed": true,
+          "detail": "Réussi",
+          "durationMs": 1005
+        },
+        {
+          "name": "Critère approuvé : Collision non ecrasable",
+          "passed": true,
+          "detail": "Réussi",
+          "durationMs": 1012
+        },
+        {
+          "name": "Critère approuvé : Autre date et extension majuscule",
+          "passed": true,
+          "detail": "Réussi",
+          "durationMs": 984
+        },
+        {
+          "name": "Test Codex : Collision fichier sans distinction de casse",
+          "passed": true,
+          "detail": "Réussi",
+          "durationMs": 987
+        },
+        {
+          "name": "Test Codex : Dossier occupant la destination sans distinction de casse",
+          "passed": true,
+          "detail": "Réussi",
+          "durationMs": 998
+        },
+        {
+          "name": "Test Codex : Fichier occupant le dossier date",
+          "passed": true,
+          "detail": "Réussi",
+          "durationMs": 1002
+        },
+        {
+          "name": "Test Codex : Dossier date existant et ordre conserve",
+          "passed": true,
+          "detail": "Réussi",
+          "durationMs": 1032
+        },
+        {
+          "name": "Test Codex : Sources ambigues sous Windows",
+          "passed": true,
+          "detail": "Réussi",
+          "durationMs": 1002
+        },
+        {
+          "name": "Test Codex : Parametre date dangereux refuse",
+          "passed": true,
+          "detail": "Réussi",
+          "durationMs": 1019
+        }
+      ],
+      "isolation": "QuickJS/WebAssembly sans API hôte ; processus Windows MXC ; 32 Mio de mémoire JavaScript, 2 s par calcul, sortie 512 Ko ; aucun processus enfant créé par la capacité.",
+      "durationMs": 13172
+    }
+  }
+}

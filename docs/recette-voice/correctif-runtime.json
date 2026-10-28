@@ -1,0 +1,80 @@
+{
+  "checkedAt": "2026-10-06T06:12:13.652Z",
+  "result": "PASS",
+  "launch": "Registered Windows PATH, no activated Conda environment",
+  "before": {
+    "schemaVersion": 1,
+    "enabled": false,
+    "microphoneConsent": "prompt",
+    "microphone": "default",
+    "language": "fr-FR",
+    "shortcut": "Control+Alt+V",
+    "sttProvider": "faster-whisper",
+    "ttsProvider": "windows-speech",
+    "ttsEnabled": true,
+    "voice": "Microsoft Hortense Desktop",
+    "speed": 0.95,
+    "volume": 0.65,
+    "responsePolicy": "voice-only",
+    "diagnostics": false,
+    "retainDiagnosticAudio": false,
+    "wakeWordEnabled": false,
+    "pythonPath": "python",
+    "modelPath": "C:\\Users\\sebas\\.cache\\huggingface\\hub\\models--Systran--faster-whisper-medium\\snapshots\\08e178d48790749d25932bbc082711ddcfdfbc4f"
+  },
+  "after": {
+    "enabled": false,
+    "microphone": "default",
+    "language": "fr-FR",
+    "shortcut": "Control+Alt+V",
+    "sttProvider": "faster-whisper",
+    "ttsProvider": "windows-speech",
+    "ttsEnabled": true,
+    "voice": "Microsoft Hortense Desktop",
+    "speed": 0.95,
+    "volume": 0.65,
+    "responsePolicy": "voice-only",
+    "diagnostics": false,
+    "retainDiagnosticAudio": false,
+    "wakeWordEnabled": false,
+    "pythonPath": "C:\\ProgramData\\anaconda3\\python.exe",
+    "modelPath": "C:\\Users\\sebas\\.cache\\huggingface\\hub\\models--Systran--faster-whisper-medium\\snapshots\\08e178d48790749d25932bbc082711ddcfdfbc4f",
+    "schemaVersion": 1,
+    "microphoneConsent": "prompt"
+  },
+  "inventory": {
+    "microphones": [
+      {
+        "id": "4eb91711a1d399322c03e95e",
+        "name": "Microphone Array (Intel® Smart Sound Technology for Digital Microphones)",
+        "host": "Windows WASAPI",
+        "default": false
+      }
+    ],
+    "voices": [
+      {
+        "language": "fr-FR",
+        "name": "Microsoft Hortense Desktop",
+        "id": "Microsoft Hortense Desktop"
+      },
+      {
+        "language": "en-US",
+        "name": "Microsoft Zira Desktop",
+        "id": "Microsoft Zira Desktop"
+      },
+      {
+        "language": "en-US",
+        "name": "Microsoft David Desktop",
+        "id": "Microsoft David Desktop"
+      }
+    ],
+    "sttAvailable": true,
+    "ttsAvailable": true,
+    "model": "C:\\Users\\sebas\\.cache\\huggingface\\hub\\models--Systran--faster-whisper-medium\\snapshots\\08e178d48790749d25932bbc082711ddcfdfbc4f",
+    "runtime": "C:\\ProgramData\\anaconda3\\python.exe",
+    "errors": []
+  },
+  "actualNativePlayback": true,
+  "microphoneOpened": false,
+  "audioFiles": []
+}

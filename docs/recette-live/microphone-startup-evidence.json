@@ -1,0 +1,13 @@
+{
+  "date": "2026-10-15T07:57:38.297Z",
+  "source": "Isolated Electron profile; actual Windows default microphone, no cloud connection and no audio retained.",
+  "missingMicrophoneDisplayed": true,
+  "frames": 37,
+  "signalDetected": true,
+  "errors": [],
+  "processing": {
+    "driver": "chromium",
+    "echoCancellation": true,
+    "playbackBufferMs": 180
+  }
+}

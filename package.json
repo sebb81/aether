@@ -1,7 +1,7 @@
 {
   "name": "aether",
   "productName": "AETHER",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "private": true,
   "description": "AETHER — PRESENCE, MIND, local MEMORY and CURIOSITY",
   "author": "AETHER",
@@ -27,11 +27,18 @@
   "devDependencies": {
     "@aether/core": "*",
     "@aether/curiosity": "*",
-    "@aether/mind": "*",
+    "@aether/echo": "*",
+    "@aether/evolution": "^0.6.0",
+    "@aether/live": "^0.5.6",
     "@aether/memory": "*",
+    "@aether/mind": "*",
     "@aether/shared": "*",
     "@aether/space": "*",
+    "@aether/voice": "*",
     "@electron/packager": "20.3.0",
+    "@google/genai": "2.28.0",
+    "@jitl/quickjs-singlefile-cjs-release-sync": "0.32.0",
+    "@openai/codex-sdk": "0.162.1",
     "@playwright/test": "1.63.0",
     "@types/node": "^24.0.0",
     "@types/react": "^19.0.0",
@@ -39,11 +46,11 @@
     "electron": "44.5.1",
     "esbuild": "0.28.2",
     "openai": "7.28.0",
+    "quickjs-emscripten": "0.32.0",
     "react": "19.3.0",
     "react-dom": "19.3.0",
     "tsx": "4.23.15",
     "typescript": "7.0.2",
-    "vite": "8.3.2",
-    "@aether/echo": "*"
+    "vite": "8.3.2"
   }
 }

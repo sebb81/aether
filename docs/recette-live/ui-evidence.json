@@ -1,0 +1,53 @@
+{
+  "date": "2026-10-08T09:05:55.559Z",
+  "provider": "No cloud provider simulated; real Electron and local configuration only.",
+  "ownerCheck": "Error: page.evaluate: Error: Error invoking remote method 'aether:live-consent': Error: La configuration et le consentement Gemini se donnent dans LIVE VOICE ou les réglages.",
+  "grantedWithoutCapture": true,
+  "noKeyFailover": {
+    "state": "LIVE_ERROR",
+    "sessionId": null,
+    "source": null,
+    "microphoneActive": false,
+    "audioLevel": 0,
+    "error": "Gemini Live non configuré : ajoutez la clé dans les réglages ou GEMINI_API_KEY.",
+    "settings": {
+      "enabled": true,
+      "model": "gemini-3.8-live",
+      "voice": "Kore",
+      "defaultMode": "LOCAL",
+      "showTranscription": true,
+      "automaticResponse": true,
+      "diagnostics": "detailed",
+      "schemaVersion": 1,
+      "provider": "gemini",
+      "cloudConsent": "granted"
+    },
+    "keyConfigured": false,
+    "secureStorageAvailable": true,
+    "microphoneConsent": false,
+    "metrics": [],
+    "audit": [],
+    "pending": [],
+    "reconnects": 0
+  },
+  "saved": {
+    "enabled": true,
+    "model": "gemini-3.8-live",
+    "voice": "Kore",
+    "defaultMode": "LOCAL",
+    "showTranscription": true,
+    "automaticResponse": true,
+    "diagnostics": "detailed",
+    "schemaVersion": 1,
+    "provider": "gemini",
+    "cloudConsent": "denied"
+  },
+  "actualInvalidCredentialFailure": {
+    "state": "LIVE_ERROR",
+    "error": "Clé Gemini refusée. Vérifiez la clé et son accès au fournisseur.",
+    "microphoneActive": false,
+    "sessionId": null,
+    "transportOpened": true
+  },
+  "panelClosureStops": true
+}

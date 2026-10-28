@@ -8,6 +8,12 @@ import { Memory } from './Memory';
 import { Curiosity } from './Curiosity';
 import {Space} from './Space';
 import {Echo} from './Echo';
+import {Voice} from './Voice';
+import { LiveVoice } from './LiveVoice';
+import { Forge } from './Forge';
+import './forge.css';
+import './live.css';
+import './voice.css';
 import './echo.css';
 import './space.css';
 import './curiosity.css';
@@ -28,6 +34,6 @@ function App() {
   }, []);
   if (error) return <p className="bootstrap-error" role="alert">{error}</p>;
   if (!snapshot) return null;
-  return view === 'settings' ? <Settings snapshot={snapshot} /> : view === 'dialogue' ? <Dialogue /> : view === 'memory' ? <Memory /> : view==='curiosity'? <Curiosity/> : view==='echo'?<Echo/>:view==='space'?<Space presence={snapshot} portal={portal}/>:<Entity snapshot={snapshot} portalPhase={portal?.phase??'closed'} />;
+  return view === 'forge' ? <Forge/> : view === 'settings' ? <Settings snapshot={snapshot} /> : view === 'live' ? <LiveVoice standalone/> : view === 'dialogue' ? <Dialogue /> : view === 'memory' ? <Memory /> : view==='curiosity'? <Curiosity/> : view==='echo'?<Echo/>:view==='voice'?<Voice/>:view==='space'?<Space presence={snapshot} portal={portal}/>:<Entity snapshot={snapshot} portalPhase={portal?.phase??'closed'} />;
 }
 createRoot(document.getElementById('root')!).render(<StrictMode><App /></StrictMode>);

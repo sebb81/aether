@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef,type CSSProperties } from 'react';
 import type { PresenceSnapshot,PortalPhase } from '@aether/shared';
 
 export function EntityShape({ id = 'entity' }: { id?: string }) {
@@ -27,9 +27,11 @@ export function Entity({ snapshot,portalPhase='closed' }: { snapshot: PresenceSn
     window.aether.drag('end');
     if (event.currentTarget.hasPointerCapture(event.pointerId)) event.currentTarget.releasePointerCapture(event.pointerId);
   }
-  return <main className={`entity-stage ${snapshot.preferences.reducedMotion ? 'reduce-motion' : ''}`} data-state={snapshot.state} data-echo-active={snapshot.echoActive?'true':'false'} data-portal-phase={portalPhase} data-discovery-pending={snapshot.discoveryPending?'true':'false'}>
+  return <main className={`entity-stage ${snapshot.preferences.reducedMotion ? 'reduce-motion' : ''}`} style={{'--audio-level':snapshot.audioLevel??0} as CSSProperties} data-state={snapshot.state} data-microphone-active={snapshot.microphoneActive?'true':'false'} data-echo-active={snapshot.echoActive?'true':'false'} data-portal-phase={portalPhase} data-discovery-pending={snapshot.discoveryPending?'true':'false'}>
     <EntityShape />
+    {(snapshot.state==='BUILDING'||snapshot.state==='TESTING')&&<span className="entity-building-indicator" role="status">{snapshot.state==='BUILDING'?'FORGE':'MIRROR'}</span>}
     {snapshot.echoActive&&<span className="entity-echo-indicator" role="status">ECHO</span>}
+    {snapshot.microphoneActive&&<span className="entity-mic-indicator" role="status">● MICRO</span>}
     <button className="entity-target" aria-label="ENTITY — cliquer ou déplacer" title="Cliquez pour parler · Double clic pour entrer dans AETHER · Glissez pour déplacer"
       onPointerDown={event => {
         if (event.button !== 0) return;

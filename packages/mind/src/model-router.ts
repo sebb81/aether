@@ -18,7 +18,13 @@ export function parseRouterOverrides(value: unknown): RouterOverrides {
 export class ModelRouter implements ModelRouterPort {
   constructor(private readonly configuration: () => RouterConfiguration, private readonly factory: (target: ModelTarget) => Promise<LlmProvider>) {}
   resolve(profile: ModelProfile, options: { localOnly?: boolean } = {}): ModelRoute {
-    if (!['FAST', 'DEEP', 'VISION'].includes(profile)) throw new ProviderError('not-configured', 'Profil de capacité inconnu.');
+    if (!['FAST', 'DEEP', 'VISION', 'LIVE', 'CODE'].includes(profile)) throw new ProviderError('not-configured', 'Profil de capacité inconnu.');
+    if (profile === 'CODE') throw new ProviderError('not-configured', 'CODE passe par FORGE / CodexProvider, sans complétion textuelle ni autorisation implicite.');
+    if (profile === 'LIVE') {
+      const live = this.configuration().LIVE;
+      if (options.localOnly || !live?.enabled || !live.cloudConsent || !live.keyConfigured) throw new ProviderError('not-configured', 'LIVE exige Gemini configuré et un consentement cloud explicite. Aucun fallback.');
+      return { requested: 'LIVE', selected: 'LIVE', provider: live.provider, model: live.model, fallback: false };
+    }
     if (profile === 'VISION') throw new ProviderError('not-configured', 'VISION est réservé aux futures capacités d’ECHO, non implémentées.');
     const configuration = this.configuration();
     const selected = profile === 'DEEP' && configuration.DEEP ? 'DEEP' : 'FAST';
@@ -29,10 +35,12 @@ export class ModelRouter implements ModelRouterPort {
     return { requested: profile, selected, provider: target.provider, model: target.model, fallback: selected !== profile };
   }
   async provider(profile: ModelProfile, options: { localOnly?: boolean } = {}): Promise<LlmProvider> {
+    if (profile === 'LIVE' || profile === 'CODE') throw new ProviderError('not-configured', 'LIVE utilise LiveConversationProvider ; CODE est réservé.');
     const route = this.resolve(profile, options);
     return this.factory({ provider: route.provider as ModelTarget['provider'], model: route.model });
   }
   async complete(profile: ModelProfile, request: Parameters<LlmProvider['complete']>[0], options: { localOnly?: boolean } = {}) {
+    if (profile === 'LIVE' || profile === 'CODE') throw new ProviderError('not-configured', 'Ce profil ne fournit pas de complétion textuelle.');
     const route = this.resolve(profile, options);
     const provider = await this.factory({ provider: route.provider as ModelTarget['provider'], model: route.model });
     const answer = await provider.complete(request);

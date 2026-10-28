@@ -1,0 +1,28 @@
+{
+  "at": "2026-10-15T15:43:58.951Z",
+  "attempt": 3,
+  "input": {
+    "files": [
+      {
+        "path": "PRISE.WAV",
+        "size": 2,
+        "modifiedAt": "2026-10-15T00:00:00.000Z"
+      },
+      {
+        "path": "2026-11-23/prise.wav",
+        "size": 2,
+        "modifiedAt": "2026-10-15T00:00:00.000Z"
+      }
+    ],
+    "parameters": {
+      "date": "2026-11-23"
+    }
+  },
+  "output": {
+    "summary": "Plan de classement WAV",
+    "renames": [],
+    "data": null
+  },
+  "error": null,
+  "passed": true
+}

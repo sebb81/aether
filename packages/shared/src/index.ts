@@ -1,9 +1,15 @@
 import type { EchoBridge, EchoSnapshot } from './echo';
+import type { VoiceBridge } from './voice';
+import type { LiveBridge, LiveState } from './live';
+import type { EvolutionBridge, EvolutionSnapshot } from './evolution';
+export * from './evolution';
+export * from './live';
+export * from './voice';
 export * from './echo';
 export type Point = { x: number; y: number };
 export type Rectangle = Point & { width: number; height: number };
-export type EntityState = 'idle' | 'attention' | 'listening' | 'observing' | 'thinking' | 'exploring' | 'suggesting' | 'creating' | 'error';
-export type AvailableEntityState = Extract<EntityState, 'idle' | 'attention' | 'observing' | 'thinking' | 'exploring' | 'error'>;
+export type EntityState = 'idle' | 'attention' | 'listening' | 'speaking' | 'observing' | 'thinking' | 'exploring' | 'suggesting' | 'creating' | 'BUILDING' | 'TESTING' | 'error' | Exclude<LiveState, 'idle'>;
+export type AvailableEntityState = Exclude<EntityState, 'suggesting' | 'creating'>;
 
 export interface Preferences {
   schemaVersion: 1;
@@ -14,6 +20,8 @@ export interface Preferences {
 }
 
 export const IPC = {
+  evolutionGet:'aether:evolution-get',evolutionChanged:'aether:evolution-changed',forgePrepare:'aether:forge-prepare',forgeSave:'aether:forge-save',evolutionAction:'aether:evolution-action',evolutionStop:'aether:evolution-stop',capabilityPreview:'aether:capability-preview',capabilityApply:'aether:capability-apply',experimentPropose:'aether:experiment-propose',
+  liveGet: 'aether:live-get', liveChanged: 'aether:live-changed', liveSave: 'aether:live-save', liveConsent: 'aether:live-consent', liveControl: 'aether:live-control', liveConfirm: 'aether:live-confirm',
   snapshot: 'aether:snapshot',
   command: 'aether:command',
   settings: 'aether:settings',
@@ -39,9 +47,10 @@ export const IPC = {
   portalSettingsGet:'aether:portal-settings-get',portalSettingsSave:'aether:portal-settings-save',
   spaceGet:'aether:space-get',spaceChanged:'aether:space-changed',spaceSave:'aether:space-save',
   echoGet:'aether:echo-get',echoChanged:'aether:echo-changed',echoChoose:'aether:echo-choose',echoStart:'aether:echo-start',echoControl:'aether:echo-control',echoValidate:'aether:echo-validate',echoRemove:'aether:echo-remove',echoExclusions:'aether:echo-exclusions',
+  voiceGet:'aether:voice-get',voiceChanged:'aether:voice-changed',voiceInventory:'aether:voice-inventory',voiceSave:'aether:voice-save',voiceConsent:'aether:voice-consent',voiceControl:'aether:voice-control',voiceResource:'aether:voice-resource',
 } as const;
 
-export type PresenceCommand = 'interact' | 'hide' | 'recall' | 'settings' | 'menu' | 'portal' | 'quit' | 'dialogue' | 'memory' | 'curiosity' | 'close-dialogue' | 'echo';
+export type PresenceCommand = 'interact' | 'hide' | 'recall' | 'settings' | 'menu' | 'portal' | 'quit' | 'dialogue' | 'memory' | 'curiosity' | 'close-dialogue' | 'echo' | 'voice' | 'voice-toggle' | 'live' | 'forge';
 export type SettingsPatch = Pick<Preferences, 'recallShortcut' | 'reducedMotion'>;
 export type OperationResult = { ok: true } | { ok: false; error: string };
 export type Permission = 'microphone' | 'camera' | 'screen.capture' | 'echo.observe' | 'files.read' | 'files.write' | 'network' | 'forge.generate' | 'mirror.execute' | 'capability.adopt';
@@ -53,11 +62,13 @@ export interface PresenceSnapshot {
   notice: string | null;
   discoveryPending?: boolean;
   echoActive?: boolean;
-  features: Readonly<Record<'presence' | 'mind' | 'echo' | 'curiosity' | 'memory' | 'forge' | 'mirror' | 'portal' | 'capabilities', 'available' | 'not-implemented'>>;
+  microphoneActive?: boolean;
+  audioLevel?: number;
+  features: Readonly<Record<'presence' | 'mind' | 'echo' | 'curiosity' | 'memory' | 'forge' | 'mirror' | 'portal' | 'capabilities' | 'voice', 'available' | 'not-implemented'>>;
   permissions: Readonly<Record<Permission, boolean>>;
 }
 
-export interface DesktopBridge extends EchoBridge {
+export interface DesktopBridge extends EchoBridge, VoiceBridge, LiveBridge, EvolutionBridge {
   getSnapshot(): Promise<PresenceSnapshot>;
   command(command: PresenceCommand): Promise<OperationResult>;
   saveSettings(settings: SettingsPatch): Promise<OperationResult>;
@@ -102,13 +113,14 @@ export type SpaceObjectKind='memory'|'interest'|'question'|'hypothesis'|'discove
 export interface SpaceSelection {kind:SpaceObjectKind;id:string}
 export interface SpaceViewWrite {camera:SpaceCamera;labels:boolean;depth:boolean;selection:SpaceSelection|null}
 export interface SpacePreferences extends SpaceViewWrite {schemaVersion:1;lastVisitedAt:string|null}
-export interface SpaceData {memories:DurableMemory[];curiosity:CuriositySnapshot|null;mind:MindSnapshot|null;presence:PresenceSnapshot;echo?:EchoSnapshot|null}
+export interface SpaceData {memories:DurableMemory[];curiosity:CuriositySnapshot|null;mind:MindSnapshot|null;presence:PresenceSnapshot;echo?:EchoSnapshot|null;evolution?:EvolutionSnapshot|null}
 export interface SpaceSnapshot {data:SpaceData;preferences:SpacePreferences;since:string|null;portal:PortalSnapshot}
 
-export type ModelProfile = 'FAST' | 'DEEP' | 'VISION';
+export type ModelProfile = 'FAST' | 'DEEP' | 'VISION' | 'LIVE' | 'CODE';
 export interface ModelTarget { provider: 'ollama' | 'openai'; model: string }
 export interface RouterOverrides { DEEP: ModelTarget | null; VISION: ModelTarget | null }
-export interface RouterConfiguration extends RouterOverrides { FAST: ModelTarget | null; cloudConsent: boolean }
+export interface LiveModelTarget { provider: 'gemini'; model: string; enabled: boolean; cloudConsent: boolean; keyConfigured: boolean }
+export interface RouterConfiguration extends RouterOverrides { FAST: ModelTarget | null; cloudConsent: boolean; LIVE?: LiveModelTarget | null; CODE?: null }
 export interface ModelRoute { requested: ModelProfile; selected: ModelProfile; provider: string; model: string; fallback: boolean }
 export interface RoutedCompletion { text: string; model: string; route: ModelRoute }
 export interface ModelRouterPort { complete(profile: ModelProfile, request: Parameters<LlmProvider['complete']>[0], options?: { localOnly?: boolean }): Promise<RoutedCompletion> }
@@ -131,7 +143,8 @@ export interface InterestWrite { id?: string; title: string; description: string
 export interface CuriositySeed { key: string; kind: CuriosityOriginKind; ref: string | null; content: string }
 
 export type MindState = 'idle' | 'listening' | 'thinking' | 'replying' | 'error';
-export interface ConversationMessage { id: string; role: 'user' | 'assistant'; content: string; createdAt: string; model: string | null }
+export type MindCapability = 'none' | 'portal.open' | 'curiosity.show' | 'echo.prepare' | 'forge.prepare';
+export interface ConversationMessage { id: string; role: 'user' | 'assistant'; content: string; createdAt: string; model: string | null; spokenResponse?: string; modality?: 'text' | 'voice' | 'live'; capability?: MindCapability }
 export interface MindSnapshot {
   state: MindState;
   messages: readonly ConversationMessage[];
@@ -198,31 +211,6 @@ export interface EchoSession {
 export interface CuriosityEngine {
   explore(input: { question: string; allowedSources: readonly string[]; maxRequests: number; grants: readonly PermissionGrant[]; signal: AbortSignal }): Promise<{ result: string; sources: readonly string[]; limitations: readonly string[] }>;
   suspend(): Promise<void>;
-}
-export interface CapabilityManifest {
-  schemaVersion: 1;
-  id: string;
-  name: string;
-  version: string;
-  description: string;
-  inputSchema: Readonly<Record<string, unknown>>;
-  outputSchema: Readonly<Record<string, unknown>>;
-  permissions: readonly Permission[];
-  runner: 'isolated-process';
-  tests: readonly string[];
-  status: 'candidate' | 'validated' | 'disabled';
-  artifactPath: string;
-}
-export interface ForgeService {
-  generate(input: { approvedSpecification: string; workspace: string; grant: PermissionGrant; signal: AbortSignal }): Promise<CapabilityManifest>;
-}
-export interface IsolatedRunner {
-  test(input: { manifest: CapabilityManifest; stagedInput: string; grants: readonly PermissionGrant[]; signal: AbortSignal }): Promise<{ passed: boolean; reportPath: string; producedFiles: readonly string[] }>;
-}
-export interface CapabilityRegistry {
-  list(): Promise<readonly CapabilityManifest[]>;
-  adopt(manifest: CapabilityManifest, grant: PermissionGrant): Promise<void>;
-  disable(id: string, version: string): Promise<void>;
 }
 export interface PortalHost { open(): Promise<OperationResult>; close(): Promise<void> }
 export interface AetherEvents {

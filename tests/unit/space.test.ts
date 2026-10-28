@@ -65,6 +65,6 @@ test('500 persisted interests have stable finite positions, and PORTAL adds no p
   const many=Array.from({length:500},(_,index)=>({...journal.interests[0]!,id:String(index).padStart(36,'0')}));
   const start=performance.now(),nodes=interestNodes(many);assert.equal(nodes.length,500);assert.ok(nodes.every(node=>Number.isFinite(node.position.x)&&Number.isFinite(node.position.y)));assert.ok(performance.now()-start<1000);
   assert.equal(new Set(nodes.map(node=>`${node.position.x}:${node.position.y}`)).size,500);
-  assert.equal(availableCapabilities(data).every(item=>item.available),true);assert.equal(Object.values(presence.permissions).every(value=>value===false),true);
+  assert.equal(availableCapabilities(data).filter(item=>item.key!=='voice').every(item=>item.available),true);assert.equal(availableCapabilities(data).find(item=>item.key==='voice')!.available,false);assert.equal(Object.values(presence.permissions).every(value=>value===false),true);
   assert.equal(new PresenceModel(structuredClone(DEFAULT_PREFERENCES)).snapshot().features.portal,'not-implemented');
 });

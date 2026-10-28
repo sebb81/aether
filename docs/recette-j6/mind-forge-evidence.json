@@ -1,0 +1,9 @@
+{
+  "at": "2026-10-15T15:44:53.298Z",
+  "provider": "actual Ollama qwen3.5:9b",
+  "action": "forge.prepare",
+  "descriptionProposed": "Essaie de me construire un outil pour classer uniquement les fichiers WAV dans un sous-dossier date, avec un apercu avant modification. Ouvre FORGE pour preparer ma demande.",
+  "generated": false,
+  "installed": false,
+  "modality": "text through the same MIND as VOICE LOCAL"
+}

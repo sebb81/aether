@@ -1,0 +1,48 @@
+{
+  "date": "2026-10-05T14:42:21.102Z",
+  "runtime": "C:\\ProgramData\\anaconda3\\python.exe",
+  "entries": [
+    {
+      "input": "Comment t'appelles-tu ?",
+      "transcription": "Comment t'appelles-tu ?",
+      "sttMs": 36156,
+      "bytes": 91964,
+      "source": "Windows TTS synthesis; no microphone"
+    },
+    {
+      "input": "Retiens que mon animal préféré est le wombat.",
+      "transcription": "Retiens que mon animal préféré est le Bomba.",
+      "sttMs": 2774,
+      "bytes": 156990,
+      "source": "Windows TTS synthesis; no microphone"
+    },
+    {
+      "input": "Quel est mon animal préféré ?",
+      "transcription": "Quel est mon animal préféré ?",
+      "sttMs": 2646,
+      "bytes": 114444,
+      "source": "Windows TTS synthesis; no microphone"
+    },
+    {
+      "input": "Ouvre ton espace.",
+      "transcription": "Ouvre ton espace.",
+      "sttMs": 2547,
+      "bytes": 90638,
+      "source": "Windows TTS synthesis; no microphone"
+    },
+    {
+      "input": "Regarde comment je fais.",
+      "transcription": "Regarde comment je fais.",
+      "sttMs": 2601,
+      "bytes": 101218,
+      "source": "Windows TTS synthesis; no microphone"
+    },
+    {
+      "input": "Aether, qu'est-ce qui t'intéresse en ce moment ?",
+      "transcription": "Ysor, qu'est-ce qui t'intéresse en ce moment ?",
+      "sttMs": 2862,
+      "bytes": 152368,
+      "source": "Windows TTS synthesis; no microphone"
+    }
+  ]
+}

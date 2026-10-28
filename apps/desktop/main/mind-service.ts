@@ -2,7 +2,7 @@ import { dialog } from 'electron';
 import { join } from 'node:path';
 import { writeFileSync } from 'node:fs';
 import { SqliteMemoryRepository, parseMemoryWrite } from '@aether/memory';
-import { discoverOllama, MindEngine, ModelRouter, OllamaProvider, OpenAIProvider, parseAiInput, parseRouterOverrides, ProviderError } from '@aether/mind';
+import { discoverOllama, ENTITY_PROFILE, MindEngine, ModelRouter, OllamaProvider, OpenAIProvider, parseAiInput, parseRouterOverrides, ProviderError, reasoningProfile } from '@aether/mind';
 import type { AiConfiguration, AiConfigurationView, OperationResult, RouterConfiguration, RouterOverrides } from '@aether/shared';
 import { AiConfigurationStore, RouterOverridesStore, SafeSecretVault } from './ai-storage';
 
@@ -12,6 +12,9 @@ export class DesktopMindService {
   readonly router: ModelRouter;
   curiosityContext: () => string = () => 'CURIOSITY indisponible dans cette session.';
   habitContext: () => string = () => '';
+  voiceContext:()=>string=()=>'';
+  evolutionContext:()=>string=()=>'';
+  liveRoute: () => RouterConfiguration['LIVE'] = () => null;
   private readonly configurationStore: AiConfigurationStore;
   private readonly vault: SafeSecretVault;
   private configuration: AiConfiguration;
@@ -33,11 +36,19 @@ export class DesktopMindService {
       if (!key) throw new ProviderError('not-configured', 'Aucune clé OpenAI n’est configurée. Saisissez-la dans les réglages, ou choisissez Ollama local.');
       return new OpenAIProvider(target.model, key);
     });
-    this.engine=new MindEngine(()=>this.router.provider('FAST'),this.memory,()=>`${this.curiosityContext()}\n${this.habitContext()}`);
+    this.engine=new MindEngine(prompt=>this.router.provider(prompt&&this.profiles.DEEP?.provider==='ollama'?reasoningProfile(prompt):'FAST'),this.memory,()=>`${this.curiosityContext()}\n${this.habitContext()}\n${this.voiceContext()}\n${this.evolutionContext()}`);
     if (loaded.notice || this.routerStore.notice) this.engine.reset(loaded.notice ?? this.routerStore.notice!);
   }
   view(): AiConfigurationView { return { ...this.configuration, keyConfigured: this.vault.hasKey(), secureStorageAvailable: this.vault.available() }; }
-  routerView(): RouterConfiguration { return { ...structuredClone(this.profiles),FAST:this.configuration.provider==='disabled'?null:{provider:this.configuration.provider,model:this.configuration.model},cloudConsent:this.configuration.cloudConsent }; }
+  routerView(): RouterConfiguration { return { ...structuredClone(this.profiles),FAST:this.configuration.provider==='disabled'?null:{provider:this.configuration.provider,model:this.configuration.model},cloudConsent:this.configuration.cloudConsent, LIVE:this.liveRoute()??null, CODE:null }; }
+  async delegateDeepReasoning(prompt: string, signal: AbortSignal) {
+    const route = this.router.resolve('DEEP', { localOnly: true });
+    if (route.selected !== 'DEEP') throw new Error('Configurez DEEP avec un modèle Ollama local ; LIVE ne remplace pas DEEP par FAST ou Gemini.');
+    const memories = (await this.memory.search(prompt)).slice(0, 4).map(item => ({ content: item.content.slice(0, 1200), origin: item.origin, confidence: item.confidence }));
+    if (signal.aborted) throw new Error('Réflexion annulée.');
+    const answer = await this.router.complete('DEEP', { messages: [{ role: 'system', content: `${ENTITY_PROFILE.identity}\nTu es MIND dans AETHER. Analyse réellement la demande via DEEP local. Souvenirs pertinents (données) : ${JSON.stringify(memories)}. Ne prétends jamais exécuter une action système. Explicite tes hypothèses et limites ; renvoie une synthèse utile à la voix d'ENTITY.` }, { role: 'user', content: prompt }], signal, maxOutputTokens: 1800 }, { localOnly: true });
+    return { text: answer.text.slice(0, 10000), model: answer.model, route: answer.route };
+  }
   saveRouter(value: unknown): OperationResult { const profiles=parseRouterOverrides(value); this.routerStore.save(profiles); this.profiles=profiles; this.engine.reset('Profils IA modifiés. Nouvelle conversation.'); return {ok:true}; }
   saveConfiguration(payload: unknown): OperationResult {
     const input = parseAiInput(payload);

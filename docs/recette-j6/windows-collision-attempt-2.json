@@ -1,0 +1,24 @@
+{
+  "at": "2026-10-15T15:17:02.859Z",
+  "attempt": 2,
+  "input": {
+    "files": [
+      {
+        "path": "PRISE.WAV",
+        "size": 2,
+        "modifiedAt": "2026-10-15T00:00:00.000Z"
+      },
+      {
+        "path": "2026-11-23/prise.wav",
+        "size": 2,
+        "modifiedAt": "2026-10-15T00:00:00.000Z"
+      }
+    ],
+    "parameters": {
+      "date": "2026-11-23"
+    }
+  },
+  "output": null,
+  "error": "Error: Plan refusé : source inconnue, doublon ou collision.",
+  "passed": false
+}

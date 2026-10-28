@@ -1,0 +1,22 @@
+{
+  "date": "2026-10-15T15:44:56.748Z",
+  "packaged": false,
+  "source": "Chromium fake media device only; no physical microphone. Actual AudioContexts and native output.",
+  "processing": {
+    "driver": "chromium",
+    "echoCancellation": true,
+    "playbackBufferMs": 180
+  },
+  "captureRouting": {
+    "sink": "none",
+    "monitorGain": 0,
+    "sampleRate": 16000
+  },
+  "frames": 114,
+  "playing": [
+    true,
+    false
+  ],
+  "errors": [],
+  "cameraDenied": true
+}

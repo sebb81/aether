@@ -76,7 +76,7 @@ test('J2 A–E: actual Ollama dialogue, durable restart, visible thinking, UI co
     // A + D: capture the real pending state before the provider completes.
     await send(dialogue, 'Comment t’appelles-tu ?');
     await expect(entity.locator('.entity-stage')).toHaveAttribute('data-state', 'thinking');
-    await expect(dialogue.getByRole('status')).toContainText('Le modèle prépare sa réponse');
+    await expect(dialogue.getByRole('status').filter({hasText:'Le modèle prépare sa réponse'})).toBeVisible();
     await entity.screenshot({ path: 'test-results/j2-thinking.png', omitBackground: true });
     await dialogue.screenshot({ path: 'test-results/j2-dialogue-thinking.png' });
     evidence.D_thinking = true;

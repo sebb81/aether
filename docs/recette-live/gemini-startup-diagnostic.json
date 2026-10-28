@@ -1,0 +1,34 @@
+{
+  "date": "2026-10-15T08:00:02.414Z",
+  "sameKeyAsMarkLIV": true,
+  "originalMicrophonePresent": false,
+  "currentMicrophones": [
+    "Microphone Array (Intel Smart Sound Technology for Digital Microphones)"
+  ],
+  "provider": {
+    "modelsTested": [
+      "gemini-3.8-live",
+      "gemini-3.1-flash-live-preview"
+    ],
+    "webSocketSetupObserved": true,
+    "subsequentServerClose": {
+      "code": 1011,
+      "reason": "You exceeded your current quota, please check your plan and billing details."
+    },
+    "successfulConversationClaimed": false
+  },
+  "correction": {
+    "messages": "Report unavailable microphone and preserve provider errors during startup.",
+    "microphoneSelectionChanged": false,
+    "apiKeyChanged": false
+  },
+  "validation": {
+    "typecheck": true,
+    "targetedTestsPassed": 25,
+    "build": true,
+    "packagedFilesMatchBuild": true,
+    "nativeMicrophoneEvidence": "microphone-startup-evidence.json"
+  },
+  "executable": "release/correctif-live/AETHER-win32-x64/AETHER.exe",
+  "runningApplicationReplaced": false
+}

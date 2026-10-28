@@ -1,0 +1,756 @@
+{
+  "at": "2026-10-15T15:18:21.497Z",
+  "profile": "isolated",
+  "actualCodex": true,
+  "request": {
+    "id": "44fa75ee-c15d-4cad-8ecb-870126afe9a0",
+    "specification": {
+      "title": "Classement WAV par date",
+      "objective": "Proposer un plan de déplacement des fichiers .wav du dossier racine vers un sous-dossier nommé sur la base d'une date fournie, sans écraser les fichiers existants.",
+      "description": "Analyser les métadonnées des fichiers du dossier sélectionné. Filtrer uniquement les fichiers avec l'extension '.wav' (insensible à la casse) situés directement dans le dossier racine. Ignorer les fichiers non .wav et ceux déjà dans un sous-dossier. Pour chaque fichier .wav valide, vérifier si le sous-dossier correspondant à la date fournie (format AAAA-MM-JJ) existe ; s'il n'existe pas, il sera créé implicitement dans le plan. Vérifier l'existence du fichier de destination (nom original + dossier date). Si un fichier avec ce nom existe déjà dans le sous-dossier cible, exclure le déplacement pour éviter l'écrasement. Générer un résumé stable et un tableau de renommage/déplacement relatif.",
+      "inputs": [
+        "files : chemins relatifs, taille et date de modification",
+        "parameters.date : date AAAA-MM-JJ choisie pour ce classement"
+      ],
+      "outputs": [
+        "summary",
+        "renames[].from",
+        "renames[].to",
+        "data"
+      ],
+      "constraints": [
+        "Le dossier cible est relatif au dossier choisi par l'utilisateur.",
+        "Seuls les fichiers .wav du dossier racine sont traités.",
+        "Les sous-dossiers existants ne sont pas considérés comme des collisions pour la création de dossiers cibles.",
+        "Un fichier de destination déjà occupé bloque le déplacement.",
+        "L'extension est insensible à la casse.",
+        "La date fournie est utilisée telle quelle sans déduction.",
+        "Aucun traitement du contenu des fichiers.",
+        "data doit être null."
+      ],
+      "permissions": [
+        "filesystem.read",
+        "filesystem.write"
+      ],
+      "dependencies": [],
+      "successCriteria": [
+        "Seuls les WAV du dossier racine sont proposes, extension insensible a la casse.",
+        "Les fichiers deja classes et les autres formats restent intacts.",
+        "Une destination deja occupee est exclue du plan.",
+        "La date fournie est un parametre reutilisable, pas une valeur codee en dur.",
+        "Les chemins restent relatifs, sans remontee ni chemin absolu.",
+        "summary vaut exactement Plan de classement WAV ; data est null."
+      ],
+      "acceptanceTests": [
+        {
+          "name": "WAV racine et TXT ignore",
+          "input": {
+            "files": [
+              {
+                "path": "musique.wav",
+                "size": 3,
+                "modifiedAt": "2026-10-15T00:00:00.000Z"
+              },
+              {
+                "path": "note.txt",
+                "size": 3,
+                "modifiedAt": "2026-10-15T00:00:00.000Z"
+              }
+            ],
+            "parameters": {
+              "date": "2026-10-15"
+            }
+          },
+          "expected": {
+            "summary": "Plan de classement WAV",
+            "renames": [
+              {
+                "from": "musique.wav",
+                "to": "2026-10-15/musique.wav"
+              }
+            ],
+            "data": null
+          }
+        },
+        {
+          "name": "Dossier vide",
+          "input": {
+            "files": [],
+            "parameters": {
+              "date": "2026-10-15"
+            }
+          },
+          "expected": {
+            "summary": "Plan de classement WAV",
+            "renames": [],
+            "data": null
+          }
+        },
+        {
+          "name": "WAV deja classe",
+          "input": {
+            "files": [
+              {
+                "path": "2026-10-15/existe.wav",
+                "size": 3,
+                "modifiedAt": "2026-10-15T00:00:00.000Z"
+              }
+            ],
+            "parameters": {
+              "date": "2026-10-15"
+            }
+          },
+          "expected": {
+            "summary": "Plan de classement WAV",
+            "renames": [],
+            "data": null
+          }
+        },
+        {
+          "name": "Autre WAV",
+          "input": {
+            "files": [
+              {
+                "path": "autre.wav",
+                "size": 3,
+                "modifiedAt": "2026-10-15T00:00:00.000Z"
+              }
+            ],
+            "parameters": {
+              "date": "2026-10-15"
+            }
+          },
+          "expected": {
+            "summary": "Plan de classement WAV",
+            "renames": [
+              {
+                "from": "autre.wav",
+                "to": "2026-10-15/autre.wav"
+              }
+            ],
+            "data": null
+          }
+        },
+        {
+          "name": "Collision non ecrasable",
+          "input": {
+            "files": [
+              {
+                "path": "prise.wav",
+                "size": 3,
+                "modifiedAt": "2026-10-15T00:00:00.000Z"
+              },
+              {
+                "path": "2026-10-15/prise.wav",
+                "size": 3,
+                "modifiedAt": "2026-10-15T00:00:00.000Z"
+              }
+            ],
+            "parameters": {
+              "date": "2026-10-15"
+            }
+          },
+          "expected": {
+            "summary": "Plan de classement WAV",
+            "renames": [],
+            "data": null
+          }
+        },
+        {
+          "name": "Autre date et extension majuscule",
+          "input": {
+            "files": [
+              {
+                "path": "NOUVELLE.WAV",
+                "size": 3,
+                "modifiedAt": "2026-10-15T00:00:00.000Z"
+              },
+              {
+                "path": "sous-dossier/ancien.wav",
+                "size": 3,
+                "modifiedAt": "2026-10-15T00:00:00.000Z"
+              }
+            ],
+            "parameters": {
+              "date": "2026-10-16"
+            }
+          },
+          "expected": {
+            "summary": "Plan de classement WAV",
+            "renames": [
+              {
+                "from": "NOUVELLE.WAV",
+                "to": "2026-10-16/NOUVELLE.WAV"
+              }
+            ],
+            "data": null
+          }
+        }
+      ]
+    },
+    "origin": {
+      "kind": "USER",
+      "ref": null,
+      "reason": "Demande explicite de l’utilisateur."
+    },
+    "createdAt": "2026-10-15T12:29:49.301Z",
+    "updatedAt": "2026-10-15T15:18:21.489Z",
+    "status": "READY",
+    "approvedAt": "2026-10-15T15:17:36.369Z",
+    "attempts": [
+      {
+        "number": 1,
+        "startedAt": "2026-10-15T15:12:00.616Z",
+        "endedAt": "2026-10-15T15:12:38.165Z",
+        "status": "FAILED",
+        "events": [
+          {
+            "at": "2026-10-15T15:12:00.616Z",
+            "phase": "specification",
+            "detail": "Spécification approuvée ; espace de fabrication créé."
+          },
+          {
+            "at": "2026-10-15T15:12:00.687Z",
+            "phase": "generation",
+            "detail": "Codex officiel sollicité ; seuls la spécification et le contrat API lui sont transmis."
+          },
+          {
+            "at": "2026-10-15T15:12:01.559Z",
+            "phase": "connected",
+            "detail": "Session Codex créée."
+          },
+          {
+            "at": "2026-10-15T15:12:37.303Z",
+            "phase": "received",
+            "detail": "Génération reçue (1684 tokens de sortie)."
+          }
+        ],
+        "report": null,
+        "error": "Métadonnées invalides.",
+        "provider": null
+      },
+      {
+        "number": 2,
+        "startedAt": "2026-10-15T15:14:06.448Z",
+        "endedAt": "2026-10-15T15:14:53.998Z",
+        "status": "READY",
+        "events": [
+          {
+            "at": "2026-10-15T15:14:06.449Z",
+            "phase": "specification",
+            "detail": "Spécification approuvée ; espace de fabrication créé."
+          },
+          {
+            "at": "2026-10-15T15:14:06.517Z",
+            "phase": "generation",
+            "detail": "Codex officiel sollicité ; seuls la spécification et le contrat API lui sont transmis."
+          },
+          {
+            "at": "2026-10-15T15:14:07.509Z",
+            "phase": "connected",
+            "detail": "Session Codex créée."
+          },
+          {
+            "at": "2026-10-15T15:14:39.476Z",
+            "phase": "received",
+            "detail": "Génération reçue (1501 tokens de sortie)."
+          },
+          {
+            "at": "2026-10-15T15:14:41.230Z",
+            "phase": "files",
+            "detail": "Code et tests reçus de Codex et enregistrés. Dépendances externes : aucune."
+          },
+          {
+            "at": "2026-10-15T15:14:42.182Z",
+            "phase": "test",
+            "detail": "Compilation JavaScript QuickJS : réussi"
+          },
+          {
+            "at": "2026-10-15T15:14:43.161Z",
+            "phase": "test",
+            "detail": "Critère approuvé : WAV racine et TXT ignore : réussi"
+          },
+          {
+            "at": "2026-10-15T15:14:44.067Z",
+            "phase": "test",
+            "detail": "Critère approuvé : Dossier vide : réussi"
+          },
+          {
+            "at": "2026-10-15T15:14:45.078Z",
+            "phase": "test",
+            "detail": "Critère approuvé : WAV deja classe : réussi"
+          },
+          {
+            "at": "2026-10-15T15:14:46.037Z",
+            "phase": "test",
+            "detail": "Critère approuvé : Autre WAV : réussi"
+          },
+          {
+            "at": "2026-10-15T15:14:47.029Z",
+            "phase": "test",
+            "detail": "Critère approuvé : Collision non ecrasable : réussi"
+          },
+          {
+            "at": "2026-10-15T15:14:48.037Z",
+            "phase": "test",
+            "detail": "Critère approuvé : Autre date et extension majuscule : réussi"
+          },
+          {
+            "at": "2026-10-15T15:14:49.020Z",
+            "phase": "test",
+            "detail": "Test Codex : Extensions mixtes et ordre des sources : réussi"
+          },
+          {
+            "at": "2026-10-15T15:14:50.017Z",
+            "phase": "test",
+            "detail": "Test Codex : Dossier cible existant et collision partielle : réussi"
+          },
+          {
+            "at": "2026-10-15T15:14:51.022Z",
+            "phase": "test",
+            "detail": "Test Codex : Sous-dossiers ignores quelle que soit leur date : réussi"
+          },
+          {
+            "at": "2026-10-15T15:14:51.971Z",
+            "phase": "test",
+            "detail": "Test Codex : Fichier occupant le chemin du dossier cible : réussi"
+          },
+          {
+            "at": "2026-10-15T15:14:53.016Z",
+            "phase": "test",
+            "detail": "Test Codex : Destination deja utilisee comme dossier : réussi"
+          },
+          {
+            "at": "2026-10-15T15:14:53.993Z",
+            "phase": "test",
+            "detail": "Test Codex : Noms avec espaces et accents preserves : réussi"
+          },
+          {
+            "at": "2026-10-15T15:14:53.995Z",
+            "phase": "ready",
+            "detail": "Tests MIRROR réussis. Prototype prêt à essayer et à accepter."
+          }
+        ],
+        "report": {
+          "at": "2026-10-15T15:14:53.994Z",
+          "passed": true,
+          "digest": "126d5ff0291d14b6d754b81aca794e5cb1ffa719097ec63760104416ce89650f",
+          "checks": [
+            {
+              "name": "Compilation JavaScript QuickJS",
+              "passed": true,
+              "detail": "Réussi",
+              "durationMs": 950
+            },
+            {
+              "name": "Critère approuvé : WAV racine et TXT ignore",
+              "passed": true,
+              "detail": "Réussi",
+              "durationMs": 977
+            },
+            {
+              "name": "Critère approuvé : Dossier vide",
+              "passed": true,
+              "detail": "Réussi",
+              "durationMs": 903
+            },
+            {
+              "name": "Critère approuvé : WAV deja classe",
+              "passed": true,
+              "detail": "Réussi",
+              "durationMs": 1009
+            },
+            {
+              "name": "Critère approuvé : Autre WAV",
+              "passed": true,
+              "detail": "Réussi",
+              "durationMs": 957
+            },
+            {
+              "name": "Critère approuvé : Collision non ecrasable",
+              "passed": true,
+              "detail": "Réussi",
+              "durationMs": 991
+            },
+            {
+              "name": "Critère approuvé : Autre date et extension majuscule",
+              "passed": true,
+              "detail": "Réussi",
+              "durationMs": 1006
+            },
+            {
+              "name": "Test Codex : Extensions mixtes et ordre des sources",
+              "passed": true,
+              "detail": "Réussi",
+              "durationMs": 981
+            },
+            {
+              "name": "Test Codex : Dossier cible existant et collision partielle",
+              "passed": true,
+              "detail": "Réussi",
+              "durationMs": 995
+            },
+            {
+              "name": "Test Codex : Sous-dossiers ignores quelle que soit leur date",
+              "passed": true,
+              "detail": "Réussi",
+              "durationMs": 1003
+            },
+            {
+              "name": "Test Codex : Fichier occupant le chemin du dossier cible",
+              "passed": true,
+              "detail": "Réussi",
+              "durationMs": 947
+            },
+            {
+              "name": "Test Codex : Destination deja utilisee comme dossier",
+              "passed": true,
+              "detail": "Réussi",
+              "durationMs": 1043
+            },
+            {
+              "name": "Test Codex : Noms avec espaces et accents preserves",
+              "passed": true,
+              "detail": "Réussi",
+              "durationMs": 975
+            }
+          ],
+          "isolation": "QuickJS/WebAssembly sans API hôte ; processus Windows MXC ; 32 Mio de mémoire JavaScript, 2 s par calcul, sortie 512 Ko ; aucun processus enfant créé par la capacité.",
+          "durationMs": 12763
+        },
+        "error": null,
+        "provider": "@openai/codex-sdk 0.162.1 / Codex CLI"
+      },
+      {
+        "number": 3,
+        "startedAt": "2026-10-15T15:17:36.369Z",
+        "endedAt": "2026-10-15T15:18:21.489Z",
+        "status": "READY",
+        "events": [
+          {
+            "at": "2026-10-15T15:17:36.369Z",
+            "phase": "specification",
+            "detail": "Spécification approuvée ; espace de fabrication créé."
+          },
+          {
+            "at": "2026-10-15T15:17:36.434Z",
+            "phase": "generation",
+            "detail": "Codex officiel sollicité ; seuls la spécification et le contrat API lui sont transmis."
+          },
+          {
+            "at": "2026-10-15T15:17:37.822Z",
+            "phase": "connected",
+            "detail": "Session Codex créée."
+          },
+          {
+            "at": "2026-10-15T15:18:07.493Z",
+            "phase": "received",
+            "detail": "Génération reçue (1488 tokens de sortie)."
+          },
+          {
+            "at": "2026-10-15T15:18:08.311Z",
+            "phase": "files",
+            "detail": "Code et tests reçus de Codex et enregistrés. Dépendances externes : aucune."
+          },
+          {
+            "at": "2026-10-15T15:18:09.364Z",
+            "phase": "test",
+            "detail": "Compilation JavaScript QuickJS : réussi"
+          },
+          {
+            "at": "2026-10-15T15:18:10.376Z",
+            "phase": "test",
+            "detail": "Critère approuvé : WAV racine et TXT ignore : réussi"
+          },
+          {
+            "at": "2026-10-15T15:18:11.442Z",
+            "phase": "test",
+            "detail": "Critère approuvé : Dossier vide : réussi"
+          },
+          {
+            "at": "2026-10-15T15:18:12.426Z",
+            "phase": "test",
+            "detail": "Critère approuvé : WAV deja classe : réussi"
+          },
+          {
+            "at": "2026-10-15T15:18:13.433Z",
+            "phase": "test",
+            "detail": "Critère approuvé : Autre WAV : réussi"
+          },
+          {
+            "at": "2026-10-15T15:18:14.447Z",
+            "phase": "test",
+            "detail": "Critère approuvé : Collision non ecrasable : réussi"
+          },
+          {
+            "at": "2026-10-15T15:18:15.433Z",
+            "phase": "test",
+            "detail": "Critère approuvé : Autre date et extension majuscule : réussi"
+          },
+          {
+            "at": "2026-10-15T15:18:16.422Z",
+            "phase": "test",
+            "detail": "Test Codex : Collision fichier sans distinction de casse : réussi"
+          },
+          {
+            "at": "2026-10-15T15:18:17.421Z",
+            "phase": "test",
+            "detail": "Test Codex : Dossier occupant la destination sans distinction de casse : réussi"
+          },
+          {
+            "at": "2026-10-15T15:18:18.425Z",
+            "phase": "test",
+            "detail": "Test Codex : Fichier occupant le dossier date : réussi"
+          },
+          {
+            "at": "2026-10-15T15:18:19.459Z",
+            "phase": "test",
+            "detail": "Test Codex : Dossier date existant et ordre conserve : réussi"
+          },
+          {
+            "at": "2026-10-15T15:18:20.464Z",
+            "phase": "test",
+            "detail": "Test Codex : Sources ambigues sous Windows : réussi"
+          },
+          {
+            "at": "2026-10-15T15:18:21.484Z",
+            "phase": "test",
+            "detail": "Test Codex : Parametre date dangereux refuse : réussi"
+          },
+          {
+            "at": "2026-10-15T15:18:21.487Z",
+            "phase": "ready",
+            "detail": "Tests MIRROR réussis. Prototype prêt à essayer et à accepter."
+          }
+        ],
+        "report": {
+          "at": "2026-10-15T15:18:21.486Z",
+          "passed": true,
+          "digest": "a7c16aeaa8c0b9f05f3e32fec7b7c6f1e35b0b69aca4d65595a8eebec5f0f79f",
+          "checks": [
+            {
+              "name": "Compilation JavaScript QuickJS",
+              "passed": true,
+              "detail": "Réussi",
+              "durationMs": 1049
+            },
+            {
+              "name": "Critère approuvé : WAV racine et TXT ignore",
+              "passed": true,
+              "detail": "Réussi",
+              "durationMs": 1010
+            },
+            {
+              "name": "Critère approuvé : Dossier vide",
+              "passed": true,
+              "detail": "Réussi",
+              "durationMs": 1063
+            },
+            {
+              "name": "Critère approuvé : WAV deja classe",
+              "passed": true,
+              "detail": "Réussi",
+              "durationMs": 982
+            },
+            {
+              "name": "Critère approuvé : Autre WAV",
+              "passed": true,
+              "detail": "Réussi",
+              "durationMs": 1005
+            },
+            {
+              "name": "Critère approuvé : Collision non ecrasable",
+              "passed": true,
+              "detail": "Réussi",
+              "durationMs": 1012
+            },
+            {
+              "name": "Critère approuvé : Autre date et extension majuscule",
+              "passed": true,
+              "detail": "Réussi",
+              "durationMs": 984
+            },
+            {
+              "name": "Test Codex : Collision fichier sans distinction de casse",
+              "passed": true,
+              "detail": "Réussi",
+              "durationMs": 987
+            },
+            {
+              "name": "Test Codex : Dossier occupant la destination sans distinction de casse",
+              "passed": true,
+              "detail": "Réussi",
+              "durationMs": 998
+            },
+            {
+              "name": "Test Codex : Fichier occupant le dossier date",
+              "passed": true,
+              "detail": "Réussi",
+              "durationMs": 1002
+            },
+            {
+              "name": "Test Codex : Dossier date existant et ordre conserve",
+              "passed": true,
+              "detail": "Réussi",
+              "durationMs": 1032
+            },
+            {
+              "name": "Test Codex : Sources ambigues sous Windows",
+              "passed": true,
+              "detail": "Réussi",
+              "durationMs": 1002
+            },
+            {
+              "name": "Test Codex : Parametre date dangereux refuse",
+              "passed": true,
+              "detail": "Réussi",
+              "durationMs": 1019
+            }
+          ],
+          "isolation": "QuickJS/WebAssembly sans API hôte ; processus Windows MXC ; 32 Mio de mémoire JavaScript, 2 s par calcul, sortie 512 Ko ; aucun processus enfant créé par la capacité.",
+          "durationMs": 13172
+        },
+        "error": null,
+        "provider": "@openai/codex-sdk 0.162.1 / Codex CLI"
+      }
+    ],
+    "questions": [],
+    "manifest": {
+      "schemaVersion": 1,
+      "id": "classement-wav-par-date",
+      "name": "Classement WAV par date",
+      "version": "1.0.0",
+      "description": "Propose le déplacement des WAV racine vers le dossier de la date fournie, sans collision de fichiers ou de dossiers, y compris sans distinction de casse.",
+      "inputs": [
+        "files : chemins relatifs, taille et date de modification",
+        "parameters.date : date AAAA-MM-JJ choisie pour ce classement"
+      ],
+      "outputs": [
+        "summary",
+        "renames[].from",
+        "renames[].to",
+        "data"
+      ],
+      "permissions": [
+        "filesystem.read",
+        "filesystem.write"
+      ],
+      "entryPoint": "capability.js",
+      "compatibility": {
+        "apiVersion": 1,
+        "runtime": "quickjs-wasm",
+        "platform": "win32"
+      },
+      "provenance": {
+        "createdBy": "FORGE",
+        "forgeRequestId": "44fa75ee-c15d-4cad-8ecb-870126afe9a0",
+        "attempt": 3,
+        "origin": {
+          "kind": "USER",
+          "ref": null,
+          "reason": "Demande explicite de l’utilisateur."
+        },
+        "createdAt": "2026-10-15T15:18:21.487Z",
+        "provider": "@openai/codex-sdk 0.162.1 / Codex CLI"
+      },
+      "validation": {
+        "status": "tested",
+        "digest": "a7c16aeaa8c0b9f05f3e32fec7b7c6f1e35b0b69aca4d65595a8eebec5f0f79f",
+        "report": {
+          "at": "2026-10-15T15:18:21.486Z",
+          "passed": true,
+          "digest": "a7c16aeaa8c0b9f05f3e32fec7b7c6f1e35b0b69aca4d65595a8eebec5f0f79f",
+          "checks": [
+            {
+              "name": "Compilation JavaScript QuickJS",
+              "passed": true,
+              "detail": "Réussi",
+              "durationMs": 1049
+            },
+            {
+              "name": "Critère approuvé : WAV racine et TXT ignore",
+              "passed": true,
+              "detail": "Réussi",
+              "durationMs": 1010
+            },
+            {
+              "name": "Critère approuvé : Dossier vide",
+              "passed": true,
+              "detail": "Réussi",
+              "durationMs": 1063
+            },
+            {
+              "name": "Critère approuvé : WAV deja classe",
+              "passed": true,
+              "detail": "Réussi",
+              "durationMs": 982
+            },
+            {
+              "name": "Critère approuvé : Autre WAV",
+              "passed": true,
+              "detail": "Réussi",
+              "durationMs": 1005
+            },
+            {
+              "name": "Critère approuvé : Collision non ecrasable",
+              "passed": true,
+              "detail": "Réussi",
+              "durationMs": 1012
+            },
+            {
+              "name": "Critère approuvé : Autre date et extension majuscule",
+              "passed": true,
+              "detail": "Réussi",
+              "durationMs": 984
+            },
+            {
+              "name": "Test Codex : Collision fichier sans distinction de casse",
+              "passed": true,
+              "detail": "Réussi",
+              "durationMs": 987
+            },
+            {
+              "name": "Test Codex : Dossier occupant la destination sans distinction de casse",
+              "passed": true,
+              "detail": "Réussi",
+              "durationMs": 998
+            },
+            {
+              "name": "Test Codex : Fichier occupant le dossier date",
+              "passed": true,
+              "detail": "Réussi",
+              "durationMs": 1002
+            },
+            {
+              "name": "Test Codex : Dossier date existant et ordre conserve",
+              "passed": true,
+              "detail": "Réussi",
+              "durationMs": 1032
+            },
+            {
+              "name": "Test Codex : Sources ambigues sous Windows",
+              "passed": true,
+              "detail": "Réussi",
+              "durationMs": 1002
+            },
+            {
+              "name": "Test Codex : Parametre date dangereux refuse",
+              "passed": true,
+              "detail": "Réussi",
+              "durationMs": 1019
+            }
+          ],
+          "isolation": "QuickJS/WebAssembly sans API hôte ; processus Windows MXC ; 32 Mio de mémoire JavaScript, 2 s par calcul, sortie 512 Ko ; aucun processus enfant créé par la capacité.",
+          "durationMs": 13172
+        }
+      }
+    }
+  },
+  "installed": 0,
+  "errors": [
+    "[AETHER] Ce raccourci est déjà utilisé par une autre application. Le précédent est conservé.",
+    "[AETHER] Ce raccourci est déjà utilisé par une autre application. Le précédent est conservé.",
+    "[AETHER] Ce raccourci est déjà utilisé par une autre application. Le précédent est conservé.",
+    "Error occurred in handler for 'aether:evolution-action': Error: Les confirmations et accès fichiers se donnent dans FORGE ou SPACE.\n    at forgeOwner (C:\\Dev\\CRTHON10\\aether\\dist\\main\\main.cjs:28258:115)\n    at C:\\Dev\\CRTHON10\\aether\\dist\\main\\main.cjs:28292:5\n    at Session.<anonymous> (node:electron/js2c/browser_init:1:118964)\n    at Session.emit (node:events:514:28)"
+  ]
+}

@@ -1,0 +1,4 @@
+{
+  "name": "@aether/voice", "version": "0.5.5", "private": true, "type": "module",
+  "exports": "./src/index.ts", "dependencies": { "@aether/shared": "*", "@aether/core": "*" }
+}

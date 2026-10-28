@@ -3,7 +3,7 @@ import type {Interest,Point,SpaceData,SpaceSelection} from '@aether/shared';
 export const interestStatusLabel={active:'actif',dormant:'en veille',abandoned:'abandonné'} as const;
 export const explorationStatusLabel={running:'en cours',succeeded:'réussie',failed:'échouée',cancelled:'annulée',suppressed:'écartée',interrupted:'interrompue'} as const;
 
-export const SPACE_ZONES={memory:{x:-530,y:-30},curiosity:{x:480,y:-80},activity:{x:-275,y:270},capabilities:{x:-200,y:-335},echo:{x:470,y:310}} as const;
+export const SPACE_ZONES={memory:{x:-530,y:-30},curiosity:{x:480,y:-80},activity:{x:-275,y:270},capabilities:{x:-200,y:-335},echo:{x:470,y:310},forge:{x:-650,y:-470}} as const;
 export interface InterestNode {interest:Interest;position:Point;radius:number}
 export function interestNodes(interests:Interest[]):InterestNode[]{return [...interests].sort((a,b)=>a.createdAt.localeCompare(b.createdAt)||a.id.localeCompare(b.id)).map((interest,index)=>{const angle=index*2.39996323,radius=Math.sqrt(index)*245;return {interest,position:{x:SPACE_ZONES.curiosity.x+Math.cos(angle)*radius,y:SPACE_ZONES.curiosity.y+Math.sin(angle)*radius},radius:24+interest.level*17};});}
 export interface ActivityEntry {id:string;kind:string;title:string;detail:string;at:string;target:SpaceSelection|null;transient:boolean;fresh:boolean}
@@ -18,6 +18,8 @@ export function activityEntries(data:SpaceData,since:string|null):ActivityEntry[
     for(const item of journal.items.filter(item=>item.kind==='discovery'))entries.push({id:`discovery:${item.id}`,kind:'Découverte',title:title(item.interestId),detail:item.content,at:item.createdAt,target:{kind:'discovery',id:item.id},transient:false});
   }
   for(const message of data.mind?.messages??[])if(message.role==='assistant')entries.push({id:`conversation:${message.id}`,kind:'Échange de session',title:'Réponse d’ENTITY',detail:message.content,at:message.createdAt,target:null,transient:true});
+  for(const r of data.evolution?.requests??[])entries.push({id:`forge:${r.id}`,kind:'Fabrication',title:r.specification.title+' · '+r.status,detail:r.origin.reason,at:r.updatedAt,target:null,transient:false});
+  for(const c of data.evolution?.capabilities??[])entries.push({id:`capability:${c.manifest.id}:${c.manifest.version}`,kind:'Capacité acquise',title:c.manifest.name+' · '+c.manifest.version+' · '+c.state,detail:c.manifest.description,at:c.installedAt,target:null,transient:false});
   return entries.map(item=>({...item,fresh:since===null||Date.parse(item.at)>Date.parse(since)})).sort((a,b)=>b.at.localeCompare(a.at)||a.id.localeCompare(b.id));
 }
 export function existingSelection(selection:SpaceSelection|null,data:SpaceData):SpaceSelection|null {
@@ -27,4 +29,4 @@ export function existingSelection(selection:SpaceSelection|null,data:SpaceData):
   const items=selection.kind==='memory'?data.memories:selection.kind==='interest'?data.curiosity?.interests:selection.kind==='connection'?data.curiosity?.connections:selection.kind==='exploration'?data.curiosity?.explorations:data.curiosity?.items.filter(item=>item.kind===selection.kind);
   return items?.some(item=>item.id===selection.id)?selection:null;
 }
-export function availableCapabilities(data:SpaceData){return [{key:'mind',name:'Conversation',description:'Échanges avec le fournisseur configuré.'},{key:'memory',name:'Mémoire',description:'Souvenirs consultables, corrigibles et supprimables.'},{key:'curiosity',name:'Curiosité',description:'Explorations locales autorisées et journal persistant.'},{key:'portal',name:'Espace intérieur',description:'Navigation dans les objets réels d’AETHER.'}].map(item=>({...item,available:data.presence.features[item.key as keyof typeof data.presence.features]==='available'}));}
+export function availableCapabilities(data:SpaceData){return [{key:'mind',name:'Conversation',description:'Échanges avec le fournisseur configuré.'},{key:'memory',name:'Mémoire',description:'Souvenirs consultables, corrigibles et supprimables.'},{key:'curiosity',name:'Curiosité',description:'Explorations locales autorisées et journal persistant.'},{key:'portal',name:'Espace intérieur',description:'Navigation dans les objets réels d’AETHER.'},{key:'voice',name:'Voix locale',description:'Microphone consenti, transcription et réponse dans la même conversation.'}].map(item=>({...item,available:data.presence.features[item.key as keyof typeof data.presence.features]==='available'}));}

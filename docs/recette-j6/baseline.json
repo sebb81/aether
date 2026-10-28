@@ -1,0 +1,33 @@
+{
+  "date": "2026-10-15",
+  "stage": "before J6 implementation",
+  "command": "npm run check",
+  "typecheck": "passed",
+  "unitTests": {
+    "passed": 114,
+    "failed": 0
+  },
+  "electron": {
+    "passed": 12,
+    "failed": 3,
+    "durationMinutes": 9.4
+  },
+  "failures": [
+    {
+      "test": "live-real.spec.ts",
+      "causeObserved": "No new assistant transcript during a Gemini cloud turn before the 150-second timeout",
+      "location": "send helper, line 34; call line 41"
+    },
+    {
+      "test": "presence.spec.ts",
+      "causeObserved": "Native corner click did not reach the clicked-through fixture",
+      "location": "line 74"
+    },
+    {
+      "test": "space.spec.ts",
+      "causeObserved": "Native double-click did not open SPACE",
+      "location": "line 42"
+    }
+  ],
+  "note": "These failures predate changes to the running application for J6. Existing LOCAL voice, ECHO, memory, curiosity and real Chromium/Gemini AEC tests passed. This baseline is not a claim that all previous checks are green."
+}

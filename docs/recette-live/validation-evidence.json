@@ -1,0 +1,83 @@
+{
+  "date": "2026-10-08",
+  "version": "0.5.6",
+  "check": {
+    "command": "npm run check",
+    "exitCode": 0,
+    "typecheck": "PASS",
+    "typescriptUnitPassed": 109,
+    "build": "PASS",
+    "electronPassed": 12,
+    "electronSkipped": 1,
+    "electronDurationMinutes": 5.2,
+    "skipReason": "Real Gemini Live positive recipe requires a configured valid credential; none was present at this run."
+  },
+  "python": {
+    "command": "C:\\ProgramData\\anaconda3\\python.exe tests/unit/voice-worker.test.py",
+    "passed": 5,
+    "liveWorkerCompile": "PASS"
+  },
+  "postCheckCorrection": {
+    "reason": "Barge-in while native playback drains after server turn completion must not suppress the next response, including late transcripts.",
+    "typecheck": "PASS",
+    "typescriptUnitPassed": 110,
+    "liveUnitRecheckPassed": 17,
+    "liveElectronRecheckPassed": 2,
+    "liveElectronRecheckDurationSeconds": 14.8,
+    "positiveCloudRecipe": "Explicitly skipped; no credential available.",
+    "rebuiltPackageVerified": true
+  },
+  "speakerInterruptionCorrection": {
+    "date": "2026-10-08",
+    "typescriptUnitPassed": 111,
+    "typecheck": "PASS",
+    "liveElectronPassed": 4,
+    "liveElectronSeconds": 41.5,
+    "actualGeminiResponse": "PASS with virtual synthesized input, Chromium AEC and native output; no false interruption",
+    "packagedChromiumAudio": "PASS, one continuous playback sequence and camera denied",
+    "packageIntegrity": "PASS, updated audio files and preloads compared against compiled files",
+    "personalSettingsAndData": "Preserved; key configured and consent granted by user; no automatic microphone start",
+    "humanSpeakerValidation": "Pending user retry",
+    "evidence": [
+      "aec-native-evidence.json",
+      "aec-gemini-evidence.json",
+      "aec-packaged-evidence.json",
+      "aec-playback-timing.json",
+      "package-evidence.json"
+    ]
+  },
+  "package": {
+    "command": "npm run package:win",
+    "exitCode": 0,
+    "verification": "node scripts/verify-live-package.mjs",
+    "verificationExitCode": 0,
+    "evidence": "package-evidence.json"
+  },
+  "limitations": [
+    "LIVE providers in contract and tool-service tests are explicit test doubles.",
+    "Initial cloud evidence was invalid-credential rejection; the AEC correction additionally validates an actual Gemini audio response with virtual input.",
+    "Actual audio-worker and LOCAL recipes use synthetic audio, not physical microphone speech.",
+    "Actual Qwen DEEP execution is verified, not the scientific correctness of its generated text.",
+    "Natural tool selection across the full recipe, physical human barge-in and an Internet cut during a positive session remain unvalidated."
+  ],
+  "speakerNoiseCorrection": {
+    "date": "2026-10-08T15:38:11.894Z",
+    "origin": "User-reported continuous tone with Gemini; acoustic origin not reproduced.",
+    "capture": "Verified silent AudioContext sink plus zero monitor gain; microphone still streams continuously.",
+    "typecheck": "PASS",
+    "typescriptUnitPassed": 111,
+    "nativePlayback": "PASS, continuous timeline with silent capture",
+    "actualGeminiResponse": "PASS with virtual synthesized input; zero interruption",
+    "packagedChromiumAudio": "PASS, capture sink none and monitor gain zero",
+    "packageIntegrity": "PASS",
+    "personalSettingsAndData": "Unchanged",
+    "testTones": "Muted",
+    "humanSpeakerValidation": "Pending user retry",
+    "evidence": [
+      "aec-native-evidence.json",
+      "aec-gemini-evidence.json",
+      "aec-packaged-evidence.json",
+      "package-evidence.json"
+    ]
+  }
+}

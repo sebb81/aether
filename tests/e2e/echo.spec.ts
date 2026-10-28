@@ -21,7 +21,7 @@ async function choose(page:Page,folder:string){
   await expect(page.getByTestId('echo-folder')).toHaveText(folder,{timeout:5000});
 }
 async function begin(page:Page,folder:string){if(!(await snapshot(page)).enabled)await page.getByRole('button',{name:'Préparer une session ECHO'}).click();await choose(page,folder);await page.getByRole('checkbox',{name:/J’autorise/}).check();await page.getByRole('button',{name:'Démarrer l’observation'}).click();await expect.poll(async()=>(await snapshot(page)).state).toBe('observing');await native('open',folder);await expect.poll(async()=>(await snapshot(page)).context?.allowed,{timeout:15000}).toBe(true);}
-async function stop(page:Page){await page.getByRole('button',{name:'Arrêter et comprendre'}).click();await expect.poll(async()=>(await snapshot(page)).state,{timeout:125000}).toBe('ready');return snapshot(page);}
+async function stop(page:Page){await page.getByRole('button',{name:'Arrêter et comprendre'}).click();await expect.poll(async()=>(await snapshot(page)).state,{timeout:125000}).toMatch(/^(ready|error)$/);const value=await snapshot(page);if(value.state==='error')throw new Error(JSON.stringify({echoError:value.error,sessions:value.sessions}));return value;}
 
 test('ECHO A-I: explicit consent, actual native Explorer events, real local MIND, habits, repeat, correction, deletion, OFF and exclusion',async()=>{
   test.skip(process.platform!=='win32');test.setTimeout(240000);

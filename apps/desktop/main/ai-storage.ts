@@ -24,11 +24,11 @@ export class AiConfigurationStore {
   save(configuration: AiConfiguration) { writeAtomic(this.path, `${JSON.stringify(parseAiConfiguration(configuration), null, 2)}\n`); }
 }
 export class SafeSecretVault {
-  constructor(private readonly path: string) {}
+  constructor(private readonly path: string, private readonly environmentName = 'OPENAI_API_KEY') {}
   available(): boolean { return safeStorage.isEncryptionAvailable() && (process.platform !== 'linux' || safeStorage.getSelectedStorageBackend() !== 'basic_text'); }
-  hasKey(): boolean { return existsSync(this.path) || Boolean(process.env.OPENAI_API_KEY?.trim()); }
+  hasKey(): boolean { return existsSync(this.path) || Boolean(process.env[this.environmentName]?.trim()); }
   getKey(): string | null {
-    if (!existsSync(this.path)) return process.env.OPENAI_API_KEY?.trim() || null;
+    if (!existsSync(this.path)) return process.env[this.environmentName]?.trim() || null;
     if (!this.available()) throw new Error('Le stockage sécurisé du système est indisponible. Aucune clé ne sera lue ou stockée en clair.');
     try { return safeStorage.decryptString(readFileSync(this.path)); }
     catch { throw new Error('La clé chiffrée ne peut pas être lue dans cette session Windows. Ressaisissez-la dans les réglages.'); }
@@ -40,7 +40,7 @@ export class SafeSecretVault {
   }
   removeKey() {
     if (existsSync(this.path)) unlinkSync(this.path);
-    else if (process.env.OPENAI_API_KEY) throw new Error('Cette clé provient de OPENAI_API_KEY. Retirez cette variable dans votre environnement pour la supprimer.');
+    else if (process.env[this.environmentName]) throw new Error(`Cette clé provient de ${this.environmentName}. Retirez cette variable dans votre environnement pour la supprimer.`);
   }
   encryptedSnapshot(): Buffer | null { return existsSync(this.path) ? readFileSync(this.path) : null; }
   restoreEncrypted(snapshot: Buffer | null) { if (snapshot) writeAtomic(this.path, snapshot); else if (existsSync(this.path)) unlinkSync(this.path); }

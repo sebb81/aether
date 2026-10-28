@@ -63,7 +63,7 @@ test('real desktop presence: transparency, clicks, drag, settings, recall, secur
       const target = new BrowserWindow({ title: 'AETHER test click target', x: bounds.x, y: bounds.y, width: 160, height: 160, frame: false, show: false, webPreferences: { sandbox: true, nodeIntegration: false, contextIsolation: true } });
       await target.loadURL('data:text/html,<body style="margin:0;background:%23283941"><button style="width:160px;height:160px" onclick="document.title=\'clicked-through\'">target</button></body>');
       // Keep the fixture above unrelated desktop windows, with ENTITY still above the fixture.
-      target.setAlwaysOnTop(true);
+      target.setAlwaysOnTop(true, 'pop-up-menu');
       target.show();
       BrowserWindow.getAllWindows().find(window => window.getTitle() === 'AETHER · ENTITY')!.moveTop();
     }, initial);

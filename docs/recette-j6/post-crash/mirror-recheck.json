@@ -1,0 +1,87 @@
+{
+  "at": "2026-10-15T15:43:56.884Z",
+  "passed": true,
+  "digest": "a7c16aeaa8c0b9f05f3e32fec7b7c6f1e35b0b69aca4d65595a8eebec5f0f79f",
+  "checks": [
+    {
+      "name": "Compilation JavaScript QuickJS",
+      "passed": true,
+      "detail": "Réussi",
+      "durationMs": 972
+    },
+    {
+      "name": "Critère approuvé : WAV racine et TXT ignore",
+      "passed": true,
+      "detail": "Réussi",
+      "durationMs": 968
+    },
+    {
+      "name": "Critère approuvé : Dossier vide",
+      "passed": true,
+      "detail": "Réussi",
+      "durationMs": 981
+    },
+    {
+      "name": "Critère approuvé : WAV deja classe",
+      "passed": true,
+      "detail": "Réussi",
+      "durationMs": 1010
+    },
+    {
+      "name": "Critère approuvé : Autre WAV",
+      "passed": true,
+      "detail": "Réussi",
+      "durationMs": 969
+    },
+    {
+      "name": "Critère approuvé : Collision non ecrasable",
+      "passed": true,
+      "detail": "Réussi",
+      "durationMs": 984
+    },
+    {
+      "name": "Critère approuvé : Autre date et extension majuscule",
+      "passed": true,
+      "detail": "Réussi",
+      "durationMs": 987
+    },
+    {
+      "name": "Test Codex : Collision fichier sans distinction de casse",
+      "passed": true,
+      "detail": "Réussi",
+      "durationMs": 1008
+    },
+    {
+      "name": "Test Codex : Dossier occupant la destination sans distinction de casse",
+      "passed": true,
+      "detail": "Réussi",
+      "durationMs": 968
+    },
+    {
+      "name": "Test Codex : Fichier occupant le dossier date",
+      "passed": true,
+      "detail": "Réussi",
+      "durationMs": 958
+    },
+    {
+      "name": "Test Codex : Dossier date existant et ordre conserve",
+      "passed": true,
+      "detail": "Réussi",
+      "durationMs": 973
+    },
+    {
+      "name": "Test Codex : Sources ambigues sous Windows",
+      "passed": true,
+      "detail": "Réussi",
+      "durationMs": 997
+    },
+    {
+      "name": "Test Codex : Parametre date dangereux refuse",
+      "passed": true,
+      "detail": "Réussi",
+      "durationMs": 958
+    }
+  ],
+  "isolation": "QuickJS/WebAssembly sans API hôte ; processus Windows MXC ; 32 Mio de mémoire JavaScript, 2 s par calcul, sortie 512 Ko ; aucun processus enfant créé par la capacité.",
+  "durationMs": 12733
+}

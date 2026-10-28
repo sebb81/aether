@@ -1,0 +1,10 @@
+{
+  "at": "2026-10-15T12:29:58.629Z",
+  "profile": "isolated",
+  "provider": "Ollama qwen3.5:9b, actual local MIND specification",
+  "requestId": "44fa75ee-c15d-4cad-8ecb-870126afe9a0",
+  "generatedCode": false,
+  "entityMutationDenied": {
+    "error": "Error: page.evaluate: Error: Error invoking remote method 'aether:evolution-action': Error: Les confirmations et accès fichiers se donnent dans FORGE ou SPACE."
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "result": "PASS",
+  "checkedAt": "2026-10-06T06:12:45.494Z",
+  "runtime": "C:\\ProgramData\\anaconda3\\python.exe",
+  "environment": "Windows registered PATH; no Conda activation",
+  "input": "Windows speech synthesis; no microphone",
+  "probe": {
+    "id": "runtime-proof",
+    "type": "result",
+    "microphones": [
+      {
+        "id": "4eb91711a1d399322c03e95e",
+        "name": "Microphone Array (Intel® Smart Sound Technology for Digital Microphones)",
+        "host": "Windows WASAPI",
+        "default": false
+      }
+    ],
+    "version": "1.2.1",
+    "runtime": "C:\\ProgramData\\anaconda3\\python.exe"
+  },
+  "transcription": "Comment t'appelles-tu ?",
+  "sttMs": 30120,
+  "audioFiles": []
+}

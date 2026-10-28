@@ -1,0 +1,38 @@
+{
+  "at": "2026-10-15T15:54:44.416Z",
+  "executable": "C:\\Dev\\CRTHON10\\aether\\release\\AETHER-win32-x64\\AETHER.exe",
+  "helperHash": "7851cd01c51ce1f5b77327e1c2d7e1daa474da6043342fbc2896748ec9924996",
+  "codeGeneration": false,
+  "capabilityAdoption": false,
+  "personalDataExported": false,
+  "packaged": {
+    "isPackaged": true,
+    "version": "0.6.0",
+    "path": "C:\\Dev\\CRTHON10\\aether\\release\\AETHER-win32-x64\\resources\\app.asar"
+  },
+  "runtime": {
+    "summary": "Infrastructure check only",
+    "renames": [],
+    "data": {
+      "sum": 5,
+      "process": "undefined",
+      "fetch": "undefined"
+    }
+  },
+  "data": {
+    "existingMemoryCount": 0,
+    "existingInterestCount": 1,
+    "memoriesUnchanged": true,
+    "interestsPreserved": true,
+    "curiositySettingsPreserved": true,
+    "forgeRequests": 0,
+    "installed": 0
+  },
+  "settingsUnchanged": [
+    "ai-settings.json",
+    "router-settings.json",
+    "voice-settings.json",
+    "live-settings.json"
+  ],
+  "result": "PASS"
+}

@@ -14,6 +14,15 @@ import {PortalSettingsStore,SpacePreferencesStore} from './space-storage';
 import {createEcho} from './echo-service';
 import type {EchoEngine} from '@aether/echo';
 import type {EchoSnapshot} from '@aether/shared';
+import type {InputModality,VoiceSnapshot} from '@aether/shared';
+import {DesktopVoiceService} from './voice-service';
+import { DesktopLiveService } from './live-service';
+import { ChromiumLiveDuplex } from './chromium-live-audio';
+import { LiveAudioError } from '@aether/live';
+import { DesktopEvolutionService } from './evolution-service';
+import { object } from '@aether/evolution';
+import { randomUUID } from 'node:crypto';
+import type { EvolutionAction } from '@aether/shared';
 
 app.setName('AETHER');
 // Tests use a profile isolated from the user's preferences. Production ignores overrides.
@@ -30,6 +39,14 @@ let curiosityWindow: BrowserWindow | null = null;
 let curiosity: CuriosityEngine | null = null;
 let echo:EchoEngine|null=null;
 let echoWindow:BrowserWindow|null=null;
+let voiceWindow:BrowserWindow|null=null;
+let voice:DesktopVoiceService|null=null;
+let live: DesktopLiveService | null = null;
+let liveWindow: BrowserWindow | null = null;
+let forgeWindow:BrowserWindow|null=null;
+let evolution:DesktopEvolutionService|null=null;
+let voiceShortcuts:ShortcutManager;
+const allWindows=()=>[entity,settings,dialogue,memoryWindow,curiosityWindow,spaceWindow,echoWindow,voiceWindow,liveWindow,forgeWindow];
 let spaceWindow:BrowserWindow|null=null;
 const portal=new PortalLifecycle();
 let portalTimer:ReturnType<typeof setTimeout>|undefined;
@@ -60,7 +77,7 @@ const rendererURL = (() => {
   return url.origin;
 })();
 const baseURL = rendererURL ?? pathToFileURL(rendererFile).href;
-const approvedURLs = new Set(['entity', 'settings', 'dialogue', 'memory', 'curiosity','space','echo'].flatMap(view => [`${baseURL}#${view}`, ...(rendererURL ? [`${baseURL}/#${view}`] : [])]));
+const approvedURLs = new Set(['entity', 'settings', 'dialogue', 'memory', 'curiosity','space','echo','voice','live','forge'].flatMap(view => [`${baseURL}#${view}`, ...(rendererURL ? [`${baseURL}/#${view}`] : [])]));
 function workAreas() {
   const primary = screen.getPrimaryDisplay();
   return [primary, ...screen.getAllDisplays().filter(display => display.id !== primary.id)].map(display => display.workArea);
@@ -85,10 +102,12 @@ function secureWindow(window: BrowserWindow) {
       // A secondary renderer must not disable ENTITY's native hit testing.
       if(window===entity)stopHitTesting();
       if(window===echoWindow)echo?.disable();
+      if(window===voiceWindow||window===dialogue)voice?.engine.stop();
+      if(window===liveWindow||window===dialogue||window===entity||window===spaceWindow)live?.engine.stop();
     }
   });
 }
-async function load(window: BrowserWindow, view: 'entity' | 'settings' | 'dialogue' | 'memory' | 'curiosity'|'space'|'echo') {
+async function load(window: BrowserWindow, view: 'entity' | 'settings' | 'dialogue' | 'memory' | 'curiosity'|'space'|'echo'|'voice'|'live'|'forge') {
   if (rendererURL) await window.loadURL(`${rendererURL}/#${view}`);
   else await window.loadFile(rendererFile, { hash: view });
 }
@@ -96,6 +115,7 @@ function setIgnored(ignored: boolean) {
   if (!entity || entity.isDestroyed() || ignored === ignoreMouse) return;
   ignoreMouse = ignored;
   entity.setIgnoreMouseEvents(ignored, { forward: true });
+  if (!entity.isAlwaysOnTop()) entity.setAlwaysOnTop(true, process.platform === 'win32' ? 'pop-up-menu' : 'floating');
 }
 function updateHitTesting() {
   if (!entity || entity.isDestroyed() || !entity.isVisible()) return;
@@ -108,8 +128,8 @@ function startHitTesting() {
 function stopHitTesting() { if (hitTimer) clearInterval(hitTimer); hitTimer = undefined; }
 function attention() {
   if (attentionTimer) clearTimeout(attentionTimer);
-  if (mindService?.engine.snapshot().state !== 'thinking' && !curiosity?.isExploring() && !echo?.isBusy()) model.setState('attention');
-  attentionTimer = setTimeout(() => { if (mindService?.engine.snapshot().state !== 'thinking' && !curiosity?.isExploring() && !echo?.isBusy()) model.setState('idle'); attentionTimer = undefined; }, 1400);
+  if (!live?.engine.active()&&!voice?.engine.busy()&&mindService?.engine.snapshot().state !== 'thinking' && !curiosity?.isExploring() && !echo?.isBusy()) model.setState('attention');
+  attentionTimer = setTimeout(() => { updatePresenceState(); attentionTimer = undefined; }, 1400);
 }
 function rememberPosition() {
   if (!entity || entity.isDestroyed()) return;
@@ -132,6 +152,8 @@ function recall() {
   refreshTray();
 }
 function hide() {
+  live?.engine.stop();
+  voice?.engine.stop();
   if(portal.snapshot().phase!=='closed')closePortal();
   closeDialogue();
   finishDrag(false); entity.hide(); stopHitTesting();
@@ -157,13 +179,19 @@ function buildMenu() {
     } },
     { type: 'separator' },
     { label: 'Parler à ENTITY…', click: () => { void openDialogue().catch(report); } },
+    {label:voice?.engine.state()==='listening'?'Terminer la prise vocale':'Parler au micro…',click:()=>{void toggleVoice().catch(report);}},
+    {label:'Arrêter VOICE immédiatement',enabled:voice?.engine.busy()??false,click:()=>voice?.engine.stop()},
+    {label:'VOICE · réglages et consentement…',click:()=>{void openVoice().catch(report);}},
+    {label:'LIVE VOICE · Gemini…',click:()=>{void openLive().catch(report);}},
+    {label:'Arrêter LIVE immédiatement',enabled:live?.engine.active()??false,click:()=>live?.engine.stop()},
     { label: 'MEMORY…', click: () => { void openMemory().catch(report); } },
     { label: 'CURIOSITY · journal…', click: () => { void openCuriosity().catch(report); } },
     { label: 'Réglages…', click: () => { void openSettings().catch(report); } },
     {label:portal.snapshot().phase==='closed'?'Entrer dans AETHER…':'Revenir au bureau',click:()=>{void togglePortal().catch(report);}},
     { label: 'ECHO · Regarde comment je fais…', click: () => {void openEcho().catch(report);} },
     { label: 'Arrêter ECHO immédiatement', enabled:echo?.isBusy()??false, click:()=>{if(echo?.isObserving()||echo?.runtimeState()==='paused')void echo.stop().catch(report);else echo?.cancelAnalysis();} },
-    { label: 'FORGE / MIRROR · non implémentés', enabled: false },
+    { label: 'FORGE / MIRROR…', click:()=>{void openForge().catch(report);} },
+    { label: 'Arrêter FORGE / MIRROR immédiatement', enabled:evolution?.engine.busy()??false,click:()=>evolution?.stop() },
     { type: 'separator' },
     { label: 'Quitter AETHER', click: () => app.quit() },
   ]);
@@ -193,6 +221,7 @@ function positionDialogue() {
   dialogue.setBounds({ x: Math.max(area.x, Math.min(desiredX, area.x + area.width - width)), y: Math.max(area.y, Math.min(origin.y + 80 - height, area.y + area.height - height)), width, height });
 }
 function closeDialogue() {
+  if(['starting','listening'].includes(voice?.engine.state()??''))voice?.engine.stop();
   if(singleClickTimer)clearTimeout(singleClickTimer);singleClickTimer=undefined;
   if (mindService?.engine.snapshot().state === 'thinking') mindService.engine.cancel();
   else mindService?.engine.setState('idle');
@@ -205,7 +234,7 @@ async function openDialogue() {
   dialogue = new BrowserWindow({ title: 'ENTITY — Échange', width: 420, height: 490, frame: false, resizable: false, fullscreenable: false, skipTaskbar: true, alwaysOnTop: true, show: false, backgroundColor: '#111b22',
     webPreferences: { preload: resolve(__dirname, 'preload.cjs'), sandbox: true, contextIsolation: true, nodeIntegration: false, webSecurity: true, spellcheck: false } });
   secureWindow(dialogue); positionDialogue();
-  dialogue.on('closed', () => { dialogue = null; if (mindService?.engine.snapshot().state === 'thinking') mindService.engine.cancel(); else mindService?.engine.setState('idle'); });
+  dialogue.on('closed', () => { dialogue = null; if(['starting','listening'].includes(voice?.engine.state()??''))voice?.engine.stop();if (mindService?.engine.snapshot().state === 'thinking') mindService.engine.cancel(); else mindService?.engine.setState('idle'); });
   dialogue.once('ready-to-show', () => { dialogue?.show(); dialogue?.focus(); });
   mindService?.engine.listening();
   await load(dialogue, 'dialogue');
@@ -223,11 +252,74 @@ async function openMemory() {
 function reflectMind(snapshot: MindSnapshot) {
   if(quitting)return;
   if (attentionTimer) clearTimeout(attentionTimer);
-  const state = snapshot.state === 'thinking' || echo?.runtimeState()==='analysing' ? 'thinking' : echo?.isObserving()?'observing':curiosity?.isExploring() ? 'exploring' : snapshot.state === 'error' ? 'error' : snapshot.state === 'idle' ? 'idle' : 'attention';
-  model.setState(state);
-  if (state === 'attention' || state === 'error') attentionTimer = setTimeout(() => { if (mindService?.engine.snapshot().state !== 'thinking' && !curiosity?.isExploring() && !echo?.isBusy()) model.setState('idle'); }, 1800);
-  for (const window of [entity, dialogue, settings, memoryWindow,curiosityWindow,spaceWindow,echoWindow]) if (window && !window.isDestroyed() && !window.webContents.isDestroyed()) window.webContents.send(IPC.mindChanged, snapshot);
+  updatePresenceState();
+  for (const window of allWindows()) if (window && !window.isDestroyed() && !window.webContents.isDestroyed()) window.webContents.send(IPC.mindChanged, snapshot);
 }
+function updatePresenceState(){
+  if(!model||quitting)return;
+  const v=voice?.engine.snapshot(),m=mindService?.engine.snapshot();
+  const l = live?.engine.snapshot();
+  if (l && l.state !== 'idle') {
+    model.setVoiceActivity(l.microphoneActive,l.audioLevel); model.setState(l.state);
+    model.setCloudAllowed(l.settings.cloudConsent === 'granted'); return;
+  }
+  model.setCloudAllowed(Boolean(mindService?.view().cloudConsent && [mindService?.routerView().FAST,mindService?.routerView().DEEP].some(t=>t?.provider==='openai')));
+  model.setVoiceActivity(v?.microphoneActive??false,v?.audioLevel??0);
+  const state=v?.microphoneActive?'listening':v?.state==='speaking'?'speaking':v&&['starting','transcribing','processing','synthesizing'].includes(v.state)?'thinking':v?.state==='error'?'error':m?.state==='thinking'||echo?.runtimeState()==='analysing'?'thinking':echo?.isObserving()?'observing':curiosity?.isExploring()?'exploring':m?.state==='error'?'error':m?.state==='replying'||m?.state==='listening'?'attention':'idle';
+  const e=evolution?.engine.snapshot().activity;
+  model.setState(state==='idle'&&(e==='BUILDING'||e==='TESTING'||e==='RUNNING')?(e==='BUILDING'?'BUILDING':'TESTING'):state);
+}
+function requireEvolution(){if(!evolution)throw new Error('FORGE / MIRROR indisponible. Les autres moteurs restent accessibles.');return evolution;}
+async function openForge(){
+  requireEvolution();if(forgeWindow&&!forgeWindow.isDestroyed()){forgeWindow.show();forgeWindow.focus();return;}
+  forgeWindow=new BrowserWindow({title:'AETHER — FORGE / MIRROR',width:1000,height:850,minWidth:720,minHeight:620,show:false,autoHideMenuBar:true,backgroundColor:'#111b22',icon:resolve(__dirname,'../assets/icon.png'),webPreferences:{preload:resolve(__dirname,'preload.cjs'),sandbox:true,contextIsolation:true,nodeIntegration:false,webSecurity:true,spellcheck:false}});
+  secureWindow(forgeWindow);forgeWindow.setMenu(null);forgeWindow.on('closed',()=>{forgeWindow=null;});forgeWindow.once('ready-to-show',()=>forgeWindow?.show());await load(forgeWindow,'forge');
+}
+function requireVoice(){if(!voice)throw new Error('VOICE est indisponible. Le dialogue écrit reste accessible.');return voice;}
+async function openVoice(){
+  requireVoice();if(voiceWindow&&!voiceWindow.isDestroyed()){voiceWindow.show();voiceWindow.focus();return;}
+  voiceWindow=new BrowserWindow({title:'AETHER — VOICE',width:760,height:860,minWidth:620,minHeight:640,show:false,autoHideMenuBar:true,backgroundColor:'#111b22',icon:resolve(__dirname,'../assets/icon.png'),webPreferences:{preload:resolve(__dirname,'preload.cjs'),sandbox:true,contextIsolation:true,nodeIntegration:false,webSecurity:true,spellcheck:false}});
+  secureWindow(voiceWindow);voiceWindow.setMenu(null);voiceWindow.on('close',()=>voice?.engine.stop());voiceWindow.on('closed',()=>{voiceWindow=null;});voiceWindow.once('ready-to-show',()=>voiceWindow?.show());await load(voiceWindow,'voice');
+}
+async function toggleVoice(localOnly = false){
+  if (!localOnly && live?.configuration().defaultMode !== 'LOCAL') {
+    if (live?.engine.active()) { live.engine.stop(); return; }
+    await openLive(); if (live?.configuration().defaultMode === 'LIVE') await startLive(); return;
+  }
+  live?.engine.stop();
+  const service=requireVoice();
+  if(service.engine.state()==='listening'){service.engine.finishCapture();return;}
+  if(service.engine.busy()){service.engine.stop();return;}
+  const cfg=service.configuration();if(!cfg.enabled||cfg.microphoneConsent!=='granted'){service.engine.stop();await openVoice();return;}
+  await openDialogue();void service.engine.listen();
+}
+function requireLive() { if (!live) throw new Error('LIVE VOICE est indisponible. VOICE LOCAL reste accessible.'); return live; }
+async function openLive() {
+  requireLive();
+  if (liveWindow && !liveWindow.isDestroyed()) { liveWindow.show(); liveWindow.focus(); return; }
+  liveWindow = new BrowserWindow({ title: 'AETHER — LIVE VOICE', width: 760, height: 860, minWidth: 620, minHeight: 640, show: false, autoHideMenuBar: true, backgroundColor: '#111b22', icon: resolve(__dirname,'../assets/icon.png'), webPreferences: { preload: resolve(__dirname,'preload.cjs'), sandbox: true, contextIsolation: true, nodeIntegration: false, webSecurity: true, spellcheck: false } });
+  secureWindow(liveWindow); liveWindow.setMenu(null); liveWindow.on('close',()=>live?.engine.stop()); liveWindow.on('closed',()=>{liveWindow=null;}); liveWindow.once('ready-to-show',()=>liveWindow?.show()); await load(liveWindow,'live');
+}
+async function startLive(reconnect = false): Promise<OperationResult> {
+  if(voice?.engine.busy())voice.engine.stop();if(mindService?.engine.snapshot().state==='thinking')mindService.engine.cancel();else mindService?.engine.setState('idle');curiosity?.invalidate('Priorité à la conversation LIVE.');
+  await openLive();
+  if (voice?.configuration().microphoneConsent !== 'granted') { await openVoice(); return { ok:false,error:'Autorisez le microphone dans VOICE avant LIVE.' }; }
+  return reconnect ? requireLive().engine.reconnect() : requireLive().engine.start();
+}
+async function removeMemoryControlled(id: string): Promise<OperationResult> {
+  live?.engine.stop(); curiosity?.cancel('Souvenir supprimé.'); requireMind().engine.reset('Souvenir supprimé.');
+  const result = echo?.removeMemory(id) ? { ok:true } as const : await requireMind().removeMemory(id);
+  curiosity?.repository.removeMemoryOrigins(id); curiosity?.invalidate('Souvenir et pistes issues de celui-ci retirés.'); publishSpace(); return result;
+}
+async function submitDialogue(text:string,source:InputModality):Promise<OperationResult>{
+  live?.engine.stop();
+  if(source==='text')voice?.engine.stop();
+  curiosity?.invalidate('Message utilisateur : priorité au dialogue.');
+  const result=await requireMind().engine.submit(text,source);
+  if(result.ok&&source==='text')void voice?.engine.afterText();
+  return result;
+}
+function reflectVoice(snapshot:VoiceSnapshot){if(quitting)return;updatePresenceState();for(const window of allWindows())if(window&&!window.isDestroyed()&&!window.webContents.isDestroyed())window.webContents.send(IPC.voiceChanged,snapshot);}
 function requireCuriosity() { if (!curiosity) throw new Error('CURIOSITY est indisponible. La présence et le dialogue restent accessibles.'); return curiosity; }
 function requireEcho(){if(!echo)throw new Error('ECHO est indisponible. Les autres moteurs restent accessibles.');return echo;}
 async function openEcho(){
@@ -240,8 +332,8 @@ async function openEcho(){
 }
 function reflectEcho(snapshot:EchoSnapshot){
   if(quitting)return;model.setEchoActive(snapshot.state==='observing');
-  if(snapshot.state==='observing')model.setState('observing');else if(snapshot.state==='analysing')model.setState('thinking');else reflectMind(requireMind().engine.snapshot());
-  for(const window of [entity,dialogue,settings,memoryWindow,curiosityWindow,spaceWindow,echoWindow])if(window&&!window.isDestroyed()&&!window.webContents.isDestroyed())window.webContents.send(IPC.echoChanged,snapshot);
+  updatePresenceState();
+  for(const window of allWindows())if(window&&!window.isDestroyed()&&!window.webContents.isDestroyed())window.webContents.send(IPC.echoChanged,snapshot);
   refreshTray();publishSpace();
 }
 async function openCuriosity() {
@@ -256,13 +348,12 @@ function reflectCuriosity(snapshot: CuriositySnapshot) {
   if (quitting) return;
   model.setDiscoveryPending(snapshot.unreadCount>0);
   if (attentionTimer) clearTimeout(attentionTimer);
-  const mind= mindService?.engine.snapshot();
-  model.setState(mind?.state==='thinking'||echo?.runtimeState()==='analysing'?'thinking':echo?.isObserving()?'observing':snapshot.state==='exploring'?'exploring':mind?.state==='error'?'error':'idle');
-  for (const window of [entity,dialogue,settings,memoryWindow,curiosityWindow,spaceWindow,echoWindow]) if (window && !window.isDestroyed() && !window.webContents.isDestroyed()) window.webContents.send(IPC.curiosityChanged,snapshot);
+  updatePresenceState();
+  for (const window of allWindows()) if (window && !window.isDestroyed() && !window.webContents.isDestroyed()) window.webContents.send(IPC.curiosityChanged,snapshot);
   publishSpace();
 }
 function publishSpace(){if(spaceWindow&&!spaceWindow.isDestroyed())spaceWindow.webContents.send(IPC.spaceChanged);}
-async function spaceData():Promise<SpaceData>{return {memories:mindService?await mindService.memory.list():[],curiosity:curiosity?.snapshot()??null,mind:mindService?.engine.snapshot()??null,presence:model.snapshot(),echo:echo?.snapshot()??null};}
+async function spaceData():Promise<SpaceData>{return {memories:mindService?await mindService.memory.list():[],curiosity:curiosity?.snapshot()??null,mind:mindService?.engine.snapshot()??null,presence:model.snapshot(),echo:echo?.snapshot()??null,evolution:evolution?.engine.snapshot()??null};}
 function armPortalTimer(){if(portalTimer)clearTimeout(portalTimer);const current=portal.snapshot();if(current.phase==='opening'||current.phase==='closing')portalTimer=setTimeout(()=>portal.settle(current.token),current.durationMs+250);}
 function restoreDesktop(){if(quitting)return;reposition();if(model.snapshot().preferences.visible){entity.showInactive();startHitTesting();}refreshTray();}
 async function openPortal(){
@@ -290,6 +381,7 @@ function closePortal(){
 }
 async function togglePortal(){if(portal.snapshot().phase==='closed'||portal.snapshot().phase==='closing')await openPortal();else closePortal();}
 function mutateCuriosity(action: (engine: CuriosityEngine)=>void): OperationResult {
+  live?.engine.stop();
   const engine=requireCuriosity(); engine.cancel('Journal modifié par l’utilisateur.'); requireMind().engine.reset('Le journal de curiosité a changé. Nouvelle conversation.');
   try { action(engine); return {ok:true}; } finally { engine.invalidate('Journal mis à jour.'); }
 }
@@ -308,6 +400,7 @@ function resetDragWatchdog() {
 function handleDrag(phase: unknown) {
   if (!entity.isVisible()) return;
   if (phase === 'start') {
+    if(voice?.engine.state()==='speaking'||voice?.engine.state()==='synthesizing')voice.engine.stop();
     const cursor = screen.getCursorScreenPoint();
     if (!isEntityHit(cursor, entity.getBounds()) || drag) return;
     const { x, y } = entity.getBounds();
@@ -325,11 +418,33 @@ function handleDrag(phase: unknown) {
 }
 function authorize(event: Electron.IpcMainInvokeEvent | Electron.IpcMainEvent, entityOnly = false) {
   const window = BrowserWindow.fromWebContents(event.sender);
-  if (!window || ![entity, settings, dialogue, memoryWindow,curiosityWindow,spaceWindow,echoWindow].includes(window) || (entityOnly && window !== entity)
+  if (!window || !allWindows().includes(window) || (entityOnly && window !== entity)
     || event.senderFrame !== event.sender.mainFrame || !approvedURLs.has(event.senderFrame.url)) throw new Error('Origine IPC non autorisée.');
 }
-const COMMANDS: readonly PresenceCommand[] = ['interact', 'hide', 'recall', 'settings', 'menu', 'portal', 'quit', 'dialogue', 'memory', 'curiosity', 'close-dialogue','echo'];
+const COMMANDS: readonly PresenceCommand[] = ['interact', 'hide', 'recall', 'settings', 'menu', 'portal', 'quit', 'dialogue', 'memory', 'curiosity', 'close-dialogue','echo','voice','voice-toggle','live','forge'];
 function setupIPC() {
+  const forgeOwner=(event:Electron.IpcMainInvokeEvent)=>{authorize(event);if(![forgeWindow,spaceWindow].includes(BrowserWindow.fromWebContents(event.sender)))throw new Error('Les confirmations et accès fichiers se donnent dans FORGE ou SPACE.');};
+  ipcMain.handle(IPC.evolutionGet,event=>{authorize(event);return requireEvolution().engine.snapshot();});
+  ipcMain.handle(IPC.forgePrepare,async(event,input:unknown)=>{forgeOwner(event);try{const data=object(input);if(Object.keys(data).some(k=>!['description','origin'].includes(k))||typeof data.description!=='string')throw new Error('Demande FORGE invalide.');let origin: {kind:'ECHO'|'CURIOSITY';ref:string}|undefined;if(data.origin){const o=object(data.origin);if(Object.keys(o).sort().join(',')!=='kind,ref'||!['ECHO','CURIOSITY'].includes(String(o.kind))||typeof o.ref!=='string')throw new Error('Origine invalide.');origin={kind:o.kind as 'ECHO'|'CURIOSITY',ref:o.ref};}await requireEvolution().prepare(data.description,origin);return {ok:true};}catch(error){return report(error);}});
+  ipcMain.handle(IPC.forgeSave,(event,id:unknown,spec:unknown)=>{forgeOwner(event);try{if(typeof id!=='string')throw new Error('Identifiant invalide.');requireEvolution().revise(id,spec as import('@aether/shared').ForgeSpecification);return {ok:true};}catch(error){return report(error);}});
+  ipcMain.handle(IPC.evolutionAction,async(event,action:unknown,id:unknown,confirmed:unknown)=>{forgeOwner(event);try{if(typeof action!=='string'||typeof id!=='string'||typeof confirmed!=='boolean')throw new Error('Confirmation invalide.');return await requireEvolution().action(action as EvolutionAction,id,confirmed);}catch(error){return report(error);}});
+  ipcMain.handle(IPC.evolutionStop,event=>{authorize(event);requireEvolution().stop();return {ok:true};});
+  ipcMain.handle(IPC.experimentPropose,async(event,id:unknown)=>{authorize(event);try{if(![curiosityWindow,forgeWindow,spaceWindow].includes(BrowserWindow.fromWebContents(event.sender))||typeof id!=='string')throw new Error('Proposition réservée au journal ou FORGE.');await requireEvolution().propose(id);return {ok:true};}catch(error){return report(error);}});
+  ipcMain.handle(IPC.capabilityPreview,async(event,id:unknown,parameters:unknown)=>{forgeOwner(event);try{if(typeof id!=='string')throw new Error('Capacité invalide.');const service=requireEvolution(),prototype=/^[a-f0-9-]{36}$/.test(id)?service.engine.store.request(id):null,capability=prototype?null:service.engine.capability(id),manifest=prototype?.manifest??capability?.manifest;if(!manifest||(prototype&&prototype.status!=='READY'))throw new Error('Prototype non testé.');const granted=capability?.grantedPermissions??manifest.permissions,inputParameters=object(parameters);if(JSON.stringify(inputParameters).length>50000)throw new Error('Paramètres trop volumineux.');if(!granted.includes('filesystem.read'))return {id:randomUUID(),capabilityId:manifest.id,version:manifest.version,folder:'Calcul JSON sans accès fichiers',expiresAt:new Date(Date.now()+120000).toISOString(),output:await service.engine.run(id,{files:[],parameters:inputParameters}),files:[],applied:false};const choice=await dialog.showOpenDialog(BrowserWindow.fromWebContents(event.sender)!,{title:'Essayer la capacité sur une copie de ce dossier (500 fichiers / 64 Mio maximum)',properties:['openDirectory','dontAddToRecent']});if(choice.canceled||!choice.filePaths[0])return null;return await service.broker.preview(manifest.id,manifest.version,choice.filePaths[0],inputParameters,input=>service.engine.run(id,input),granted);}catch(error){return {error:error instanceof Error?error.message:'Aperçu impossible.'};}});
+  ipcMain.handle(IPC.capabilityApply,async(event,id:unknown,confirmed:unknown)=>{forgeOwner(event);try{if(typeof id!=='string'||typeof confirmed!=='boolean')throw new Error('Confirmation invalide.');const service=requireEvolution();await service.broker.apply(id,confirmed,(id,version)=>{try{return service.engine.capability(id).manifest.version===version;}catch{return false;}});return {ok:true};}catch(error){return report(error);}});
+  const liveOwner=(event:Electron.IpcMainInvokeEvent)=>{authorize(event);if(![settings,liveWindow].includes(BrowserWindow.fromWebContents(event.sender)))throw new Error('La configuration et le consentement Gemini se donnent dans LIVE VOICE ou les réglages.');};
+  ipcMain.handle(IPC.liveGet,event=>{authorize(event);return requireLive().engine.snapshot();});
+  ipcMain.handle(IPC.liveSave,(event,input:unknown)=>{liveOwner(event);try{requireLive().save(input);return {ok:true};}catch(error){return report(error);}});
+  ipcMain.handle(IPC.liveConsent,(event,decision:unknown)=>{liveOwner(event);try{if(decision!=='grant'&&decision!=='deny')throw new Error('Consentement cloud invalide.');requireLive().consent(decision);return {ok:true};}catch(error){return report(error);}});
+  ipcMain.handle(IPC.liveConfirm,async(event,id:unknown,approved:unknown)=>{liveOwner(event);try{if(typeof id!=='string'||typeof approved!=='boolean')throw new Error('Confirmation invalide.');return await requireLive().confirm(id,approved);}catch(error){return report(error);}});
+  ipcMain.handle(IPC.liveControl,async(event,command:unknown)=>{authorize(event);try{if(command==='stop')requireLive().engine.stop();else if(command==='respond')requireLive().engine.respond();else if(command==='start')return await startLive();else if(command==='reconnect')return await startLive(true);else throw new Error('Commande LIVE invalide.');return {ok:true};}catch(error){return report(error);}});
+  const voiceOwner=(event:Electron.IpcMainInvokeEvent)=>{authorize(event);if(BrowserWindow.fromWebContents(event.sender)!==voiceWindow)throw new Error('Les réglages et le consentement microphone se donnent dans VOICE.');};
+  ipcMain.handle(IPC.voiceGet,event=>{authorize(event);return requireVoice().engine.snapshot();});
+  ipcMain.handle(IPC.voiceInventory,event=>{voiceOwner(event);return requireVoice().inventory();});
+  ipcMain.handle(IPC.voiceSave,(event,input:unknown)=>{voiceOwner(event);let transaction:ReturnType<ShortcutManager['prepare']>|undefined;try{const shortcut=(input as {shortcut?:unknown})?.shortcut;if(typeof shortcut!=='string')throw new Error('Raccourci VOICE invalide.');transaction=voiceShortcuts.prepare(shortcut);live?.engine.stop();requireVoice().save(input);transaction.commit();requireVoice().engine.registered(voiceShortcuts.registered);return {ok:true};}catch(error){transaction?.rollback();return report(error);}});
+  ipcMain.handle(IPC.voiceConsent,(event,decision:unknown)=>{voiceOwner(event);try{if(decision!=='grant'&&decision!=='deny')throw new Error('Consentement microphone invalide.');live?.engine.stop();requireVoice().consent(decision);return {ok:true};}catch(error){return report(error);}});
+  ipcMain.handle(IPC.voiceControl,async(event,command:unknown)=>{authorize(event);try{if(command==='stop')requireVoice().engine.stop();else if(command==='toggle')await toggleVoice();else if(command==='local')await toggleVoice(true);else if(command==='test-voice'){voiceOwner(event);live?.engine.stop();void requireVoice().engine.preview();}else if(command==='clear-diagnostics'){voiceOwner(event);requireVoice().clearDiagnostics();}else throw new Error('Commande VOICE invalide.');return {ok:true};}catch(error){return report(error);}});
+  ipcMain.handle(IPC.voiceResource,async(event,kind:unknown)=>{voiceOwner(event);if(kind!=='python'&&kind!=='model')throw new Error('Ressource VOICE invalide.');const choice=await dialog.showOpenDialog(voiceWindow!,{title:kind==='python'?'Exécutable Python audio local':'Dossier du modèle faster-whisper local',properties:[kind==='python'?'openFile':'openDirectory','dontAddToRecent'],...(kind==='python'?{filters:[{name:'Python',extensions:['exe']}]}:{})});return {path:choice.canceled?null:choice.filePaths[0]??null};});
   ipcMain.handle(IPC.snapshot, event => { authorize(event); return model.snapshot(); });
   ipcMain.handle(IPC.command, async (event, command: unknown): Promise<OperationResult> => {
     authorize(event);
@@ -344,6 +459,10 @@ function setupIPC() {
         case 'memory': await openMemory(); break;
         case 'curiosity': await openCuriosity(); break;
         case 'echo': await openEcho(); break;
+        case 'voice': await openVoice(); break;
+        case 'live': await openLive(); break;
+        case 'forge': await openForge(); break;
+        case 'voice-toggle': await toggleVoice(); break;
         case 'close-dialogue': closeDialogue(); break;
         case 'menu': buildMenu().popup({ window: entity }); break;
         case 'portal': await openPortal(); break;
@@ -375,15 +494,13 @@ function setupIPC() {
     authorize(event);
     if (BrowserWindow.fromWebContents(event.sender) !== dialogue) return report(new Error('Les messages se saisissent dans l’échange avec ENTITY.'));
     if (typeof message !== 'string') return report(new Error('Message invalide.'));
-    if(/^regarde comment je fais[.!?\s]*$/i.test(message.trim())){await openEcho();return {ok:true};}
-    curiosity?.invalidate('Message utilisateur : priorité au dialogue.');
-    return requireMind().engine.submit(message);
+    return submitDialogue(message,'text');
   });
   ipcMain.handle(IPC.mindControl, (event, command: unknown) => {
     authorize(event);
     const mind = requireMind().engine;
-    if (command === 'cancel') mind.cancel();
-    else if (command === 'new-conversation') mind.reset('Nouvelle conversation. Seuls les souvenirs durables restent disponibles.');
+    if (command === 'cancel') {live?.engine.stop();voice?.engine.stop();mind.cancel();}
+    else if (command === 'new-conversation') {live?.engine.stop();voice?.engine.stop();mind.reset('Nouvelle conversation. Seuls les souvenirs durables restent disponibles.');}
     else if (command === 'listening') { mind.listening(); attention(); }
     else return report(new Error('Commande MIND inconnue.'));
     return { ok: true };
@@ -408,12 +525,12 @@ function setupIPC() {
   ipcMain.handle(IPC.memoryWrite, async (event, payload: unknown) => {
     authorize(event);
     if (![memoryWindow,spaceWindow].includes(BrowserWindow.fromWebContents(event.sender))) return report(new Error('Les souvenirs se modifient dans MEMORY ou SPACE.'));
-    try { const id=(payload as {id?:unknown})?.id;if(typeof id==='string'&&echo?.snapshot().habits.some(h=>h.memoryId===id))throw new Error('Corrigez cette habitude dans ECHO pour préserver sa provenance.');curiosity?.cancel('MEMORY modifiée.'); const result=await requireMind().writeMemory(payload); if(typeof id==='string') curiosity?.repository.removeMemoryOrigins(id); curiosity?.invalidate('MEMORY mise à jour.');publishSpace(); return result; } catch (error) { curiosity?.start(); return report(error); }
+    try { const id=(payload as {id?:unknown})?.id;if(typeof id==='string'&&echo?.snapshot().habits.some(h=>h.memoryId===id))throw new Error('Corrigez cette habitude dans ECHO pour préserver sa provenance.');live?.engine.stop();curiosity?.cancel('MEMORY modifiée.'); const result=await requireMind().writeMemory(payload); if(typeof id==='string') curiosity?.repository.removeMemoryOrigins(id); curiosity?.invalidate('MEMORY mise à jour.');publishSpace(); return result; } catch (error) { curiosity?.start(); return report(error); }
   });
   ipcMain.handle(IPC.memoryRemove, async (event, id: unknown) => {
     authorize(event);
     if (![memoryWindow,spaceWindow].includes(BrowserWindow.fromWebContents(event.sender)) || typeof id !== 'string') return report(new Error('Suppression MEMORY non autorisée.'));
-    try { curiosity?.cancel('Souvenir supprimé.');requireMind().engine.reset('Souvenir supprimé.');const result=echo?.removeMemory(id)?{ok:true} as const:await requireMind().removeMemory(id); curiosity?.repository.removeMemoryOrigins(id); curiosity?.invalidate('Souvenir et pistes issues de celui-ci retirés.');publishSpace(); return result; } catch (error) { curiosity?.start(); return report(error); }
+    try { return await removeMemoryControlled(id); } catch (error) { curiosity?.start(); return report(error); }
   });
   ipcMain.handle(IPC.memoryExport, async event => {
     authorize(event);
@@ -461,8 +578,20 @@ async function bootstrap() {
   try { mindService = new DesktopMindService(app.getPath('userData')); }
   catch { mindFailure = 'MIND / MEMORY n’a pas pu démarrer. Les données existantes sont conservées et PRESENCE reste disponible. Vérifiez memory.sqlite et les droits du dossier AETHER.'; }
   if(mindService){try{echo=createEcho(app.getPath('userData'),mindService);}catch{mindFailure='ECHO n’a pas pu démarrer. La perception reste désactivée.';}}
-  if(mindService) { try { curiosity=createCuriosity(app.getPath('userData'),mindService,()=>mindService!.engine.snapshot().state==='thinking'||Boolean(dialogue?.isVisible())||Boolean(echo?.isBusy()),()=>!echo?.repository.habits().some(h=>h.state==='confirmed')); } catch { mindFailure='CURIOSITY n’a pas pu démarrer. PRESENCE, MIND et MEMORY sont conservés.'; } }
-  model = new PresenceModel(loaded.preferences, mindService !== null, mindService !== null,curiosity!==null,true,echo!==null);
+  if(mindService) { try { curiosity=createCuriosity(app.getPath('userData'),mindService,()=>mindService!.engine.snapshot().state==='thinking'||Boolean(dialogue?.isVisible())||Boolean(echo?.isBusy())||Boolean(evolution?.busy()),()=>!echo?.repository.habits().some(h=>h.state==='confirmed')); } catch { mindFailure='CURIOSITY n’a pas pu démarrer. PRESENCE, MIND et MEMORY sont conservés.'; } }
+  if(mindService){try{voice=new DesktopVoiceService(app.getPath('userData'),mindService,submitDialogue,testProfile&&process.env.AETHER_TEST_VOICE_FIXTURES?resolve(process.env.AETHER_TEST_VOICE_FIXTURES):undefined);}catch{mindFailure='VOICE n’a pas pu démarrer. Le dialogue écrit reste accessible ; vérifiez voice-settings.json et les droits du stockage.';}}
+  if (mindService && voice) {
+    try { live = new DesktopLiveService(app.getPath('userData'),mindService,{
+      voiceSettings:()=>requireVoice().configuration(), presence:()=>model.snapshot(), curiosity:()=>curiosity?.snapshot()??null, echo:()=>echo?.snapshot()??null,
+      openSpace:openPortal,closeSpace:closePortal,prepareEcho:openEcho,stopEcho:async()=>{const e=requireEcho();if(e.isObserving()||e.runtimeState()==='paused')await e.stop();else e.cancelAnalysis();},
+      removeMemory:removeMemoryControlled,changedMemory:()=>{curiosity?.invalidate('MEMORY mise à jour.');publishSpace();},confirmation:openLive,prepareForge:async description=>{requireEvolution().engine.suggest(description);await openForge();},
+    },testProfile&&process.env.AETHER_TEST_LIVE_FIXTURES?resolve(process.env.AETHER_TEST_LIVE_FIXTURES):undefined,
+      testProfile&&process.env.AETHER_TEST_LIVE_FIXTURES?undefined:new ChromiumLiveDuplex(()=>requireVoice().configuration(),()=>Boolean(live?.engine.active()&&live.configuration().enabled&&live.configuration().cloudConsent==='granted'&&voice?.configuration().microphoneConsent==='granted'),async()=>{const cfg=requireVoice().configuration();if(cfg.microphone==='default')return null;const chosen=(await requireVoice().inventory()).microphones.find(m=>m.id===cfg.microphone);if(!chosen)throw new LiveAudioError('microphone-missing');return chosen.name;})); } catch { mindFailure='LIVE VOICE indisponible. VOICE LOCAL est conservée.'; }
+  }
+  if(mindService){try{evolution=new DesktopEvolutionService(app.getPath('userData'),mindService,{echo:()=>echo?.snapshot()??null,curiosity:()=>curiosity?.snapshot()??null},[app.getAppPath()]);mindService.evolutionContext=()=>evolution?.context()??'FORGE indisponible.';}catch{mindFailure='FORGE indisponible : registre conservé. Les autres moteurs restent accessibles.';}}
+  mindService?.engine.enableInteraction(async action=>{try{if(action==='portal.open')await openPortal();else if(action==='curiosity.show')await openCuriosity();else if(action==='echo.prepare')await openEcho();else if(action==='forge.prepare'){const latest=mindService?.engine.snapshot().messages.filter(m=>m.role==='user').at(-1);if(latest)requireEvolution().engine.suggest(latest.content);await openForge();}return {ok:true};}catch(error){return report(error);}});
+  if(mindService)mindService.voiceContext=()=>`Statut VOICE réel : ${JSON.stringify(voice?{enabled:voice.configuration().enabled,microphoneConsent:voice.configuration().microphoneConsent,stt:voice.configuration().sttProvider,tts:voice.configuration().ttsProvider,policy:voice.configuration().responsePolicy,cloud:false}:null)}. Les phrases orales et écrites suivent ce même MIND.`;
+  model = new PresenceModel(loaded.preferences, mindService !== null, mindService !== null,curiosity!==null,true,echo!==null,voice!==null,live!==null,evolution!==null);
   spaceStore=new SpacePreferencesStore(join(app.getPath('userData'),'space-state.json'));spacePreferences=spaceStore.load();
   portalStore=new PortalSettingsStore(join(app.getPath('userData'),'portal-settings.json'));portalSettings=portalStore.load();
   if(spaceStore.notice||portalStore.notice)model.setNotice(spaceStore.notice??portalStore.notice);
@@ -480,14 +609,19 @@ async function bootstrap() {
   });
   secureWindow(entity);
   entity.setIgnoreMouseEvents(true, { forward: true });
+  // Electron 44/Windows can lose the native topmost flag at the floating level.
+  entity.setAlwaysOnTop(true, process.platform === 'win32' ? 'pop-up-menu' : 'floating');
   entity.on('blur', () => finishDrag(false));
   entity.on('close', event => { if (!quitting) { event.preventDefault(); hide(); } });
   model.events.on('presence.changed', snapshot => {
-    for (const window of [entity, settings, dialogue, memoryWindow,curiosityWindow,spaceWindow,echoWindow]) if (window && !window.isDestroyed() && !window.webContents.isDestroyed()) window.webContents.send(IPC.changed, snapshot);
+    for (const window of allWindows()) if (window && !window.isDestroyed() && !window.webContents.isDestroyed()) window.webContents.send(IPC.changed, snapshot);
   });
   mindService?.engine.events.on('changed', reflectMind);
+  evolution?.engine.events.on('changed',snapshot=>{if(quitting)return;if(snapshot.activity==='BUILDING'&&curiosity?.isExploring())curiosity.invalidate('Priority to human-approved FORGE.');updatePresenceState();for(const window of allWindows())if(window&&!window.isDestroyed())window.webContents.send(IPC.evolutionChanged,snapshot);publishSpace();refreshTray();});
   curiosity?.events.on('changed',reflectCuriosity);
   echo?.events.on('changed',reflectEcho);
+  voice?.engine.events.on('changed',reflectVoice);
+  live?.engine.events.on('changed',snapshot=>{if(quitting)return;updatePresenceState();for(const window of allWindows())if(window&&!window.isDestroyed()&&!window.webContents.isDestroyed())window.webContents.send(IPC.liveChanged,snapshot);refreshTray();});
   portal.events.on('changed',snapshot=>{
     if(quitting)return;
     for(const window of [entity,settings,spaceWindow])if(window&&!window.isDestroyed())window.webContents.send(IPC.portalChanged,snapshot);
@@ -500,6 +634,8 @@ async function bootstrap() {
   catch (error) { report(error); }
   portalShortcuts=new ShortcutManager(globalShortcut,()=>{void togglePortal().catch(report);});
   try{portalShortcuts.prepare(portalSettings.shortcut).commit();}catch(error){report(error);}
+  voiceShortcuts=new ShortcutManager(globalShortcut,()=>{void toggleVoice().catch(report);});
+  if(voice)try{voiceShortcuts.prepare(voice.configuration().shortcut).commit();voice.engine.registered(true);}catch(error){report(error);}
   const trayIcon = nativeImage.createFromPath(resolve(__dirname, '../assets/tray.png'));
   if (trayIcon.isEmpty()) throw new Error('Icône de notification introuvable.');
   tray = new Tray(trayIcon);
@@ -525,10 +661,13 @@ else {
     if(portalTimer)clearTimeout(portalTimer);if(singleClickTimer)clearTimeout(singleClickTimer);
     if (attentionTimer) clearTimeout(attentionTimer);
     if (model && store) guardPersistence(rememberPosition);
-    echo?.close();curiosity?.close(); mindService?.close();
-    shortcuts?.dispose();portalShortcuts?.dispose(); tray?.destroy(); tray = null;
+    evolution?.stop();live?.close();voice?.close();echo?.close();curiosity?.close(); mindService?.close();
+    shortcuts?.dispose();portalShortcuts?.dispose();voiceShortcuts?.dispose(); tray?.destroy(); tray = null;
   });
   void bootstrap().catch(error => {
+    // Closing during an asynchronous window load cancels that load normally.
+    // A modal startup error during quit would prevent Electron from terminating.
+    if(quitting)return;
     const message = error instanceof Error ? error.message : String(error);
     console.error('[AETHER startup]', message); dialog.showErrorBox('AETHER — démarrage impossible', message); app.quit();
   });

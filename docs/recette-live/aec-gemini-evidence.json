@@ -1,0 +1,38 @@
+{
+  "date": "2026-10-15T15:45:13.434Z",
+  "source": "Actual Gemini, encrypted key in isolated profile, virtual synthesized microphone, Chromium AEC and native output. Human speaker feedback remains to validate.",
+  "states": [
+    "LIVE_LISTENING",
+    "LIVE_THINKING",
+    "LIVE_LISTENING",
+    "LIVE_THINKING",
+    "LIVE_SPEAKING",
+    "LIVE_LISTENING"
+  ],
+  "processing": {
+    "driver": "chromium",
+    "echoCancellation": true,
+    "playbackBufferMs": 180
+  },
+  "metrics": [
+    {
+      "kind": "transport-open",
+      "durationMs": 0.03689999999983229,
+      "success": true,
+      "at": "2026-10-15T15:44:58.834Z"
+    },
+    {
+      "kind": "connection",
+      "durationMs": 727.2180000000001,
+      "success": true,
+      "at": "2026-10-15T15:44:59.308Z"
+    },
+    {
+      "kind": "first-audio",
+      "durationMs": 662.2350000000006,
+      "success": true,
+      "at": "2026-10-15T15:45:06.536Z"
+    }
+  ],
+  "audit": []
+}
